@@ -9,8 +9,8 @@ export function AppShell({ network, account, connected, connecting, isMiniPay, o
   return <div className="app-canvas">
     <header className="app-header">
       <Link href="/" className="brand-link"><BrandMark /></Link>
-      <nav className="network-tabs" aria-label="Network"><Link className={network === "celo" ? "active" : ""} href="/play/celo">Celo</Link><Link className={network === "stacks" ? "active" : ""} href="/play/stacks">Stacks</Link></nav>
-      <div className="wallet-zone">{connected ? <><PlayerSignal address={account} size={34} /><button className="wallet-chip" onClick={onDisconnect}>{shortAddress(account)}</button></> : isMiniPay ? <span className="wallet-chip">Connecting MiniPay…</span> : <button className="action action-small" onClick={onConnect} disabled={connecting}>{connecting ? "Opening wallet…" : "Connect"}</button>}</div>
+      <nav className="network-tabs" aria-label="Network"><Link aria-current={network === "celo" ? "page" : undefined} className={network === "celo" ? "active" : ""} href="/play/celo">Celo</Link><Link aria-current={network === "stacks" ? "page" : undefined} className={network === "stacks" ? "active" : ""} href="/play/stacks">Stacks</Link></nav>
+      <div className="wallet-zone">{connected ? <><PlayerSignal address={account} size={34} /><button aria-label={`Disconnect wallet ${shortAddress(account)}`} className="wallet-chip" onClick={onDisconnect}>{shortAddress(account)}</button></> : isMiniPay ? <span className="wallet-chip" role="status" aria-live="polite">Connecting MiniPay…</span> : <button className="action action-small" onClick={onConnect} disabled={connecting}>{connecting ? "Opening wallet…" : "Connect"}</button>}</div>
     </header>
     <main className="app-main">{children}</main>
   </div>;
