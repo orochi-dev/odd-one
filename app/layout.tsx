@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" }, manifest: "/manifest.webmanifest",
   openGraph: { title: "Odd One", description: "Go low. Stay unique.", images: [{ url: "/og.png", width: 1200, height: 630 }], type: "website" },
   twitter: { card: "summary_large_image", title: "Odd One", description: "Go low. Stay unique.", images: ["/og.png"] },
-  other: publicEnv.talentVerification ? { "talentapp:project-verification": publicEnv.talentVerification } : {}
+  other: publicEnv.talentVerification ? { "talentapp:project_verification": publicEnv.talentVerification } : {}
 };
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#09090F", colorScheme: "dark" };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="en"><body>{children}</body></html>; }
