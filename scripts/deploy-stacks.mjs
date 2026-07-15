@@ -1,0 +1,11 @@
+import "dotenv/config";
+import fs from "node:fs";
+import { broadcastTransaction, makeContractDeploy, privateKeyToAddress } from "@stacks/transactions";
+const network = process.env.STACKS_NETWORK || "testnet";
+if (!new Set(["testnet", "mainnet"]).has(network)) throw new Error("STACKS_NETWORK must be testnet or mainnet.");
+const senderKey = process.env.STACKS_PRIVATE_KEY?.trim(); if (!senderKey) throw new Error("Missing STACKS_PRIVATE_KEY.");
+const fee = Number.parseInt(process.env.STACKS_DEPLOY_FEE_MICROSTX || "300000", 10); if (!Number.isInteger(fee) || fee <= 0) throw new Error("STACKS_DEPLOY_FEE_MICROSTX must be positive.");
+const codeBody = fs.readFileSync("stacks/contracts/odd-one-arena.clar", "utf8");
+const transaction = await makeContractDeploy({ contractName: "odd-one-arena", codeBody, senderKey, network, fee });
+const response = await broadcastTransaction({ transaction, network }); const txId = response.txid || response.txId || ""; const address = privateKeyToAddress(senderKey, network);
+console.log("Odd One Stacks contract submitted"); console.log("network:", network); console.log("contractId:", `${address}.odd-one-arena`); console.log("txId:", txId); console.log("explorer:", `https://explorer.hiro.so/txid/${txId}?chain=${network}`);

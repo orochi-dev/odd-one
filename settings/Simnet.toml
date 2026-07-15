@@ -1,0 +1,56 @@
+[network]
+name = "simnet"
+
+[accounts.deployer]
+mnemonic = "relax afford junior winner heart pilot range inspire dice cute cattle project"
+balance = 100000000000000
+derivation = "m/44'/5757'/0'/0/0"
+
+[accounts.wallet_1]
+mnemonic = "relax afford junior winner heart pilot range inspire dice cute cattle project"
+balance = 100000000000000
+derivation = "m/44'/5757'/0'/0/1"
+[accounts.wallet_2]
+mnemonic = "relax afford junior winner heart pilot range inspire dice cute cattle project"
+balance = 100000000000000
+derivation = "m/44'/5757'/0'/0/2"
+[accounts.wallet_3]
+mnemonic = "relax afford junior winner heart pilot range inspire dice cute cattle project"
+balance = 100000000000000
+derivation = "m/44'/5757'/0'/0/3"
+[accounts.wallet_4]
+mnemonic = "relax afford junior winner heart pilot range inspire dice cute cattle project"
+balance = 100000000000000
+derivation = "m/44'/5757'/0'/0/4"
+[accounts.wallet_5]
+mnemonic = "relax afford junior winner heart pilot range inspire dice cute cattle project"
+balance = 100000000000000
+derivation = "m/44'/5757'/0'/0/5"
+[accounts.wallet_6]
+mnemonic = "relax afford junior winner heart pilot range inspire dice cute cattle project"
+balance = 100000000000000
+derivation = "m/44'/5757'/0'/0/6"
+[accounts.wallet_7]
+mnemonic = "relax afford junior winner heart pilot range inspire dice cute cattle project"
+balance = 100000000000000
+derivation = "m/44'/5757'/0'/0/7"
+[accounts.wallet_8]
+mnemonic = "relax afford junior winner heart pilot range inspire dice cute cattle project"
+balance = 100000000000000
+derivation = "m/44'/5757'/0'/0/8"
+[accounts.wallet_9]
+mnemonic = "relax afford junior winner heart pilot range inspire dice cute cattle project"
+balance = 100000000000000
+derivation = "m/44'/5757'/0'/0/9"
+[accounts.wallet_10]
+mnemonic = "relax afford junior winner heart pilot range inspire dice cute cattle project"
+balance = 100000000000000
+derivation = "m/44'/5757'/0'/0/10"
+[accounts.wallet_11]
+mnemonic = "relax afford junior winner heart pilot range inspire dice cute cattle project"
+balance = 100000000000000
+derivation = "m/44'/5757'/0'/0/11"
+[accounts.wallet_12]
+mnemonic = "relax afford junior winner heart pilot range inspire dice cute cattle project"
+balance = 100000000000000
+derivation = "m/44'/5757'/0'/0/12"

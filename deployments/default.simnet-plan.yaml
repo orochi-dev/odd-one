@@ -1,0 +1,48 @@
+id: 0
+name: Simulated deployment, used as a default for `clarinet console`, `clarinet test` and `clarinet check`
+network: simnet
+genesis:
+  wallets:
+  - name: deployer
+    address: ST23P0KCY3SS64KXEWTYRAA8P385CFKHK4QHD30GZ
+    balance: '100000000000000'
+    sbtc-balance: '1000000000'
+  - name: wallet_1
+    address: ST323K3S55ZGHQ84SB4KACGYPZG4R6RJMSRFHHK13
+    balance: '100000000000000'
+    sbtc-balance: '1000000000'
+  - name: wallet_2
+    address: STYVFEBWS2C4WPXSNF56HRX0T42D4P8HMNMCRXPT
+    balance: '100000000000000'
+    sbtc-balance: '1000000000'
+  - name: wallet_3
+    address: ST34ECFZBEEN2GV94EPEVDD0ECY6EDK73WCTDY4DB
+    balance: '100000000000000'
+    sbtc-balance: '1000000000'
+  contracts:
+  - genesis
+  - lockup
+  - bns
+  - cost-voting
+  - costs
+  - pox
+  - costs-2
+  - pox-2
+  - costs-3
+  - pox-3
+  - pox-4
+  - signers
+  - signers-voting
+  - costs-4
+  - costs-5
+  - pox-5
+plan:
+  batches:
+  - id: 0
+    transactions:
+    - transaction-type: emulated-contract-publish
+      contract-name: odd-one-arena
+      emulated-sender: ST23P0KCY3SS64KXEWTYRAA8P385CFKHK4QHD30GZ
+      path: stacks/contracts/odd-one-arena.clar
+      clarity-version: 4
+    epoch: '3.4'

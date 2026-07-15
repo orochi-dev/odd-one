@@ -1,0 +1,10 @@
+[project]
+name = "odd-one"
+description = "A lowest-unique-number strategy game."
+authors = ["Odd One"]
+telemetry = false
+
+[contracts.odd-one-arena]
+path = "stacks/contracts/odd-one-arena.clar"
+clarity_version = 4
+epoch = "latest"
