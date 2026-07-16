@@ -8,7 +8,7 @@ import { PlayerSignal } from "./player-signal";
 import { useNetworkClient } from "./network-client";
 import { buildRevealTicket, generateSalt, makeCommitment, parseRevealTicket, ticketFilename } from "@/lib/commitment";
 import { contractId, contractExplorerUrl, publicEnv } from "@/lib/env";
-import { achievementTitles, canonicalRoomUrl, formatCountdown, formatMoment, getPhase, PAGE_SIZE, phaseLabel, primaryTitle, roomResultCopy, secondsRemaining, shortAddress } from "@/lib/game";
+import { achievementTitles, canonicalRoomUrl, formatCountdown, formatMoment, getPhase, PAGE_SIZE, phaseLabel, primaryTitle, roomCardStatusCopy, roomResultCopy, secondsRemaining, shortAddress } from "@/lib/game";
 import { revealVault } from "@/lib/vault";
 import type { Network, OddOneRoom, PlayerEntry, PlayerStats, RevealTicket, TransactionState } from "@/lib/types";
 
@@ -21,7 +21,7 @@ function TransactionNotice({ state }: { state: TransactionState | null }) { if (
 function RoomCard({ room }: { room: OddOneRoom }) { const phase = getPhase(room); return <Link href={`/play/${room.network}/room/${room.id}`} className={`room-card room-${phase}`}>
   <div className="room-card-head"><span className="mono">ROOM #{room.id.toString().padStart(4, "0")}</span>{room.visibility === "unlisted" ? <LockKeyhole size={15}/> : <Radio size={15}/>}</div>
   <div className="room-card-body"><div className="room-phase-icon">{phase === "commit" ? "?" : phase === "reveal" ? "!" : room.winningNumber || "–"}</div><div><span className="eyebrow">{phaseLabel(phase)}</span><h3>{room.committedCount} / 12 players</h3></div></div>
-  <div className="room-card-foot"><span>{formatMoment(room.createdAt)}</span><span>{room.outcome === "winner" ? `#${room.winningNumber} won` : room.outcome}</span></div>
+  <div className="room-card-foot"><span>{formatMoment(room.createdAt)}</span><span>{roomCardStatusCopy(room)}</span></div>
   </Link>; }
 
 function NetworkFrame({ network, children }: { network: Network; children(client: ReturnType<typeof useNetworkClient>): React.ReactNode }) { const client = useNetworkClient(network); return <AppShell network={network} account={client.account} connected={client.connected} connecting={client.connecting} isMiniPay={client.isMiniPay} onConnect={() => void client.connect()} onDisconnect={() => void client.disconnect()}>{children(client)}</AppShell>; }

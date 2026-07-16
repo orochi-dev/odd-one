@@ -77,3 +77,13 @@ export function roomResultCopy(room: OddOneRoom) {
   if (room.outcome === "draw") return "Every low number found company. Draw.";
   return `Number ${room.winningNumber} stood alone.`;
 }
+
+export function roomCardStatusCopy(room: OddOneRoom, now = Math.floor(Date.now() / 1000)) {
+  const phase = getPhase(room, now);
+  if (phase === "commit") return "Open for picks";
+  if (phase === "reveal") return "Reveal live";
+  if (phase === "awaiting-finalization") return "Waiting to settle";
+  if (room.outcome === "winner") return `#${room.winningNumber} won`;
+  if (room.outcome === "draw") return "Draw";
+  return "No contest";
+}
