@@ -11,7 +11,11 @@ export function LandingDemo() {
     <div className={`demo-orbit ${revealed ? "is-revealed" : ""}`}>
       <div className="spotlight" />
       <div className="demo-center"><small>{revealed ? "LOWEST UNIQUE" : "YOUR SECRET PICK"}</small><strong>{revealed ? winner : selected}</strong></div>
-      {picks.map((pick, index) => <span className={`orbit-player orbit-${index}`} key={`${index}-${pick}`}>{revealed ? pick : "?"}</span>)}
+      {picks.map((pick, index) => <span
+        className={`orbit-player orbit-${index}`}
+        aria-label={revealed ? `Preview player ${index + 1} revealed ${pick}` : `Preview player ${index + 1} is still hidden`}
+        key={`${index}-${pick}`}
+      >{revealed ? pick : "?"}</span>)}
     </div>
     {!revealed ? <>
       <div className="number-row" role="group" aria-label="Choose your preview number">{[1, 2, 3, 4, 5].map((number) => <button type="button" aria-label={`Pick ${number} for the preview`} aria-pressed={selected === number} className={selected === number ? "selected" : ""} onClick={() => setSelected(number)} key={number}>{number}</button>)}</div>
