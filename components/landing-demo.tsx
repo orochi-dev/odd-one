@@ -14,7 +14,7 @@ export function LandingDemo() {
       {picks.map((pick, index) => <span className={`orbit-player orbit-${index}`} key={`${index}-${pick}`}>{revealed ? pick : "?"}</span>)}
     </div>
     {!revealed ? <>
-      <div className="number-row" aria-label="Choose a preview number">{[1, 2, 3, 4, 5].map((number) => <button type="button" aria-pressed={selected === number} className={selected === number ? "selected" : ""} onClick={() => setSelected(number)} key={number}>{number}</button>)}</div>
+      <div className="number-row" role="group" aria-label="Choose your preview number">{[1, 2, 3, 4, 5].map((number) => <button type="button" aria-label={`Pick ${number} for the preview`} aria-pressed={selected === number} className={selected === number ? "selected" : ""} onClick={() => setSelected(number)} key={number}>{number}</button>)}</div>
       <button type="button" className="action action-lime" onClick={() => setRevealed(true)}>Run the reveal</button>
     </> : <div className="demo-result" role="status" aria-live="polite"><p>{winner === selected ? "You stood alone. That is +105 points." : `Number ${winner} stood alone this time.`}</p><button type="button" className="text-button" onClick={() => setRevealed(false)}>Play it again</button></div>}
   </div>;
