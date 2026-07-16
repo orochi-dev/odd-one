@@ -43,7 +43,7 @@ function LobbyBody({ network, client }: { network: Network; client: ReturnType<t
   </>;
 }
 
-function NumberPicker({ selected, onSelect }: { selected: number; onSelect(number: number): void }) { return <div className="number-grid" aria-label="Pick a number from one to twenty">{Array.from({ length: 20 }, (_, i) => i + 1).map((number) => <button aria-pressed={selected === number} className={selected === number ? "selected" : ""} onClick={() => onSelect(number)} key={number}><span>{number}</span><small>{number < 5 ? "dangerously obvious" : number < 11 ? "plausibly odd" : "boldly high"}</small></button>)}</div>; }
+export function NumberPicker({ selected, onSelect }: { selected: number; onSelect(number: number): void }) { return <fieldset className="number-picker"><legend className="sr-only">Pick a number from one to twenty</legend><div className="number-grid">{Array.from({ length: 20 }, (_, i) => i + 1).map((number) => <button type="button" aria-pressed={selected === number} className={selected === number ? "selected" : ""} onClick={() => onSelect(number)} key={number}><span>{number}</span><small>{number < 5 ? "dangerously obvious" : number < 11 ? "plausibly odd" : "boldly high"}</small></button>)}</div></fieldset>; }
 
 export function CreateRoomView({ network }: { network: Network }) { return <NetworkFrame network={network}>{(client) => <CreateBody network={network} client={client}/>}</NetworkFrame>; }
 function CreateBody({ network, client }: { network: Network; client: ReturnType<typeof useNetworkClient> }) {
