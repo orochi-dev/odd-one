@@ -20,6 +20,7 @@ describe("AppShell", () => {
 
     expect(screen.getByRole("link", { name: "Celo" })).toHaveAttribute("aria-current", "page");
     expect(screen.getByRole("link", { name: "Stacks" })).not.toHaveAttribute("aria-current");
+    expect(screen.getByRole("img", { name: /wallet signal for 0x123…45678/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /disconnect wallet 0x123…45678/i })).toBeInTheDocument();
   });
 });
