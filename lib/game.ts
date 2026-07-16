@@ -87,3 +87,7 @@ export function roomCardStatusCopy(room: OddOneRoom, now = Math.floor(Date.now()
   if (room.outcome === "draw") return "Draw";
   return "No contest";
 }
+
+export function roomVisibilityCopy(room: OddOneRoom) {
+  return room.visibility === "public" ? "Public room" : "Unlisted room";
+}

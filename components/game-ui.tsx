@@ -8,7 +8,7 @@ import { PlayerSignal } from "./player-signal";
 import { useNetworkClient } from "./network-client";
 import { buildRevealTicket, generateSalt, makeCommitment, parseRevealTicket, ticketFilename } from "@/lib/commitment";
 import { contractId, contractExplorerUrl, publicEnv } from "@/lib/env";
-import { achievementTitles, canonicalRoomUrl, formatCountdown, formatMoment, getPhase, PAGE_SIZE, phaseLabel, primaryTitle, roomCardStatusCopy, roomResultCopy, secondsRemaining, shortAddress } from "@/lib/game";
+import { achievementTitles, canonicalRoomUrl, formatCountdown, formatMoment, getPhase, PAGE_SIZE, phaseLabel, primaryTitle, roomCardStatusCopy, roomResultCopy, roomVisibilityCopy, secondsRemaining, shortAddress } from "@/lib/game";
 import { revealVault } from "@/lib/vault";
 import type { Network, OddOneRoom, PlayerEntry, PlayerStats, RevealTicket, TransactionState } from "@/lib/types";
 
@@ -19,7 +19,7 @@ function SetupState({ network }: { network: Network }) { return <section classNa
 function TransactionNotice({ state }: { state: TransactionState | null }) { if (!state) return null; return <div className={`transaction-notice phase-${state.phase}`} role="status" aria-live="polite"><span className="pulse-dot"/><div><strong>{state.phase.replace("-", " ")}</strong><p>{state.message}</p>{state.explorerUrl && <a target="_blank" rel="noreferrer" href={state.explorerUrl}>View transaction ↗</a>}</div></div>; }
 
 function RoomCard({ room }: { room: OddOneRoom }) { const phase = getPhase(room); return <Link href={`/play/${room.network}/room/${room.id}`} className={`room-card room-${phase}`}>
-  <div className="room-card-head"><span className="mono">ROOM #{room.id.toString().padStart(4, "0")}</span>{room.visibility === "unlisted" ? <LockKeyhole size={15}/> : <Radio size={15}/>}</div>
+  <div className="room-card-head"><span className="mono">ROOM #{room.id.toString().padStart(4, "0")}</span><span className="sr-only">{roomVisibilityCopy(room)}</span>{room.visibility === "unlisted" ? <LockKeyhole aria-hidden="true" size={15}/> : <Radio aria-hidden="true" size={15}/>}</div>
   <div className="room-card-body"><div className="room-phase-icon">{phase === "commit" ? "?" : phase === "reveal" ? "!" : room.winningNumber || "–"}</div><div><span className="eyebrow">{phaseLabel(phase)}</span><h3>{room.committedCount} / 12 players</h3></div></div>
   <div className="room-card-foot"><span>{formatMoment(room.createdAt)}</span><span>{roomCardStatusCopy(room)}</span></div>
   </Link>; }
