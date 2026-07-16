@@ -30,4 +30,13 @@ describe("PlayChooser", () => {
     );
     expect(replace).toHaveBeenCalledWith("/play/celo");
   });
+
+  it("gives each network card a destination-focused accessible name", () => {
+    delete (window as Window & { ethereum?: { isMiniPay?: boolean } }).ethereum;
+
+    render(<PlayChooser />);
+
+    expect(screen.getByRole("link", { name: "Enter the Celo lobby" })).toHaveAttribute("href", "/play/celo");
+    expect(screen.getByRole("link", { name: "Enter the Stacks lobby" })).toHaveAttribute("href", "/play/stacks");
+  });
 });
