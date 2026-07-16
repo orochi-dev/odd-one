@@ -13,6 +13,12 @@ import { revealVault } from "@/lib/vault";
 import type { Network, OddOneRoom, PlayerEntry, PlayerStats, RevealTicket, TransactionState } from "@/lib/types";
 
 const emptyStats: PlayerStats = { score: 0n, roomsPlayed: 0n, reveals: 0n, wins: 0n, numberOneWins: 0n, currentRevealStreak: 0n, bestRevealStreak: 0n };
+const lobbyTabLabel: Record<"open" | "reveal" | "finished" | "mine", string> = {
+  open: "Open rooms",
+  reveal: "Rooms ready to reveal",
+  finished: "Finished rooms",
+  mine: "My rooms",
+};
 
 function SetupState({ network }: { network: Network }) { return <section className="setup-state"><span className="status-ribbon">Setup required</span><span className="setup-number">00</span><h1>The {network === "celo" ? "Celo" : "Stacks"} stage is not wired yet.</h1><p>Add the contract address to the public environment variables. Odd One never substitutes preview records for live rooms.</p><a className="action action-ghost" href={contractExplorerUrl(network)}>Contract explorer</a></section>; }
 
@@ -38,7 +44,7 @@ function LobbyBody({ network, client }: { network: Network; client: ReturnType<t
   const visible = rooms.filter((room) => { if (tab !== "mine" && room.visibility !== "public") return false; const phase = getPhase(room); if (tab === "open") return phase === "commit"; if (tab === "reveal") return phase === "reveal" || phase === "awaiting-finalization"; if (tab === "finished") return phase === "settled"; return mine.has(room.id.toString()); });
   return <>
     <section className="lobby-hero"><div><span className="eyebrow">{network} rooms / live from the contract</span><h1>Read the room.<br/><em>Then misread it.</em></h1></div><div className="lobby-actions"><button className="icon-action" onClick={() => void load()} aria-label="Refresh rooms"><RefreshCw size={18}/></button><Link className="action action-lime" href={`/play/${network}/create`}>Create a room</Link></div></section>
-    <section className="lobby-controls"><div className="lobby-tabs" role="tablist">{(["open","reveal","finished","mine"] as const).map((item) => <button role="tab" aria-selected={tab === item} className={tab === item ? "active" : ""} onClick={() => setTab(item)} key={item}>{item === "reveal" ? "Reveal now" : item === "mine" ? "My rooms" : item}</button>)}</div><span className="mono">LATEST 24 / PAGE SIZE {PAGE_SIZE}</span></section>
+    <section className="lobby-controls"><div className="lobby-tabs" role="tablist">{(["open","reveal","finished","mine"] as const).map((item) => <button role="tab" aria-label={lobbyTabLabel[item]} aria-selected={tab === item} className={tab === item ? "active" : ""} onClick={() => setTab(item)} key={item}>{item === "reveal" ? "Reveal now" : item === "mine" ? "My rooms" : item}</button>)}</div><span className="mono">LATEST 24 / PAGE SIZE {PAGE_SIZE}</span></section>
     {loading ? <div className="room-grid loading-grid">{[1,2,3].map((n) => <div className="room-card skeleton" key={n}/>)}</div> : error ? <div className="empty-state"><span>!</span><h2>Signal lost</h2><p>{error}</p><button className="action action-ghost" onClick={() => void load()}>Try again</button></div> : visible.length ? <div className="room-grid">{visible.map((room) => <RoomCard room={room} key={room.id.toString()}/>)}</div> : <div className="empty-state"><span>{tab === "reveal" ? "!" : "?"}</span><h2>No rooms in this light.</h2><p>{tab === "mine" && !client.connected ? "Connect your wallet to see rooms you created." : "Change the view or be the first to start the clock."}</p><Link className="action action-ghost" href={`/play/${network}/create`}>Create a room</Link></div>}
   </>;
 }

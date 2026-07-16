@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { NumberPicker, RoomView } from "@/components/game-ui";
+import { Lobby, NumberPicker, RoomView } from "@/components/game-ui";
 import type { OddOneRepository } from "@/lib/types";
 
 const mockUseNetworkClient = vi.fn();
@@ -22,6 +22,46 @@ describe("NumberPicker", () => {
     expect(screen.getByRole("group", { name: "Pick a number from one to twenty" })).toBeVisible();
     expect(screen.getByRole("button", { name: "7 plausibly odd" })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByRole("button", { name: "8 plausibly odd" })).toHaveAttribute("aria-pressed", "false");
+  });
+
+  it("gives lobby tabs context-rich accessible names", async () => {
+    const repository: OddOneRepository = {
+      network: "celo",
+      configured: true,
+      getTotalRooms: vi.fn().mockResolvedValue(0n),
+      getRoom: vi.fn(),
+      getPlayerEntry: vi.fn(),
+      getParticipants: vi.fn(),
+      getNumberCounts: vi.fn(),
+      getPlayerStats: vi.fn(),
+      getCreatedCount: vi.fn(),
+      getPlayedCount: vi.fn(),
+      getCreatedIds: vi.fn(),
+      getPlayedIds: vi.fn(),
+      createRoom: vi.fn(),
+      commitNumber: vi.fn(),
+      revealNumber: vi.fn(),
+      finalizeRoom: vi.fn(),
+    };
+
+    mockUseNetworkClient.mockReturnValue({
+      account: null,
+      connected: false,
+      connecting: false,
+      isMiniPay: false,
+      connect: vi.fn(),
+      disconnect: vi.fn(),
+      repository,
+    });
+
+    render(<Lobby network="celo" />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("tab", { name: "Open rooms" })).toBeVisible();
+    });
+    expect(screen.getByRole("tab", { name: "Rooms ready to reveal" })).toBeVisible();
+    expect(screen.getByRole("tab", { name: "Finished rooms" })).toBeVisible();
+    expect(screen.getByRole("tab", { name: "My rooms" })).toBeVisible();
   });
 
   it("shows a single ticket importer during reveal when the saved ticket is missing", async () => {
