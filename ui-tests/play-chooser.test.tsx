@@ -39,4 +39,12 @@ describe("PlayChooser", () => {
     expect(screen.getByRole("link", { name: "Enter the Celo lobby" })).toHaveAttribute("href", "/play/celo");
     expect(screen.getByRole("link", { name: "Enter the Stacks lobby" })).toHaveAttribute("href", "/play/stacks");
   });
+
+  it("gives the return link a homepage-focused accessible name", () => {
+    delete (window as Window & { ethereum?: { isMiniPay?: boolean } }).ethereum;
+
+    render(<PlayChooser />);
+
+    expect(screen.getByRole("link", { name: "Back to the Odd One homepage" })).toHaveAttribute("href", "/");
+  });
 });
