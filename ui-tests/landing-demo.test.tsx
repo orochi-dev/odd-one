@@ -31,4 +31,17 @@ describe("LandingDemo", () => {
     fireEvent.click(screen.getByRole("button", { name: /play it again/i }));
     expect(screen.getByRole("button", { name: /run the reveal/i })).toBeInTheDocument();
   });
+
+  it("announces preview state changes through a live region", () => {
+    render(<LandingDemo />);
+
+    const status = screen.getByRole("status");
+    expect(status).toHaveTextContent("YOUR SECRET PICK2");
+
+    fireEvent.click(screen.getByRole("button", { name: /pick 5 for the preview/i }));
+    expect(status).toHaveTextContent("YOUR SECRET PICK5");
+
+    fireEvent.click(screen.getByRole("button", { name: /run the reveal/i }));
+    expect(status).toHaveTextContent("LOWEST UNIQUE4");
+  });
 });
