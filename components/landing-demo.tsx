@@ -6,6 +6,8 @@ export function LandingDemo() {
   const [selected, setSelected] = useState(2); const [revealed, setRevealed] = useState(false);
   const picks = [selected, ...crowd]; const counts = picks.reduce<Record<number, number>>((map, number) => ({ ...map, [number]: (map[number] || 0) + 1 }), {});
   const winner = Object.entries(counts).filter(([, count]) => count === 1).map(([number]) => Number(number)).sort((a, b) => a - b)[0];
+  const centerLabel = !revealed ? "YOUR SECRET PICK" : winner === undefined ? "PREVIEW DRAW" : "LOWEST UNIQUE";
+  const centerValue = !revealed ? selected : winner === undefined ? "DRAW" : winner;
   const resultCopy = winner === undefined
     ? "No number stood alone. This preview round is a draw."
     : winner === selected
@@ -15,7 +17,7 @@ export function LandingDemo() {
     <div className="demo-head"><span className="preview-pill">Interactive preview</span><span className="mono">ROOM #0042</span></div>
     <div className={`demo-orbit ${revealed ? "is-revealed" : ""}`}>
       <div className="spotlight" />
-      <div className="demo-center"><small>{revealed ? "LOWEST UNIQUE" : "YOUR SECRET PICK"}</small><strong>{revealed ? winner : selected}</strong></div>
+      <div className="demo-center"><small>{centerLabel}</small><strong>{centerValue}</strong></div>
       {picks.map((pick, index) => <span
         className={`orbit-player orbit-${index}`}
         aria-label={revealed ? `Preview player ${index + 1} revealed ${pick}` : `Preview player ${index + 1} is still hidden`}
