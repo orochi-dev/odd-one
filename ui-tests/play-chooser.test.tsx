@@ -25,8 +25,9 @@ describe("PlayChooser", () => {
 
     render(<PlayChooser />);
 
+    expect(screen.getByRole("main")).toHaveAttribute("aria-busy", "true");
     expect(screen.getByRole("status")).toHaveTextContent(
-      "MiniPay detected. Taking you straight to the Celo lobby.",
+      "MiniPay detected. Redirecting to the Celo lobby now.",
     );
     expect(replace).toHaveBeenCalledWith("/play/celo");
   });
