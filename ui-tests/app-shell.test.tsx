@@ -43,4 +43,22 @@ describe("AppShell", () => {
     expect(screen.getByRole("img", { name: /wallet signal for 0x123…45678/i })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /disconnect wallet 0x123…45678/i })).toBeInTheDocument();
   });
+
+  it("uses wallet-specific copy for the primary connect action", () => {
+    render(
+      <AppShell
+        network="stacks"
+        account=""
+        connected={false}
+        connecting={false}
+        isMiniPay={false}
+        onConnect={vi.fn()}
+        onDisconnect={vi.fn()}
+      >
+        <div>Room content</div>
+      </AppShell>,
+    );
+
+    expect(screen.getByRole("button", { name: "Connect wallet" })).toBeInTheDocument();
+  });
 });
