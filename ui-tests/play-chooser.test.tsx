@@ -37,7 +37,13 @@ describe("PlayChooser", () => {
     render(<PlayChooser />);
 
     expect(screen.getByRole("link", { name: "Enter the Celo lobby" })).toHaveAttribute("href", "/play/celo");
+    expect(screen.getByRole("link", { name: "Enter the Celo lobby" })).toHaveAccessibleDescription(
+      "Built for MiniPay and mobile wallets.",
+    );
     expect(screen.getByRole("link", { name: "Enter the Stacks lobby" })).toHaveAttribute("href", "/play/stacks");
+    expect(screen.getByRole("link", { name: "Enter the Stacks lobby" })).toHaveAccessibleDescription(
+      "Clarity-native play alongside Bitcoin.",
+    );
   });
 
   it("gives the return link a homepage-focused accessible name", () => {
