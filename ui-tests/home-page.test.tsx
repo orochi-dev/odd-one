@@ -15,4 +15,10 @@ describe("Home", () => {
 
     expect(screen.getByRole("navigation", { name: /primary/i })).toBeInTheDocument();
   });
+
+  it("hides the decorative probability field from assistive technology", () => {
+    const { container } = render(<Home />);
+
+    expect(container.querySelector(".probability-field")).toHaveAttribute("aria-hidden", "true");
+  });
 });
