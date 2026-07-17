@@ -25,7 +25,8 @@ export function LandingDemo() {
       >{revealed ? pick : "?"}</span>)}
     </div>
     {!revealed ? <>
-      <div className="number-row" role="group" aria-label="Choose your preview number">{[1, 2, 3, 4, 5].map((number) => <button type="button" aria-label={`Pick ${number} for the preview`} aria-pressed={selected === number} className={selected === number ? "selected" : ""} onClick={() => setSelected(number)} key={number}>{number}</button>)}</div>
+      <p id="preview-hint">Preview only. Lowest unique number wins the round.</p>
+      <div className="number-row" role="group" aria-label="Choose your preview number" aria-describedby="preview-hint">{[1, 2, 3, 4, 5].map((number) => <button type="button" aria-label={`Pick ${number} for the preview`} aria-pressed={selected === number} className={selected === number ? "selected" : ""} onClick={() => setSelected(number)} key={number}>{number}</button>)}</div>
       <button type="button" className="action action-lime" onClick={() => setRevealed(true)}>Run the reveal</button>
     </> : <div className="demo-result" role="status" aria-live="polite"><p>{resultCopy}</p><button type="button" className="text-button" onClick={() => setRevealed(false)}>Play it again</button></div>}
   </div>;
