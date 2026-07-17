@@ -6,6 +6,11 @@ export function LandingDemo() {
   const [selected, setSelected] = useState(2); const [revealed, setRevealed] = useState(false);
   const picks = [selected, ...crowd]; const counts = picks.reduce<Record<number, number>>((map, number) => ({ ...map, [number]: (map[number] || 0) + 1 }), {});
   const winner = Object.entries(counts).filter(([, count]) => count === 1).map(([number]) => Number(number)).sort((a, b) => a - b)[0];
+  const resultCopy = winner === undefined
+    ? "No number stood alone. This preview round is a draw."
+    : winner === selected
+      ? "You stood alone. That is +105 points."
+      : `Your ${selected} was crowded out. Number ${winner} stood alone.`;
   return <div className="demo-stage" aria-label="Simulated Odd One round">
     <div className="demo-head"><span className="preview-pill">Interactive preview</span><span className="mono">ROOM #0042</span></div>
     <div className={`demo-orbit ${revealed ? "is-revealed" : ""}`}>
@@ -20,6 +25,6 @@ export function LandingDemo() {
     {!revealed ? <>
       <div className="number-row" role="group" aria-label="Choose your preview number">{[1, 2, 3, 4, 5].map((number) => <button type="button" aria-label={`Pick ${number} for the preview`} aria-pressed={selected === number} className={selected === number ? "selected" : ""} onClick={() => setSelected(number)} key={number}>{number}</button>)}</div>
       <button type="button" className="action action-lime" onClick={() => setRevealed(true)}>Run the reveal</button>
-    </> : <div className="demo-result" role="status" aria-live="polite"><p>{winner === selected ? "You stood alone. That is +105 points." : `Number ${winner} stood alone this time.`}</p><button type="button" className="text-button" onClick={() => setRevealed(false)}>Play it again</button></div>}
+    </> : <div className="demo-result" role="status" aria-live="polite"><p>{resultCopy}</p><button type="button" className="text-button" onClick={() => setRevealed(false)}>Play it again</button></div>}
   </div>;
 }
