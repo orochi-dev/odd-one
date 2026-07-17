@@ -3,7 +3,9 @@ import { BrandMark } from "@/components/brand-mark";
 
 export default function NotFound() {
   return <main className="center-screen">
-    <BrandMark />
+    <Link aria-label="Return to the Odd One homepage" href="/">
+      <BrandMark />
+    </Link>
     <span className="display-number" aria-hidden="true">?</span>
     <h1>This number is not in play.</h1>
     <p>The page may have moved, or the room link may no longer be valid.</p>
