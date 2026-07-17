@@ -62,6 +62,8 @@ describe("NumberPicker", () => {
     expect(screen.getByRole("tab", { name: "Rooms ready to reveal" })).toBeVisible();
     expect(screen.getByRole("tab", { name: "Finished rooms" })).toBeVisible();
     expect(screen.getByRole("tab", { name: "My rooms" })).toBeVisible();
+    expect(screen.getByRole("tabpanel")).toHaveAttribute("aria-labelledby", "celo-tab-open");
+    expect(screen.getByRole("tab", { name: "Open rooms" })).toHaveAttribute("aria-controls", "celo-lobby-panel");
   });
 
   it("shows a single ticket importer during reveal when the saved ticket is missing", async () => {
