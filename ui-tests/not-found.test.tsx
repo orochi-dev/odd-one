@@ -9,8 +9,8 @@ describe("NotFound", () => {
     expect(screen.getByRole("heading", { name: /this number is not in play/i })).toBeInTheDocument();
     expect(screen.getByText(/the page may have moved, or the room link may no longer be valid/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /return to the odd one homepage/i })).toHaveAttribute("href", "/");
-    expect(screen.getByRole("link", { name: /back to the lobby/i })).toHaveAttribute("href", "/play");
-    expect(screen.getByRole("link", { name: /visit the landing page/i })).toHaveAttribute("href", "/");
-    expect(container.querySelector(".display-number")).toHaveAttribute("aria-hidden", "true");
+    expect(screen.getByRole("link", { name: /go to the lobby/i })).toHaveAttribute("href", "/play");
+    expect(screen.getByRole("link", { name: /return home/i })).toHaveAttribute("href", "/");
+  expect(container.querySelector(".display-number")).toHaveAttribute("aria-hidden", "true");
   });
 });
