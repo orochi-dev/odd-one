@@ -21,4 +21,16 @@ describe("Home", () => {
 
     expect(container.querySelector(".probability-field")).toHaveAttribute("aria-hidden", "true");
   });
+
+  it("marks decorative landing icons as hidden from assistive technology", () => {
+    const { container } = render(<Home />);
+
+    const decorativeIcons = container.querySelectorAll("svg.lucide");
+    expect(decorativeIcons.length).toBeGreaterThan(0);
+
+    decorativeIcons.forEach((icon) => {
+      expect(icon).toHaveAttribute("aria-hidden", "true");
+      expect(icon).toHaveAttribute("focusable", "false");
+    });
+  });
 });
