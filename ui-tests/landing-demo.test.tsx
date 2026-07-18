@@ -13,7 +13,7 @@ describe("LandingDemo", () => {
     render(<LandingDemo />);
 
     expect(screen.getByText("Interactive preview")).toBeInTheDocument();
-    expect(screen.getByText("Preview only. Lowest unique number wins the round.")).toBeInTheDocument();
+    expect(screen.getByText("Preview only. This sample uses picks 1-5; live rooms use the full 1-20 range. Lowest unique number wins the round.")).toBeInTheDocument();
     expect(screen.getByLabelText("Preview player 1 is still hidden")).toBeInTheDocument();
 
     const picker = screen.getByRole("group", { name: /choose your preview number/i });
@@ -28,7 +28,7 @@ describe("LandingDemo", () => {
     expect(screen.getByLabelText("Preview player 1 revealed 5")).toBeInTheDocument();
     expect(screen.getByText("Your 5 was crowded out. Number 4 stood alone.")).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button", { name: /play it again/i }));
+    fireEvent.click(screen.getByRole("button", { name: /reset the preview/i }));
     expect(screen.getByRole("button", { name: /run the reveal/i })).toBeInTheDocument();
   });
 
