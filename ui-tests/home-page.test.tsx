@@ -16,6 +16,12 @@ describe("Home", () => {
     expect(screen.getByRole("navigation", { name: /primary/i })).toBeInTheDocument();
   });
 
+  it("labels play entry points as choosing a lobby", () => {
+    render(<Home />);
+
+    expect(screen.getAllByRole("link", { name: "Choose a lobby" })).toHaveLength(2);
+  });
+
   it("hides the decorative probability field from assistive technology", () => {
     const { container } = render(<Home />);
 
