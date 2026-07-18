@@ -1,7 +1,8 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { Lobby, NumberPicker, RoomView } from "@/components/game-ui";
+import { Lobby, NumberPicker, RoomView, TicketSheet } from "@/components/game-ui";
 import type { OddOneRepository } from "@/lib/types";
+import { buildRevealTicket } from "@/lib/commitment";
 
 const mockUseNetworkClient = vi.fn();
 
@@ -12,6 +13,7 @@ vi.mock("@/components/network-client", () => ({
 vi.mock("@/lib/env", () => ({
   contractId: () => "celo-contract",
   contractExplorerUrl: () => "https://explorer.example",
+  networkId: () => "42220",
   publicEnv: { appUrl: "https://odd.one", celoContractAddress: "0x1", stacksContractAddress: "ST1" },
 }));
 
@@ -183,5 +185,23 @@ describe("NumberPicker", () => {
     await waitFor(() => {
       expect(screen.getByRole("button", { name: "Share link for room 0007" })).toBeVisible();
     });
+  });
+
+  it("gives ticket backup and share actions room-specific accessible names", async () => {
+    const ticket = await buildRevealTicket({
+      network: "celo",
+      roomId: "7",
+      wallet: "0x0000000000000000000000000000000000000001",
+      number: 4,
+      salt: `0x${"1".repeat(64)}`,
+      commitment: `0x${"2".repeat(64)}`,
+      commitTransactionId: "0xabc",
+    });
+
+    render(<TicketSheet ticket={ticket} backedUp={false} setBackedUp={vi.fn()} />);
+
+    expect(screen.getByRole("button", { name: "Copy reveal ticket for room 7" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "Download reveal ticket for room 7" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "Copy shareable room link for room 7" })).toBeVisible();
   });
 });
