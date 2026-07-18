@@ -36,12 +36,15 @@ describe("LandingDemo", () => {
     render(<LandingDemo />);
 
     const status = screen.getByRole("status");
-    expect(status).toHaveTextContent("YOUR SECRET PICK2");
+    expect(status).toHaveTextContent("Your secret pick");
+    expect(status).toHaveTextContent("2");
 
     fireEvent.click(screen.getByRole("button", { name: /pick 5 for the preview/i }));
-    expect(status).toHaveTextContent("YOUR SECRET PICK5");
+    expect(status).toHaveTextContent("Your secret pick");
+    expect(status).toHaveTextContent("5");
 
     fireEvent.click(screen.getByRole("button", { name: /run the reveal/i }));
-    expect(status).toHaveTextContent("LOWEST UNIQUE4");
+    expect(status).toHaveTextContent("Lowest unique number");
+    expect(status).toHaveTextContent("4");
   });
 });
