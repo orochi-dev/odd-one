@@ -44,7 +44,7 @@ describe("AppShell", () => {
     expect(screen.getByRole("button", { name: /disconnect wallet 0x123…45678/i })).toBeInTheDocument();
   });
 
-  it("uses wallet-specific copy for the primary connect action", () => {
+  it("uses network-specific copy for the primary connect action", () => {
     render(
       <AppShell
         network="stacks"
@@ -59,6 +59,24 @@ describe("AppShell", () => {
       </AppShell>,
     );
 
-    expect(screen.getByRole("button", { name: "Connect wallet" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Connect Stacks wallet" })).toBeInTheDocument();
+  });
+
+  it("keeps the loading copy aligned with the active network", () => {
+    render(
+      <AppShell
+        network="celo"
+        account=""
+        connected={false}
+        connecting
+        isMiniPay={false}
+        onConnect={vi.fn()}
+        onDisconnect={vi.fn()}
+      >
+        <div>Room content</div>
+      </AppShell>,
+    );
+
+    expect(screen.getByRole("button", { name: "Connect Celo wallet" })).toHaveTextContent("Opening Celo wallet…");
   });
 });
