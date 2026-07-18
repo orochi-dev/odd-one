@@ -185,6 +185,7 @@ describe("NumberPicker", () => {
     await waitFor(() => {
       expect(screen.getByRole("button", { name: "Share link for room 0007" })).toBeVisible();
     });
+    expect(screen.getByRole("link", { name: "Back to the Celo lobby from room 0007" })).toHaveAttribute("href", "/play/celo");
   });
 
   it("hides decorative room icons from assistive technology", async () => {
