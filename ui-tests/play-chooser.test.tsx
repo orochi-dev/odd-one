@@ -29,6 +29,10 @@ describe("PlayChooser", () => {
     expect(screen.getByRole("status")).toHaveTextContent(
       "MiniPay detected. Redirecting to the Celo lobby now.",
     );
+    expect(screen.getByRole("link", { name: "Enter the Celo lobby" })).toHaveAttribute("aria-disabled", "true");
+    expect(screen.getByRole("link", { name: "Enter the Celo lobby" })).toHaveAttribute("tabindex", "-1");
+    expect(screen.getByRole("link", { name: "Enter the Stacks lobby" })).toHaveAttribute("aria-disabled", "true");
+    expect(screen.getByRole("link", { name: "Back to the Odd One homepage" })).toHaveAttribute("aria-disabled", "true");
     expect(replace).toHaveBeenCalledWith("/play/celo");
   });
 
