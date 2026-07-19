@@ -16,7 +16,7 @@ describe("PlayChooser", () => {
 
     expect(screen.getByText("Rooms, scores, and unlocked titles stay independent on each network.")).toBeInTheDocument();
     expect(screen.getByRole("status")).toHaveTextContent(
-      "MiniPay opens the Celo lobby automatically when it is available.",
+      "MiniPay opens the Celo lobby automatically when it is available on this device.",
     );
     expect(replace).not.toHaveBeenCalled();
   });
@@ -28,7 +28,7 @@ describe("PlayChooser", () => {
 
     expect(screen.getByRole("main")).toHaveAttribute("aria-busy", "true");
     expect(screen.getByRole("status")).toHaveTextContent(
-      "MiniPay detected. Redirecting to the Celo lobby now.",
+      "MiniPay detected on this device. Redirecting to the Celo lobby now.",
     );
     expect(screen.getByRole("link", { name: "Enter the Celo lobby" })).toHaveAttribute("aria-disabled", "true");
     expect(screen.getByRole("link", { name: "Enter the Celo lobby" })).toHaveAttribute("tabindex", "-1");
