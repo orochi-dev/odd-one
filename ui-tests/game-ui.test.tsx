@@ -79,7 +79,7 @@ describe("NumberPicker", () => {
         id: 7n,
         network: "celo",
         creator: "0xcreator",
-        visibility: "public",
+        visibility: "unlisted",
         createdAt: 1_000,
         commitEndAt: 1_400,
         revealEndAt: 1_600,
@@ -199,7 +199,7 @@ describe("NumberPicker", () => {
         id: 7n,
         network: "celo",
         creator: "0xcreator",
-        visibility: "unlisted",
+        visibility: "public",
         createdAt: 1_000,
         commitEndAt: 1_400,
         revealEndAt: 1_600,
@@ -252,6 +252,63 @@ describe("NumberPicker", () => {
       expect(icon).toHaveAttribute("aria-hidden", "true");
       expect(icon).toHaveAttribute("focusable", "false");
     });
+  });
+
+  it("keeps lobby room-card visibility icons out of the tab order", async () => {
+    vi.spyOn(Date, "now").mockReturnValue(1_200_000);
+
+    const repository: OddOneRepository = {
+      network: "celo",
+      configured: true,
+      getTotalRooms: vi.fn().mockResolvedValue(1n),
+      getRoom: vi.fn().mockResolvedValue({
+        id: 7n,
+        network: "celo",
+        creator: "0xcreator",
+        visibility: "public",
+        createdAt: 1_000,
+        commitEndAt: 1_400,
+        revealEndAt: 1_600,
+        committedCount: 1,
+        revealedCount: 0,
+        finalized: false,
+        outcome: "pending",
+        winner: null,
+        winningNumber: null,
+      }),
+      getPlayerEntry: vi.fn(),
+      getParticipants: vi.fn(),
+      getNumberCounts: vi.fn(),
+      getPlayerStats: vi.fn(),
+      getCreatedCount: vi.fn(),
+      getPlayedCount: vi.fn(),
+      getCreatedIds: vi.fn(),
+      getPlayedIds: vi.fn(),
+      createRoom: vi.fn(),
+      commitNumber: vi.fn(),
+      revealNumber: vi.fn(),
+      finalizeRoom: vi.fn(),
+    };
+
+    mockUseNetworkClient.mockReturnValue({
+      account: null,
+      connected: false,
+      connecting: false,
+      isMiniPay: false,
+      connect: vi.fn(),
+      disconnect: vi.fn(),
+      repository,
+    });
+
+    const { container } = render(<Lobby network="celo" />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("link", { name: /room #0007/i })).toBeVisible();
+    });
+
+    const icon = container.querySelector(".room-card-head svg.lucide");
+    expect(icon).toHaveAttribute("aria-hidden", "true");
+    expect(icon).toHaveAttribute("focusable", "false");
   });
 
   it("gives ticket backup and share actions room-specific accessible names", async () => {
