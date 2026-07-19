@@ -271,11 +271,12 @@ describe("NumberPicker", () => {
       repository,
     });
 
-    render(<RoomView network="celo" id={7n} />);
+    const { container } = render(<RoomView network="celo" id={7n} />);
 
     await waitFor(() => {
       expect(screen.getByRole("heading", { name: "Room not found." })).toBeVisible();
     });
+    expect(container.querySelector(".empty-state span")).toHaveAttribute("aria-hidden", "true");
     expect(screen.getByRole("link", { name: "Choose a lobby" })).toHaveAttribute("href", "/play/celo");
   });
 
