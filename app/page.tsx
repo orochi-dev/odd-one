@@ -7,7 +7,7 @@ export default function Home() {
   return <div className="landing">
     <a className="skip-link" href="#main-content">Skip to main content</a>
     <header className="landing-nav"><BrandMark /><nav aria-label="Primary"><a href="#rules">How it works</a><a href="#onchain">Onchain</a><Link className="nav-play" href="/play">Choose a lobby</Link></nav></header>
-    <main id="main-content">
+    <main id="main-content" tabIndex={-1}>
       <section className="hero section-wrap">
         <div className="hero-copy"><span className="eyebrow">A 30-minute game of nerve</span><h1>Go low.<br/><em>Stay unique.</em></h1><p>Pick a number nobody else will. When the curtain lifts, the lowest number standing alone takes the room.</p><div className="hero-actions"><Link className="action action-lime" href="/play">Choose a lobby <ArrowRight aria-hidden="true" focusable="false" size={18}/></Link><a className="action action-ghost" href="#rules">Learn the trick</a></div><div className="hero-proof"><span>No entry fee</span><span>3–12 players</span><span>Celo + Stacks</span></div></div>
         <LandingDemo />
