@@ -449,6 +449,45 @@ describe("NumberPicker", () => {
     expect(icon).toHaveAttribute("focusable", "false");
   });
 
+  it("hides decorative lobby empty-state markers from assistive technology", async () => {
+    const repository: OddOneRepository = {
+      network: "celo",
+      configured: true,
+      getTotalRooms: vi.fn().mockResolvedValue(0n),
+      getRoom: vi.fn(),
+      getPlayerEntry: vi.fn(),
+      getParticipants: vi.fn(),
+      getNumberCounts: vi.fn(),
+      getPlayerStats: vi.fn(),
+      getCreatedCount: vi.fn(),
+      getPlayedCount: vi.fn(),
+      getCreatedIds: vi.fn(),
+      getPlayedIds: vi.fn(),
+      createRoom: vi.fn(),
+      commitNumber: vi.fn(),
+      revealNumber: vi.fn(),
+      finalizeRoom: vi.fn(),
+    };
+
+    mockUseNetworkClient.mockReturnValue({
+      account: null,
+      connected: false,
+      connecting: false,
+      isMiniPay: false,
+      connect: vi.fn(),
+      disconnect: vi.fn(),
+      repository,
+    });
+
+    const { container } = render(<Lobby network="celo" />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("heading", { name: "No rooms in this light." })).toBeVisible();
+    });
+
+    expect(container.querySelector(".empty-state span")).toHaveAttribute("aria-hidden", "true");
+  });
+
   it("gives ticket backup and share actions room-specific accessible names", async () => {
     const ticket = await buildRevealTicket({
       network: "celo",
