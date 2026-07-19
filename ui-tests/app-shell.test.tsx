@@ -20,6 +20,7 @@ describe("AppShell", () => {
 
     expect(screen.getByRole("link", { name: /skip to main content/i })).toHaveAttribute("href", "#app-main-content");
     expect(screen.getByRole("main")).toHaveAttribute("id", "app-main-content");
+    expect(screen.getByRole("main")).toHaveAttribute("tabindex", "-1");
   });
 
   it("marks the active network and labels the disconnect control", () => {
