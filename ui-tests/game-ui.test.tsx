@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { Lobby, NumberPicker, RoomView, TicketSheet } from "@/components/game-ui";
+import { Lobby, NumberPicker, ProfileView, RoomView, TicketSheet } from "@/components/game-ui";
 import type { OddOneRepository } from "@/lib/types";
 import { buildRevealTicket } from "@/lib/commitment";
 
@@ -278,6 +278,52 @@ describe("NumberPicker", () => {
     });
     expect(container.querySelector(".empty-state span")).toHaveAttribute("aria-hidden", "true");
     expect(screen.getByRole("link", { name: "Choose a lobby" })).toHaveAttribute("href", "/play/celo");
+  });
+
+  it("hides the decorative empty-state marker when a player has no room history", async () => {
+    const repository: OddOneRepository = {
+      network: "celo",
+      configured: true,
+      getTotalRooms: vi.fn(),
+      getRoom: vi.fn(),
+      getPlayerEntry: vi.fn(),
+      getParticipants: vi.fn(),
+      getNumberCounts: vi.fn(),
+      getPlayerStats: vi.fn().mockResolvedValue({
+        score: 0,
+        wins: 0,
+        reveals: 0,
+        currentRevealStreak: 0,
+        bestRevealStreak: 0,
+      }),
+      getCreatedCount: vi.fn(),
+      getPlayedCount: vi.fn().mockResolvedValue(0n),
+      getCreatedIds: vi.fn(),
+      getPlayedIds: vi.fn(),
+      createRoom: vi.fn(),
+      commitNumber: vi.fn(),
+      revealNumber: vi.fn(),
+      finalizeRoom: vi.fn(),
+    };
+
+    mockUseNetworkClient.mockReturnValue({
+      account: null,
+      connected: false,
+      connecting: false,
+      isMiniPay: false,
+      connect: vi.fn(),
+      disconnect: vi.fn(),
+      repository,
+    });
+
+    const { container } = render(
+      <ProfileView network="celo" address="0x1234567890abcdef1234567890abcdef12345678" />
+    );
+
+    await waitFor(() => {
+      expect(screen.getByRole("heading", { name: "No rooms yet." })).toBeVisible();
+    });
+    expect(container.querySelector(".empty-state.compact span")).toHaveAttribute("aria-hidden", "true");
   });
 
   it("hides decorative room icons from assistive technology", async () => {
