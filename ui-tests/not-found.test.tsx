@@ -11,6 +11,8 @@ describe("NotFound", () => {
     expect(screen.getByRole("link", { name: /return to the odd one homepage/i })).toHaveAttribute("href", "/");
     expect(screen.getByRole("link", { name: /go to the lobby/i })).toHaveAttribute("href", "/play");
     expect(screen.getByRole("link", { name: /return home/i })).toHaveAttribute("href", "/");
-  expect(container.querySelector(".display-number")).toHaveAttribute("aria-hidden", "true");
+    expect(container.querySelector(".brand-symbol")).toHaveAttribute("aria-hidden", "true");
+    expect(container.querySelector(".brand-symbol")).toHaveAttribute("focusable", "false");
+    expect(container.querySelector(".display-number")).toHaveAttribute("aria-hidden", "true");
   });
 });
