@@ -241,6 +241,44 @@ describe("NumberPicker", () => {
     });
   });
 
+  it("uses chooser-aligned recovery copy when a room is missing", async () => {
+    const repository: OddOneRepository = {
+      network: "celo",
+      configured: true,
+      getTotalRooms: vi.fn(),
+      getRoom: vi.fn().mockResolvedValue(null),
+      getPlayerEntry: vi.fn(),
+      getParticipants: vi.fn(),
+      getNumberCounts: vi.fn(),
+      getPlayerStats: vi.fn(),
+      getCreatedCount: vi.fn(),
+      getPlayedCount: vi.fn(),
+      getCreatedIds: vi.fn(),
+      getPlayedIds: vi.fn(),
+      createRoom: vi.fn(),
+      commitNumber: vi.fn(),
+      revealNumber: vi.fn(),
+      finalizeRoom: vi.fn(),
+    };
+
+    mockUseNetworkClient.mockReturnValue({
+      account: null,
+      connected: false,
+      connecting: false,
+      isMiniPay: false,
+      connect: vi.fn(),
+      disconnect: vi.fn(),
+      repository,
+    });
+
+    render(<RoomView network="celo" id={7n} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("heading", { name: "Room not found." })).toBeVisible();
+    });
+    expect(screen.getByRole("link", { name: "Choose a lobby" })).toHaveAttribute("href", "/play/celo");
+  });
+
   it("hides decorative room icons from assistive technology", async () => {
     vi.spyOn(Date, "now").mockReturnValue(1_500_000);
 
