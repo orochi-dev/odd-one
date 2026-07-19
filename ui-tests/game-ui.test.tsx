@@ -375,11 +375,13 @@ describe("NumberPicker", () => {
       commitTransactionId: "0xabc",
     });
 
-    render(<TicketSheet ticket={ticket} backedUp={false} setBackedUp={vi.fn()} />);
+    const { container } = render(<TicketSheet ticket={ticket} backedUp={false} setBackedUp={vi.fn()} />);
 
     expect(screen.getByRole("button", { name: "Copy reveal ticket for room 7" })).toBeVisible();
     expect(screen.getByRole("button", { name: "Download reveal ticket for room 7" })).toBeVisible();
     expect(screen.getByRole("button", { name: "Copy shareable room link for room 7" })).toBeVisible();
     expect(screen.getByRole("link", { name: "Back up first, then enter the room" })).toHaveAttribute("href", "/play/celo/room/7");
+    expect(container.querySelector(".share-box svg")).toHaveAttribute("aria-hidden", "true");
+    expect(container.querySelector(".share-box svg")).toHaveAttribute("focusable", "false");
   });
 });
