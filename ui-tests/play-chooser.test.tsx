@@ -14,6 +14,7 @@ describe("PlayChooser", () => {
 
     render(<PlayChooser />);
 
+    expect(screen.getByText("Rooms, scores, and unlocked titles stay independent on each network.")).toBeInTheDocument();
     expect(screen.getByRole("status")).toHaveTextContent(
       "MiniPay opens the Celo lobby automatically when it is available.",
     );
