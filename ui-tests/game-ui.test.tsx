@@ -188,6 +188,59 @@ describe("NumberPicker", () => {
     expect(screen.getByRole("link", { name: "Back to the Celo lobby from room 0007" })).toHaveAttribute("href", "/play/celo");
   });
 
+  it("uses wallet-first copy for the disconnected room commit action", async () => {
+    vi.spyOn(Date, "now").mockReturnValue(1_200_000);
+
+    const repository: OddOneRepository = {
+      network: "celo",
+      configured: true,
+      getTotalRooms: vi.fn(),
+      getRoom: vi.fn().mockResolvedValue({
+        id: 7n,
+        network: "celo",
+        creator: "0xcreator",
+        visibility: "public",
+        createdAt: 1_000,
+        commitEndAt: 1_400,
+        revealEndAt: 1_600,
+        committedCount: 1,
+        revealedCount: 0,
+        finalized: false,
+        outcome: "pending",
+        winner: null,
+        winningNumber: null,
+      }),
+      getPlayerEntry: vi.fn().mockResolvedValue(null),
+      getParticipants: vi.fn().mockResolvedValue([]),
+      getNumberCounts: vi.fn().mockResolvedValue(Array(20).fill(0)),
+      getPlayerStats: vi.fn(),
+      getCreatedCount: vi.fn(),
+      getPlayedCount: vi.fn(),
+      getCreatedIds: vi.fn(),
+      getPlayedIds: vi.fn(),
+      createRoom: vi.fn(),
+      commitNumber: vi.fn(),
+      revealNumber: vi.fn(),
+      finalizeRoom: vi.fn(),
+    };
+
+    mockUseNetworkClient.mockReturnValue({
+      account: null,
+      connected: false,
+      connecting: false,
+      isMiniPay: false,
+      connect: vi.fn(),
+      disconnect: vi.fn(),
+      repository,
+    });
+
+    render(<RoomView network="celo" id={7n} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("button", { name: "Connect wallet to pick" })).toBeVisible();
+    });
+  });
+
   it("hides decorative room icons from assistive technology", async () => {
     vi.spyOn(Date, "now").mockReturnValue(1_500_000);
 
