@@ -6,6 +6,10 @@ export function LandingDemo() {
   const [selected, setSelected] = useState(2); const [revealed, setRevealed] = useState(false);
   const picks = [selected, ...crowd]; const counts = picks.reduce<Record<number, number>>((map, number) => ({ ...map, [number]: (map[number] || 0) + 1 }), {});
   const winner = Object.entries(counts).filter(([, count]) => count === 1).map(([number]) => Number(number)).sort((a, b) => a - b)[0];
+  const orbitLabel = (pick: number, index: number) => {
+    if (!revealed) return index === 0 ? "Your pick is still hidden" : `Preview player ${index + 1} is still hidden`;
+    return index === 0 ? `You revealed ${pick}` : `Preview player ${index + 1} revealed ${pick}`;
+  };
   const centerLabel = !revealed ? "Your secret pick" : winner === undefined ? "Preview draw" : "Lowest unique number";
   const centerValue = !revealed ? selected : winner === undefined ? "DRAW" : winner;
   const resultCopy = winner === undefined
@@ -22,7 +26,7 @@ export function LandingDemo() {
       </div>
       {picks.map((pick, index) => <span
         className={`orbit-player orbit-${index}`}
-        aria-label={revealed ? `Preview player ${index + 1} revealed ${pick}` : `Preview player ${index + 1} is still hidden`}
+        aria-label={orbitLabel(pick, index)}
         key={`${index}-${pick}`}
       >{revealed ? pick : "?"}</span>)}
     </div>
