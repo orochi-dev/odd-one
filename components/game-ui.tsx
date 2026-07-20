@@ -94,7 +94,12 @@ function RoomBody({ network, id, client }: { network: Network; id: bigint; clien
 }
 
 function TicketImporter({ onFile }: { onFile(file: File): void }) { return <label className="ticket-import"><Upload aria-hidden="true" focusable="false"/><span>Import reveal ticket</span><input type="file" accept="application/json,.json" onChange={(event) => { const file=event.target.files?.[0]; if (file) onFile(file); }}/></label>; }
-function CountBoard({ counts }: { counts: number[] }) { return <div className="count-board">{Array.from({ length: 20 }, (_, i) => <span className={counts[i] === 1 ? "unique" : counts[i] && counts[i] > 1 ? "duplicate" : ""} key={i}><strong>{i+1}</strong><small>{counts[i] ?? 0}</small></span>)}</div>; }
+function CountBoard({ counts }: { counts: number[] }) {
+  return <div className="count-board" role="list" aria-label="Reveal counts by number">{Array.from({ length: 20 }, (_, i) => {
+    const count = counts[i] ?? 0;
+    return <span role="listitem" aria-label={`Number ${i + 1} picked ${count} ${count === 1 ? "time" : "times"}`} className={count === 1 ? "unique" : count > 1 ? "duplicate" : ""} key={i}><strong aria-hidden="true">{i + 1}</strong><small aria-hidden="true">{count}</small></span>;
+  })}</div>;
+}
 
 export function ProfileView({ network, address }: { network: Network; address: string }) { return <NetworkFrame network={network}>{(client) => <ProfileBody network={network} address={address} client={client}/>}</NetworkFrame>; }
 function ProfileBody({ network, address, client }: { network: Network; address: string; client: ReturnType<typeof useNetworkClient> }) {
