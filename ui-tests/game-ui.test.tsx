@@ -280,6 +280,46 @@ describe("NumberPicker", () => {
     expect(screen.getByRole("link", { name: "Choose a lobby" })).toHaveAttribute("href", "/play/celo");
   });
 
+  it("announces the room loading placeholder as a polite atomic status", async () => {
+    const repository: OddOneRepository = {
+      network: "celo",
+      configured: true,
+      getTotalRooms: vi.fn(),
+      getRoom: vi.fn(() => new Promise(() => {})),
+      getPlayerEntry: vi.fn(),
+      getParticipants: vi.fn(),
+      getNumberCounts: vi.fn(),
+      getPlayerStats: vi.fn(),
+      getCreatedCount: vi.fn(),
+      getPlayedCount: vi.fn(),
+      getCreatedIds: vi.fn(),
+      getPlayedIds: vi.fn(),
+      createRoom: vi.fn(),
+      commitNumber: vi.fn(),
+      revealNumber: vi.fn(),
+      finalizeRoom: vi.fn(),
+    };
+
+    mockUseNetworkClient.mockReturnValue({
+      account: null,
+      connected: false,
+      connecting: false,
+      isMiniPay: false,
+      connect: vi.fn(),
+      disconnect: vi.fn(),
+      repository,
+    });
+
+    const { container } = render(<RoomView network="celo" id={7n} />);
+
+    await waitFor(() => {
+      expect(screen.getByText("Reading the room…")).toBeVisible();
+    });
+    expect(screen.getByRole("status")).toHaveAttribute("aria-live", "polite");
+    expect(screen.getByRole("status")).toHaveAttribute("aria-atomic", "true");
+    expect(container.querySelector(".loading-number")).toHaveAttribute("aria-hidden", "true");
+  });
+
   it("hides the decorative empty-state marker when a player has no room history", async () => {
     const repository: OddOneRepository = {
       network: "celo",
