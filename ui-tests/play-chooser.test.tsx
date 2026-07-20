@@ -56,6 +56,7 @@ describe("PlayChooser", () => {
 
     render(<PlayChooser />);
 
+    expect(screen.getByRole("link", { name: "Return to the Odd One homepage" })).toHaveAttribute("href", "/");
     expect(screen.getByRole("link", { name: "Back to the Odd One homepage" })).toHaveAttribute("href", "/");
     expect(screen.getByRole("link", { name: "Back to the Odd One homepage" })).toHaveTextContent(
       "Back to the homepage",
