@@ -25,6 +25,9 @@ describe("LandingDemo", () => {
     fireEvent.click(option);
     fireEvent.click(screen.getByRole("button", { name: /run the reveal/i }));
 
+    const result = screen.getByText("Your 5 was crowded out. Number 4 stood alone.").closest(".demo-result");
+    expect(result).not.toBeNull();
+    expect(result).toHaveAttribute("aria-atomic", "true");
     expect(screen.getByLabelText("Preview player 1 revealed 5")).toBeInTheDocument();
     expect(screen.getByText("Your 5 was crowded out. Number 4 stood alone.")).toBeInTheDocument();
 
