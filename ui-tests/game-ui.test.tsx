@@ -407,6 +407,7 @@ describe("NumberPicker", () => {
     await waitFor(() => {
       expect(screen.getByRole("heading", { name: "Room not found." })).toBeVisible();
     });
+    expect(screen.getByRole("alert")).toHaveTextContent("Room not found.");
     expect(container.querySelector(".empty-state span")).toHaveAttribute("aria-hidden", "true");
     expect(screen.getByRole("link", { name: "Choose a lobby" })).toHaveAttribute("href", "/play/celo");
   });
