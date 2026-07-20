@@ -406,6 +406,8 @@ describe("NumberPicker", () => {
       <ProfileView network="celo" address="0x1234567890abcdef1234567890abcdef12345678" />
     );
 
+    expect(screen.getByRole("status")).toHaveAttribute("aria-live", "polite");
+    expect(screen.getByRole("status")).toHaveAttribute("aria-atomic", "true");
     expect(screen.getByRole("heading", { name: "Reading the player signal" })).toBeVisible();
     expect(container.querySelector(".empty-state span")).toHaveAttribute("aria-hidden", "true");
   });
