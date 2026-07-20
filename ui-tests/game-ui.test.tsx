@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { Lobby, NumberPicker, ProfileView, RoomView, TicketSheet } from "@/components/game-ui";
 import type { OddOneRepository } from "@/lib/types";
@@ -239,6 +239,84 @@ describe("NumberPicker", () => {
       expect(screen.getByRole("button", { name: "Share link for room 0007" })).toBeVisible();
     });
     expect(screen.getByRole("link", { name: "Back to the Celo lobby from room 0007" })).toHaveAttribute("href", "/play/celo");
+  });
+
+  it("announces transaction updates as a single live status", async () => {
+    vi.spyOn(Date, "now").mockReturnValue(1_700_000);
+
+    const repository: OddOneRepository = {
+      network: "celo",
+      configured: true,
+      getTotalRooms: vi.fn(),
+      getRoom: vi.fn().mockResolvedValue({
+        id: 7n,
+        network: "celo",
+        creator: "0xcreator",
+        visibility: "public",
+        createdAt: 1_000,
+        commitEndAt: 1_400,
+        revealEndAt: 1_600,
+        committedCount: 1,
+        revealedCount: 1,
+        finalized: false,
+        outcome: "pending",
+        winner: null,
+        winningNumber: null,
+      }),
+      getPlayerEntry: vi.fn().mockResolvedValue({
+        wallet: "0x1234567890abcdef1234567890abcdef12345678",
+        committed: true,
+        revealed: true,
+        number: 2,
+      }),
+      getParticipants: vi.fn().mockResolvedValue([
+        {
+          wallet: "0x1234567890abcdef1234567890abcdef12345678",
+          committed: true,
+          revealed: true,
+          number: 2,
+        },
+      ]),
+      getNumberCounts: vi.fn().mockResolvedValue([0, 1, ...Array(18).fill(0)]),
+      getPlayerStats: vi.fn(),
+      getCreatedCount: vi.fn(),
+      getPlayedCount: vi.fn(),
+      getCreatedIds: vi.fn(),
+      getPlayedIds: vi.fn(),
+      createRoom: vi.fn(),
+      commitNumber: vi.fn(),
+      revealNumber: vi.fn(),
+      finalizeRoom: vi.fn().mockImplementation(async (_roomId, setState) => {
+        setState({
+          phase: "broadcasting",
+          message: "Broadcasting the final tally.",
+          explorerUrl: "https://explorer.example/tx/0x123",
+        });
+      }),
+    };
+
+    mockUseNetworkClient.mockReturnValue({
+      account: "0x1234567890abcdef1234567890abcdef12345678",
+      connected: true,
+      connecting: false,
+      isMiniPay: false,
+      connect: vi.fn(),
+      disconnect: vi.fn(),
+      repository,
+    });
+
+    render(<RoomView network="celo" id={7n} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("button", { name: "Finalize result" })).toBeVisible();
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Finalize result" }));
+
+    await waitFor(() => {
+      expect(screen.getByRole("status")).toHaveTextContent("broadcasting");
+    });
+    expect(screen.getByRole("status")).toHaveAttribute("aria-live", "polite");
+    expect(screen.getByRole("status")).toHaveAttribute("aria-atomic", "true");
   });
 
   it("uses wallet-first copy for the disconnected room commit action", async () => {
