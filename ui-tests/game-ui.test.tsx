@@ -68,6 +68,59 @@ describe("NumberPicker", () => {
     expect(screen.getByRole("tab", { name: "Open rooms" })).toHaveAttribute("aria-controls", "celo-lobby-panel");
   });
 
+  it("hides the decorative room-card phase badge from assistive technology", async () => {
+    const repository: OddOneRepository = {
+      network: "celo",
+      configured: true,
+      getTotalRooms: vi.fn().mockResolvedValue(1n),
+      getRoom: vi.fn().mockResolvedValue({
+        id: 7n,
+        network: "celo",
+        creator: "0xcreator",
+        visibility: "public",
+        createdAt: 1_000,
+        commitEndAt: 4_102_444_800,
+        revealEndAt: 4_102_445_400,
+        committedCount: 3,
+        revealedCount: 0,
+        finalized: false,
+        outcome: "pending",
+        winner: null,
+        winningNumber: null,
+      }),
+      getPlayerEntry: vi.fn(),
+      getParticipants: vi.fn(),
+      getNumberCounts: vi.fn(),
+      getPlayerStats: vi.fn(),
+      getCreatedCount: vi.fn(),
+      getPlayedCount: vi.fn(),
+      getCreatedIds: vi.fn(),
+      getPlayedIds: vi.fn(),
+      createRoom: vi.fn(),
+      commitNumber: vi.fn(),
+      revealNumber: vi.fn(),
+      finalizeRoom: vi.fn(),
+    };
+
+    mockUseNetworkClient.mockReturnValue({
+      account: null,
+      connected: false,
+      connecting: false,
+      isMiniPay: false,
+      connect: vi.fn(),
+      disconnect: vi.fn(),
+      repository,
+    });
+
+    const { container } = render(<Lobby network="celo" />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("link", { name: /room #0007/i })).toBeVisible();
+    });
+    expect(container.querySelector(".room-phase-icon")).toHaveAttribute("aria-hidden", "true");
+    expect(screen.getByRole("link", { name: /open for picks/i })).toBeVisible();
+  });
+
   it("shows a single ticket importer during reveal when the saved ticket is missing", async () => {
     vi.spyOn(Date, "now").mockReturnValue(1_500_000);
 
