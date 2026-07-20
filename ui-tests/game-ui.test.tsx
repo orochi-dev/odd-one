@@ -742,6 +742,44 @@ describe("NumberPicker", () => {
     expect(container.querySelector(".empty-state span")).toHaveAttribute("aria-hidden", "true");
   });
 
+  it("announces the lobby loading skeleton as a polite atomic status", () => {
+    const repository: OddOneRepository = {
+      network: "celo",
+      configured: true,
+      getTotalRooms: vi.fn(() => new Promise(() => {})),
+      getRoom: vi.fn(),
+      getPlayerEntry: vi.fn(),
+      getParticipants: vi.fn(),
+      getNumberCounts: vi.fn(),
+      getPlayerStats: vi.fn(),
+      getCreatedCount: vi.fn(),
+      getPlayedCount: vi.fn(),
+      getCreatedIds: vi.fn(),
+      getPlayedIds: vi.fn(),
+      createRoom: vi.fn(),
+      commitNumber: vi.fn(),
+      revealNumber: vi.fn(),
+      finalizeRoom: vi.fn(),
+    };
+
+    mockUseNetworkClient.mockReturnValue({
+      account: null,
+      connected: false,
+      connecting: false,
+      isMiniPay: false,
+      connect: vi.fn(),
+      disconnect: vi.fn(),
+      repository,
+    });
+
+    const { container } = render(<Lobby network="celo" />);
+
+    expect(screen.getByRole("status")).toHaveTextContent("Reading the rooms…");
+    expect(screen.getByRole("status")).toHaveAttribute("aria-live", "polite");
+    expect(screen.getByRole("status")).toHaveAttribute("aria-atomic", "true");
+    expect(container.querySelector(".room-grid.loading-grid")).toHaveAttribute("aria-hidden", "true");
+  });
+
   it("gives ticket backup and share actions room-specific accessible names", async () => {
     const ticket = await buildRevealTicket({
       network: "celo",
