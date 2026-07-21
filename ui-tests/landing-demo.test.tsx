@@ -43,6 +43,8 @@ describe("LandingDemo", () => {
     expect(screen.getByText("Your 5 was crowded out. Number 4 stood alone.")).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: /reset the preview/i }));
+    const restoredOption = screen.getByRole("radio", { name: /pick 5 for the preview/i });
+    expect(restoredOption).toHaveFocus();
     expect(screen.getByRole("button", { name: /run the preview reveal with pick 5/i })).toBeInTheDocument();
   });
 

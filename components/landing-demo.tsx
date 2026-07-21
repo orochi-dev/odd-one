@@ -1,11 +1,12 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const crowd = [1, 1, 4, 8];
 const previewNumbers = [1, 2, 3, 4, 5];
 export function LandingDemo() {
   const [selected, setSelected] = useState(2); const [revealed, setRevealed] = useState(false);
   const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const shouldRestoreFocusRef = useRef(false);
   const previewHintId = "preview-hint";
   const previewResultId = "preview-result";
   const picks = [selected, ...crowd]; const counts = picks.reduce<Record<number, number>>((map, number) => ({ ...map, [number]: (map[number] || 0) + 1 }), {});
@@ -71,6 +72,16 @@ export function LandingDemo() {
         break;
     }
   };
+  useEffect(() => {
+    if (!revealed && shouldRestoreFocusRef.current) {
+      focusOption(selected);
+      shouldRestoreFocusRef.current = false;
+    }
+  }, [revealed, selected]);
+  const handleReset = () => {
+    shouldRestoreFocusRef.current = true;
+    setRevealed(false);
+  };
   return <section className="demo-stage" role="region" aria-label="Simulated Odd One round">
     <div className="demo-head"><span className="preview-pill">Interactive preview</span><span className="mono">ROOM #0042</span></div>
     <div className={`demo-orbit ${revealed ? "is-revealed" : ""}`}>
@@ -90,6 +101,6 @@ export function LandingDemo() {
         optionRefs.current[index] = element;
       }} key={number}>{number}</button>)}</div>
       <button type="button" className="action action-lime" aria-label={`Run the preview reveal with pick ${selected}`} aria-describedby={previewHintId} onClick={() => setRevealed(true)}>Run the preview reveal</button>
-    </> : <div className="demo-result" role="status" aria-live="polite" aria-atomic="true"><p id={previewResultId}>{resultCopy}</p><button type="button" className="text-button" aria-label={`Reset the preview with pick ${selected}`} aria-describedby={previewResultId} onClick={() => setRevealed(false)}>Reset the preview</button></div>}
+    </> : <div className="demo-result" role="status" aria-live="polite" aria-atomic="true"><p id={previewResultId}>{resultCopy}</p><button type="button" className="text-button" aria-label={`Reset the preview with pick ${selected}`} aria-describedby={previewResultId} onClick={handleReset}>Reset the preview</button></div>}
   </section>;
 }
