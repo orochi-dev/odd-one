@@ -17,13 +17,14 @@ describe("LandingDemo", () => {
     expect(screen.getByLabelText("Your pick is still hidden")).toBeInTheDocument();
     expect(screen.getByLabelText("Preview player 1 is still hidden")).toBeInTheDocument();
 
-    const picker = screen.getByRole("group", { name: /choose your preview number/i });
+    const picker = screen.getByRole("radiogroup", { name: /choose your preview number/i });
     expect(picker).toHaveAttribute("aria-describedby", "preview-hint");
 
-    const option = within(picker).getByRole("button", { name: /pick 5 for the preview/i });
-    expect(option).toHaveAttribute("aria-pressed", "false");
+    const option = within(picker).getByRole("radio", { name: /pick 5 for the preview/i });
+    expect(option).toHaveAttribute("aria-checked", "false");
 
     fireEvent.click(option);
+    expect(option).toHaveAttribute("aria-checked", "true");
     const revealButton = screen.getByRole("button", { name: /run the preview reveal with pick 5/i });
     expect(revealButton).toHaveAttribute("aria-describedby", "preview-hint");
 
@@ -49,7 +50,7 @@ describe("LandingDemo", () => {
     expect(status).toHaveTextContent("Your secret pick");
     expect(status).toHaveTextContent("2");
 
-    fireEvent.click(screen.getByRole("button", { name: /pick 5 for the preview/i }));
+    fireEvent.click(screen.getByRole("radio", { name: /pick 5 for the preview/i }));
     expect(status).toHaveTextContent("Your secret pick");
     expect(status).toHaveTextContent("5");
 

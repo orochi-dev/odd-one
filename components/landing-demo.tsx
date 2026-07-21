@@ -34,7 +34,7 @@ export function LandingDemo() {
     </div>
     {!revealed ? <>
       <p id={previewHintId}>Preview only. This sample uses picks 1-5; live rooms use the full 1-20 range. Lowest unique number wins the round.</p>
-      <div className="number-row" role="group" aria-label="Choose your preview number" aria-describedby={previewHintId}>{[1, 2, 3, 4, 5].map((number) => <button type="button" aria-label={`Pick ${number} for the preview`} aria-pressed={selected === number} className={selected === number ? "selected" : ""} onClick={() => setSelected(number)} key={number}>{number}</button>)}</div>
+      <div className="number-row" role="radiogroup" aria-label="Choose your preview number" aria-describedby={previewHintId}>{[1, 2, 3, 4, 5].map((number) => <button type="button" role="radio" aria-label={`Pick ${number} for the preview`} aria-checked={selected === number} className={selected === number ? "selected" : ""} onClick={() => setSelected(number)} key={number}>{number}</button>)}</div>
       <button type="button" className="action action-lime" aria-label={`Run the preview reveal with pick ${selected}`} aria-describedby={previewHintId} onClick={() => setRevealed(true)}>Run the preview reveal</button>
     </> : <div className="demo-result" role="status" aria-live="polite" aria-atomic="true"><p id={previewResultId}>{resultCopy}</p><button type="button" className="text-button" aria-label={`Reset the preview with pick ${selected}`} aria-describedby={previewResultId} onClick={() => setRevealed(false)}>Reset the preview</button></div>}
   </section>;
