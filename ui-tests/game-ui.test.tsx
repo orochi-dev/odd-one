@@ -68,6 +68,42 @@ describe("NumberPicker", () => {
     expect(screen.getByRole("tab", { name: "Open rooms" })).toHaveAttribute("aria-controls", "celo-lobby-panel");
   });
 
+  it("names the missing contract variable in the setup state", () => {
+    const repository: OddOneRepository = {
+      network: "celo",
+      configured: false,
+      getTotalRooms: vi.fn(),
+      getRoom: vi.fn(),
+      getPlayerEntry: vi.fn(),
+      getParticipants: vi.fn(),
+      getNumberCounts: vi.fn(),
+      getPlayerStats: vi.fn(),
+      getCreatedCount: vi.fn(),
+      getPlayedCount: vi.fn(),
+      getCreatedIds: vi.fn(),
+      getPlayedIds: vi.fn(),
+      createRoom: vi.fn(),
+      commitNumber: vi.fn(),
+      revealNumber: vi.fn(),
+      finalizeRoom: vi.fn(),
+    };
+
+    mockUseNetworkClient.mockReturnValue({
+      account: null,
+      connected: false,
+      connecting: false,
+      isMiniPay: false,
+      connect: vi.fn(),
+      disconnect: vi.fn(),
+      repository,
+    });
+
+    render(<Lobby network="celo" />);
+
+    expect(screen.getByText("NEXT_PUBLIC_ODD_ONE_CELO_CONTRACT_ADDRESS")).toBeVisible();
+    expect(screen.getByRole("link", { name: "Open the Celo contract explorer" })).toHaveAttribute("href", "https://explorer.example");
+  });
+
   it("hides the decorative room-card phase badge from assistive technology", async () => {
     const repository: OddOneRepository = {
       network: "celo",
