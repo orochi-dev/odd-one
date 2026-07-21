@@ -32,7 +32,8 @@ describe("LandingDemo", () => {
     const result = screen.getByText("Your 5 was crowded out. Number 4 stood alone.").closest(".demo-result");
     expect(result).not.toBeNull();
     expect(result).toHaveAttribute("aria-atomic", "true");
-    expect(screen.getByRole("button", { name: /reset the preview with pick 5/i })).toBeInTheDocument();
+    expect(screen.getByText("Your 5 was crowded out. Number 4 stood alone.")).toHaveAttribute("id", "preview-result");
+    expect(screen.getByRole("button", { name: /reset the preview with pick 5/i })).toHaveAttribute("aria-describedby", "preview-result");
     expect(screen.getByLabelText("You revealed 5")).toBeInTheDocument();
     expect(screen.getByLabelText("Preview player 1 revealed 1")).toBeInTheDocument();
     expect(screen.getByText("Your 5 was crowded out. Number 4 stood alone.")).toBeInTheDocument();

@@ -4,6 +4,8 @@ import { useState } from "react";
 const crowd = [1, 1, 4, 8];
 export function LandingDemo() {
   const [selected, setSelected] = useState(2); const [revealed, setRevealed] = useState(false);
+  const previewHintId = "preview-hint";
+  const previewResultId = "preview-result";
   const picks = [selected, ...crowd]; const counts = picks.reduce<Record<number, number>>((map, number) => ({ ...map, [number]: (map[number] || 0) + 1 }), {});
   const winner = Object.entries(counts).filter(([, count]) => count === 1).map(([number]) => Number(number)).sort((a, b) => a - b)[0];
   const orbitLabel = (pick: number, index: number) => {
@@ -31,9 +33,9 @@ export function LandingDemo() {
       >{revealed ? pick : "?"}</span>)}
     </div>
     {!revealed ? <>
-      <p id="preview-hint">Preview only. This sample uses picks 1-5; live rooms use the full 1-20 range. Lowest unique number wins the round.</p>
-      <div className="number-row" role="group" aria-label="Choose your preview number" aria-describedby="preview-hint">{[1, 2, 3, 4, 5].map((number) => <button type="button" aria-label={`Pick ${number} for the preview`} aria-pressed={selected === number} className={selected === number ? "selected" : ""} onClick={() => setSelected(number)} key={number}>{number}</button>)}</div>
-      <button type="button" className="action action-lime" aria-label={`Run the preview reveal with pick ${selected}`} aria-describedby="preview-hint" onClick={() => setRevealed(true)}>Run the preview reveal</button>
-    </> : <div className="demo-result" role="status" aria-live="polite" aria-atomic="true"><p>{resultCopy}</p><button type="button" className="text-button" aria-label={`Reset the preview with pick ${selected}`} onClick={() => setRevealed(false)}>Reset the preview</button></div>}
+      <p id={previewHintId}>Preview only. This sample uses picks 1-5; live rooms use the full 1-20 range. Lowest unique number wins the round.</p>
+      <div className="number-row" role="group" aria-label="Choose your preview number" aria-describedby={previewHintId}>{[1, 2, 3, 4, 5].map((number) => <button type="button" aria-label={`Pick ${number} for the preview`} aria-pressed={selected === number} className={selected === number ? "selected" : ""} onClick={() => setSelected(number)} key={number}>{number}</button>)}</div>
+      <button type="button" className="action action-lime" aria-label={`Run the preview reveal with pick ${selected}`} aria-describedby={previewHintId} onClick={() => setRevealed(true)}>Run the preview reveal</button>
+    </> : <div className="demo-result" role="status" aria-live="polite" aria-atomic="true"><p id={previewResultId}>{resultCopy}</p><button type="button" className="text-button" aria-label={`Reset the preview with pick ${selected}`} aria-describedby={previewResultId} onClick={() => setRevealed(false)}>Reset the preview</button></div>}
   </section>;
 }
