@@ -85,7 +85,7 @@ export function LandingDemo() {
       >{revealed ? pick : "?"}</span>)}
     </div>
     {!revealed ? <>
-      <p id={previewHintId}>Preview only. This sample uses picks 1-5; live rooms use the full 1-20 range. Lowest unique number wins the round.</p>
+      <p id={previewHintId}>Preview only. This sample uses picks 1-5; live rooms use the full 1-20 range. Lowest unique number wins the round. Use arrow keys, Home, or End to move between preview numbers.</p>
       <div className="number-row" role="radiogroup" aria-label="Choose your preview number" aria-describedby={previewHintId} onKeyDown={handlePickerKeyDown}>{previewNumbers.map((number, index) => <button type="button" role="radio" aria-label={`Pick ${number} for the preview`} aria-checked={selected === number} tabIndex={selected === number ? 0 : -1} className={selected === number ? "selected" : ""} onClick={() => setSelected(number)} ref={(element) => {
         optionRefs.current[index] = element;
       }} key={number}>{number}</button>)}</div>
