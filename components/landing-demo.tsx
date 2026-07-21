@@ -1,10 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const crowd = [1, 1, 4, 8];
 const previewNumbers = [1, 2, 3, 4, 5];
 export function LandingDemo() {
   const [selected, setSelected] = useState(2); const [revealed, setRevealed] = useState(false);
+  const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const previewHintId = "preview-hint";
   const previewResultId = "preview-result";
   const picks = [selected, ...crowd]; const counts = picks.reduce<Record<number, number>>((map, number) => ({ ...map, [number]: (map[number] || 0) + 1 }), {});
@@ -20,20 +21,31 @@ export function LandingDemo() {
     : winner === selected
       ? "You stood alone. That is +105 points."
       : `Your ${selected} was crowded out. Number ${winner} stood alone.`;
+  const focusOption = (number: number) => {
+    const optionIndex = previewNumbers.indexOf(number);
+    if (optionIndex === -1) return;
+    optionRefs.current[optionIndex]?.focus();
+  };
   const moveSelection = (direction: "next" | "previous" | "first" | "last") => {
     const currentIndex = previewNumbers.indexOf(selected);
     if (currentIndex === -1) return;
     if (direction === "first") {
-      setSelected(previewNumbers[0]);
+      const nextNumber = previewNumbers[0];
+      setSelected(nextNumber);
+      focusOption(nextNumber);
       return;
     }
     if (direction === "last") {
-      setSelected(previewNumbers[previewNumbers.length - 1]);
+      const nextNumber = previewNumbers[previewNumbers.length - 1];
+      setSelected(nextNumber);
+      focusOption(nextNumber);
       return;
     }
     const offset = direction === "next" ? 1 : -1;
     const nextIndex = (currentIndex + offset + previewNumbers.length) % previewNumbers.length;
-    setSelected(previewNumbers[nextIndex]);
+    const nextNumber = previewNumbers[nextIndex];
+    setSelected(nextNumber);
+    focusOption(nextNumber);
   };
   const handlePickerKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     switch (event.key) {
@@ -74,7 +86,9 @@ export function LandingDemo() {
     </div>
     {!revealed ? <>
       <p id={previewHintId}>Preview only. This sample uses picks 1-5; live rooms use the full 1-20 range. Lowest unique number wins the round.</p>
-      <div className="number-row" role="radiogroup" aria-label="Choose your preview number" aria-describedby={previewHintId} onKeyDown={handlePickerKeyDown}>{previewNumbers.map((number) => <button type="button" role="radio" aria-label={`Pick ${number} for the preview`} aria-checked={selected === number} tabIndex={selected === number ? 0 : -1} className={selected === number ? "selected" : ""} onClick={() => setSelected(number)} key={number}>{number}</button>)}</div>
+      <div className="number-row" role="radiogroup" aria-label="Choose your preview number" aria-describedby={previewHintId} onKeyDown={handlePickerKeyDown}>{previewNumbers.map((number, index) => <button type="button" role="radio" aria-label={`Pick ${number} for the preview`} aria-checked={selected === number} tabIndex={selected === number ? 0 : -1} className={selected === number ? "selected" : ""} onClick={() => setSelected(number)} ref={(element) => {
+        optionRefs.current[index] = element;
+      }} key={number}>{number}</button>)}</div>
       <button type="button" className="action action-lime" aria-label={`Run the preview reveal with pick ${selected}`} aria-describedby={previewHintId} onClick={() => setRevealed(true)}>Run the preview reveal</button>
     </> : <div className="demo-result" role="status" aria-live="polite" aria-atomic="true"><p id={previewResultId}>{resultCopy}</p><button type="button" className="text-button" aria-label={`Reset the preview with pick ${selected}`} aria-describedby={previewResultId} onClick={() => setRevealed(false)}>Reset the preview</button></div>}
   </section>;

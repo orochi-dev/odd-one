@@ -70,20 +70,26 @@ describe("LandingDemo", () => {
 
     expect(pickTwo).toHaveAttribute("tabindex", "0");
     expect(pickThree).toHaveAttribute("tabindex", "-1");
+    pickTwo.focus();
+    expect(pickTwo).toHaveFocus();
 
     fireEvent.keyDown(picker, { key: "ArrowRight" });
     expect(pickThree).toHaveAttribute("aria-checked", "true");
     expect(pickThree).toHaveAttribute("tabindex", "0");
+    expect(pickThree).toHaveFocus();
 
     fireEvent.keyDown(picker, { key: "End" });
     expect(pickFive).toHaveAttribute("aria-checked", "true");
     expect(pickFive).toHaveAttribute("tabindex", "0");
+    expect(pickFive).toHaveFocus();
 
     fireEvent.keyDown(picker, { key: "Home" });
     expect(pickOne).toHaveAttribute("aria-checked", "true");
     expect(pickOne).toHaveAttribute("tabindex", "0");
+    expect(pickOne).toHaveFocus();
 
     fireEvent.keyDown(picker, { key: "ArrowLeft" });
     expect(pickFive).toHaveAttribute("aria-checked", "true");
+    expect(pickFive).toHaveFocus();
   });
 });
