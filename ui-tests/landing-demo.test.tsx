@@ -23,6 +23,8 @@ describe("LandingDemo", () => {
 
     const option = within(picker).getByRole("radio", { name: /pick 5 for the preview/i });
     expect(option).toHaveAttribute("aria-checked", "false");
+    expect(option).toHaveAttribute("aria-posinset", "5");
+    expect(option).toHaveAttribute("aria-setsize", "5");
 
     fireEvent.click(option);
     expect(option).toHaveAttribute("aria-checked", "true");
