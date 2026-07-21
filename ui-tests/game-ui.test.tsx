@@ -64,6 +64,7 @@ describe("NumberPicker", () => {
     expect(screen.getByRole("tab", { name: "Rooms ready to reveal" })).toBeVisible();
     expect(screen.getByRole("tab", { name: "Finished rooms" })).toBeVisible();
     expect(screen.getByRole("tab", { name: "My rooms" })).toBeVisible();
+    expect(screen.getByRole("button", { name: "Refresh Celo rooms" })).toBeVisible();
     expect(screen.getByRole("tabpanel")).toHaveAttribute("aria-labelledby", "celo-tab-open");
     expect(screen.getByRole("tab", { name: "Open rooms" })).toHaveAttribute("aria-controls", "celo-lobby-panel");
   });
