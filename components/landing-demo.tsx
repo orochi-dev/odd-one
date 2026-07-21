@@ -2,6 +2,7 @@
 import { useState } from "react";
 
 const crowd = [1, 1, 4, 8];
+const previewNumbers = [1, 2, 3, 4, 5];
 export function LandingDemo() {
   const [selected, setSelected] = useState(2); const [revealed, setRevealed] = useState(false);
   const previewHintId = "preview-hint";
@@ -19,6 +20,45 @@ export function LandingDemo() {
     : winner === selected
       ? "You stood alone. That is +105 points."
       : `Your ${selected} was crowded out. Number ${winner} stood alone.`;
+  const moveSelection = (direction: "next" | "previous" | "first" | "last") => {
+    const currentIndex = previewNumbers.indexOf(selected);
+    if (currentIndex === -1) return;
+    if (direction === "first") {
+      setSelected(previewNumbers[0]);
+      return;
+    }
+    if (direction === "last") {
+      setSelected(previewNumbers[previewNumbers.length - 1]);
+      return;
+    }
+    const offset = direction === "next" ? 1 : -1;
+    const nextIndex = (currentIndex + offset + previewNumbers.length) % previewNumbers.length;
+    setSelected(previewNumbers[nextIndex]);
+  };
+  const handlePickerKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    switch (event.key) {
+      case "ArrowRight":
+      case "ArrowDown":
+        event.preventDefault();
+        moveSelection("next");
+        break;
+      case "ArrowLeft":
+      case "ArrowUp":
+        event.preventDefault();
+        moveSelection("previous");
+        break;
+      case "Home":
+        event.preventDefault();
+        moveSelection("first");
+        break;
+      case "End":
+        event.preventDefault();
+        moveSelection("last");
+        break;
+      default:
+        break;
+    }
+  };
   return <section className="demo-stage" role="region" aria-label="Simulated Odd One round">
     <div className="demo-head"><span className="preview-pill">Interactive preview</span><span className="mono">ROOM #0042</span></div>
     <div className={`demo-orbit ${revealed ? "is-revealed" : ""}`}>
@@ -34,7 +74,7 @@ export function LandingDemo() {
     </div>
     {!revealed ? <>
       <p id={previewHintId}>Preview only. This sample uses picks 1-5; live rooms use the full 1-20 range. Lowest unique number wins the round.</p>
-      <div className="number-row" role="radiogroup" aria-label="Choose your preview number" aria-describedby={previewHintId}>{[1, 2, 3, 4, 5].map((number) => <button type="button" role="radio" aria-label={`Pick ${number} for the preview`} aria-checked={selected === number} className={selected === number ? "selected" : ""} onClick={() => setSelected(number)} key={number}>{number}</button>)}</div>
+      <div className="number-row" role="radiogroup" aria-label="Choose your preview number" aria-describedby={previewHintId} onKeyDown={handlePickerKeyDown}>{previewNumbers.map((number) => <button type="button" role="radio" aria-label={`Pick ${number} for the preview`} aria-checked={selected === number} tabIndex={selected === number ? 0 : -1} className={selected === number ? "selected" : ""} onClick={() => setSelected(number)} key={number}>{number}</button>)}</div>
       <button type="button" className="action action-lime" aria-label={`Run the preview reveal with pick ${selected}`} aria-describedby={previewHintId} onClick={() => setRevealed(true)}>Run the preview reveal</button>
     </> : <div className="demo-result" role="status" aria-live="polite" aria-atomic="true"><p id={previewResultId}>{resultCopy}</p><button type="button" className="text-button" aria-label={`Reset the preview with pick ${selected}`} aria-describedby={previewResultId} onClick={() => setRevealed(false)}>Reset the preview</button></div>}
   </section>;
