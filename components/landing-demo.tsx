@@ -7,8 +7,8 @@ export function LandingDemo() {
   const picks = [selected, ...crowd]; const counts = picks.reduce<Record<number, number>>((map, number) => ({ ...map, [number]: (map[number] || 0) + 1 }), {});
   const winner = Object.entries(counts).filter(([, count]) => count === 1).map(([number]) => Number(number)).sort((a, b) => a - b)[0];
   const orbitLabel = (pick: number, index: number) => {
-    if (!revealed) return index === 0 ? "Your pick is still hidden" : `Preview player ${index + 1} is still hidden`;
-    return index === 0 ? `You revealed ${pick}` : `Preview player ${index + 1} revealed ${pick}`;
+    if (!revealed) return index === 0 ? "Your pick is still hidden" : `Preview player ${index} is still hidden`;
+    return index === 0 ? `You revealed ${pick}` : `Preview player ${index} revealed ${pick}`;
   };
   const centerLabel = !revealed ? "Your secret pick" : winner === undefined ? "Preview draw" : "Lowest unique number";
   const centerValue = !revealed ? selected : winner === undefined ? "DRAW" : winner;
