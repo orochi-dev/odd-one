@@ -24,7 +24,7 @@ describe("LandingDemo", () => {
     expect(option).toHaveAttribute("aria-pressed", "false");
 
     fireEvent.click(option);
-    const revealButton = screen.getByRole("button", { name: /run the preview reveal/i });
+    const revealButton = screen.getByRole("button", { name: /run the preview reveal with pick 5/i });
     expect(revealButton).toHaveAttribute("aria-describedby", "preview-hint");
 
     fireEvent.click(revealButton);
@@ -38,7 +38,7 @@ describe("LandingDemo", () => {
     expect(screen.getByText("Your 5 was crowded out. Number 4 stood alone.")).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: /reset the preview/i }));
-    expect(screen.getByRole("button", { name: /run the preview reveal/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /run the preview reveal with pick 5/i })).toBeInTheDocument();
   });
 
   it("announces preview state changes through a live region", () => {
@@ -52,7 +52,7 @@ describe("LandingDemo", () => {
     expect(status).toHaveTextContent("Your secret pick");
     expect(status).toHaveTextContent("5");
 
-    fireEvent.click(screen.getByRole("button", { name: /run the preview reveal/i }));
+    fireEvent.click(screen.getByRole("button", { name: /run the preview reveal with pick 5/i }));
     expect(status).toHaveTextContent("Lowest unique number");
     expect(status).toHaveTextContent("4");
   });
