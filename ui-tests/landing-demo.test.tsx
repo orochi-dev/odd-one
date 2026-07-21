@@ -19,6 +19,7 @@ describe("LandingDemo", () => {
 
     const picker = screen.getByRole("radiogroup", { name: /choose your preview number/i });
     expect(picker).toHaveAttribute("aria-describedby", "preview-hint");
+    expect(picker).toHaveAttribute("aria-activedescendant", "preview-pick-2");
     expect(picker).toHaveAttribute("aria-keyshortcuts", "ArrowRight ArrowDown ArrowLeft ArrowUp Home End");
 
     const option = within(picker).getByRole("radio", { name: /pick 5 for the preview/i });
@@ -27,6 +28,7 @@ describe("LandingDemo", () => {
     expect(option).toHaveAttribute("aria-setsize", "5");
 
     fireEvent.click(option);
+    expect(picker).toHaveAttribute("aria-activedescendant", "preview-pick-5");
     expect(option).toHaveAttribute("aria-checked", "true");
     const revealButton = screen.getByRole("button", { name: /run the preview reveal with pick 5/i });
     expect(revealButton).toHaveAttribute("aria-describedby", "preview-hint");
@@ -68,6 +70,7 @@ describe("LandingDemo", () => {
     render(<LandingDemo />);
 
     const picker = screen.getByRole("radiogroup", { name: /choose your preview number/i });
+    expect(picker).toHaveAttribute("aria-activedescendant", "preview-pick-2");
     expect(picker).toHaveAttribute("aria-keyshortcuts", "ArrowRight ArrowDown ArrowLeft ArrowUp Home End");
     const pickTwo = within(picker).getByRole("radio", { name: /pick 2 for the preview/i });
     const pickThree = within(picker).getByRole("radio", { name: /pick 3 for the preview/i });
@@ -80,21 +83,25 @@ describe("LandingDemo", () => {
     expect(pickTwo).toHaveFocus();
 
     fireEvent.keyDown(picker, { key: "ArrowRight" });
+    expect(picker).toHaveAttribute("aria-activedescendant", "preview-pick-3");
     expect(pickThree).toHaveAttribute("aria-checked", "true");
     expect(pickThree).toHaveAttribute("tabindex", "0");
     expect(pickThree).toHaveFocus();
 
     fireEvent.keyDown(picker, { key: "End" });
+    expect(picker).toHaveAttribute("aria-activedescendant", "preview-pick-5");
     expect(pickFive).toHaveAttribute("aria-checked", "true");
     expect(pickFive).toHaveAttribute("tabindex", "0");
     expect(pickFive).toHaveFocus();
 
     fireEvent.keyDown(picker, { key: "Home" });
+    expect(picker).toHaveAttribute("aria-activedescendant", "preview-pick-1");
     expect(pickOne).toHaveAttribute("aria-checked", "true");
     expect(pickOne).toHaveAttribute("tabindex", "0");
     expect(pickOne).toHaveFocus();
 
     fireEvent.keyDown(picker, { key: "ArrowLeft" });
+    expect(picker).toHaveAttribute("aria-activedescendant", "preview-pick-5");
     expect(pickFive).toHaveAttribute("aria-checked", "true");
     expect(pickFive).toHaveFocus();
   });
