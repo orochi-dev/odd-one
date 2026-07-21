@@ -13,7 +13,7 @@ describe("LandingDemo", () => {
     render(<LandingDemo />);
 
     expect(screen.getByText("Interactive preview")).toBeInTheDocument();
-    expect(screen.getByText("Preview only. This sample uses picks 1-5; live rooms use the full 1-20 range. Lowest unique number wins the round. Use arrow keys, Home, or End to move between preview numbers.")).toBeInTheDocument();
+    expect(screen.getByText("Preview only. This sample uses picks 1-5; live rooms use the full 1-20 range. Lowest unique number wins the round. Arrow keys wrap between preview numbers, while Home and End jump to the ends.")).toBeInTheDocument();
     expect(screen.getByLabelText("Your pick is still hidden")).toBeInTheDocument();
     expect(screen.getByLabelText("Preview player 1 is still hidden")).toBeInTheDocument();
 
