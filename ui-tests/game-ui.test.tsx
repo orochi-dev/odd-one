@@ -25,12 +25,12 @@ describe("NumberPicker", () => {
     const picker = screen.getByRole("radiogroup", { name: "Pick a number from one to twenty" });
     expect(picker).toHaveAttribute("aria-activedescendant", "live-pick-7");
     expect(picker).toHaveAttribute("aria-keyshortcuts", "ArrowRight ArrowDown ArrowLeft ArrowUp Home End");
-    const pickSeven = screen.getByRole("radio", { name: "7 plausibly odd" });
+    const pickSeven = screen.getByRole("radio", { name: "Pick 7 — plausibly odd" });
     expect(pickSeven).toHaveAttribute("id", "live-pick-7");
     expect(pickSeven).toHaveAttribute("aria-checked", "true");
     expect(pickSeven).toHaveAttribute("aria-posinset", "7");
     expect(pickSeven).toHaveAttribute("aria-setsize", "20");
-    expect(screen.getByRole("radio", { name: "8 plausibly odd" })).toHaveAttribute("aria-checked", "false");
+    expect(screen.getByRole("radio", { name: "Pick 8 — plausibly odd" })).toHaveAttribute("aria-checked", "false");
   });
 
   it("supports keyboard navigation for live number picks", () => {
@@ -38,8 +38,8 @@ describe("NumberPicker", () => {
     render(<NumberPicker selected={7} onSelect={onSelect} />);
 
     const picker = screen.getByRole("radiogroup", { name: "Pick a number from one to twenty" });
-    const pickSeven = screen.getByRole("radio", { name: "7 plausibly odd" });
-    const pickEight = screen.getByRole("radio", { name: "8 plausibly odd" });
+    const pickSeven = screen.getByRole("radio", { name: "Pick 7 — plausibly odd" });
+    const pickEight = screen.getByRole("radio", { name: "Pick 8 — plausibly odd" });
 
     pickSeven.focus();
     expect(pickSeven).toHaveFocus();
