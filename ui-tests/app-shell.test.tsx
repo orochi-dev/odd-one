@@ -39,6 +39,7 @@ describe("AppShell", () => {
     );
 
     expect(screen.getByRole("link", { name: /return to the odd one homepage/i })).toHaveAttribute("href", "/");
+    expect(screen.getByRole("navigation", { name: "Choose a network lobby" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Celo" })).toHaveAttribute("aria-current", "page");
     expect(screen.getByRole("link", { name: "Stacks" })).not.toHaveAttribute("aria-current");
     expect(screen.getByRole("img", { name: /player signal for 0x123…45678/i })).toBeInTheDocument();
