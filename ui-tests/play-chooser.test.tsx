@@ -31,8 +31,17 @@ describe("PlayChooser", () => {
     expect(screen.getByRole("status")).toHaveTextContent("MiniPay detected on this device. Redirecting to the Celo lobby now.");
     expect(screen.getByRole("link", { name: "Enter the Celo lobby" })).toHaveAttribute("aria-disabled", "true");
     expect(screen.getByRole("link", { name: "Enter the Celo lobby" })).toHaveAttribute("tabindex", "-1");
+    expect(screen.getByRole("link", { name: "Enter the Celo lobby" })).toHaveAccessibleDescription(
+      "Built for MiniPay and mobile wallets. Navigation is temporarily unavailable while Odd One redirects MiniPay to the Celo lobby automatically.",
+    );
     expect(screen.getByRole("link", { name: "Enter the Stacks lobby" })).toHaveAttribute("aria-disabled", "true");
+    expect(screen.getByRole("link", { name: "Enter the Stacks lobby" })).toHaveAccessibleDescription(
+      "Clarity-native play alongside Bitcoin. Navigation is temporarily unavailable while Odd One redirects MiniPay to the Celo lobby automatically.",
+    );
     expect(screen.getByRole("link", { name: "Back to the Odd One homepage" })).toHaveAttribute("aria-disabled", "true");
+    expect(screen.getByRole("link", { name: "Back to the Odd One homepage" })).toHaveAccessibleDescription(
+      "Navigation is temporarily unavailable while Odd One redirects MiniPay to the Celo lobby automatically.",
+    );
     expect(replace).toHaveBeenCalledWith("/play/celo");
   });
 
