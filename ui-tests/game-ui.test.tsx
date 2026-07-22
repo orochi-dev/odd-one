@@ -24,7 +24,10 @@ describe("NumberPicker", () => {
     expect(screen.getByRole("group", { name: "Pick a number from one to twenty" })).toBeVisible();
     const picker = screen.getByRole("radiogroup", { name: "Pick a number from one to twenty" });
     expect(picker).toHaveAttribute("aria-keyshortcuts", "ArrowRight ArrowDown ArrowLeft ArrowUp Home End");
-    expect(screen.getByRole("radio", { name: "7 plausibly odd" })).toHaveAttribute("aria-checked", "true");
+    const pickSeven = screen.getByRole("radio", { name: "7 plausibly odd" });
+    expect(pickSeven).toHaveAttribute("aria-checked", "true");
+    expect(pickSeven).toHaveAttribute("aria-posinset", "7");
+    expect(pickSeven).toHaveAttribute("aria-setsize", "20");
     expect(screen.getByRole("radio", { name: "8 plausibly odd" })).toHaveAttribute("aria-checked", "false");
   });
 
