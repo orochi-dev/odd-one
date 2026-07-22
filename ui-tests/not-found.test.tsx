@@ -9,7 +9,7 @@ describe("NotFound", () => {
     expect(screen.getByRole("heading", { name: /this number is not in play/i })).toBeInTheDocument();
     expect(screen.getByText(/the page may have moved, or the room link may no longer be valid/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /return to the odd one homepage/i })).toHaveAttribute("href", "/");
-    expect(screen.getByRole("link", { name: /choose a lobby/i })).toHaveAttribute("href", "/play");
+    expect(screen.getByRole("link", { name: /choose a lobby from the not found page/i })).toHaveAttribute("href", "/play");
     expect(screen.getByRole("link", { name: /return home/i })).toHaveAttribute("href", "/");
     expect(container.querySelector(".brand-symbol")).toHaveAttribute("aria-hidden", "true");
     expect(container.querySelector(".brand-symbol")).toHaveAttribute("focusable", "false");
