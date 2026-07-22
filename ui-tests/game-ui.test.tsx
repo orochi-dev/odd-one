@@ -531,7 +531,7 @@ describe("NumberPicker", () => {
     });
     expect(screen.getByRole("alert")).toHaveTextContent("Room not found.");
     expect(container.querySelector(".empty-state span")).toHaveAttribute("aria-hidden", "true");
-    expect(screen.getByRole("link", { name: "Choose a lobby" })).toHaveAttribute("href", "/play/celo");
+    expect(screen.getByRole("link", { name: "Choose the Celo lobby from the missing room page" })).toHaveAttribute("href", "/play/celo");
   });
 
   it("announces the room loading placeholder as a polite atomic status", async () => {
