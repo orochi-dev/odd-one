@@ -23,7 +23,7 @@ describe("NumberPicker", () => {
 
     expect(screen.getByRole("group", { name: "Pick a number from one to twenty" })).toBeVisible();
     const picker = screen.getByRole("radiogroup", { name: "Pick a number from one to twenty" });
-    expect(picker).toHaveAccessibleDescription("Use arrow keys to move between picks. Home jumps to 1 and End jumps to 20.");
+    expect(picker).toHaveAccessibleDescription("Use arrow keys to move between picks. Arrow keys wrap between 1 and 20. Home jumps to 1 and End jumps to 20.");
     expect(picker).toHaveAttribute("aria-activedescendant", "live-pick-7");
     expect(picker).toHaveAttribute("aria-keyshortcuts", "ArrowRight ArrowDown ArrowLeft ArrowUp Home End");
     const pickSeven = screen.getByRole("radio", { name: "Pick 7 — plausibly odd" });
