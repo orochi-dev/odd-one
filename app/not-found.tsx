@@ -11,7 +11,7 @@ export default function NotFound() {
     <p>The page may have moved, or the room link may no longer be valid.</p>
     <div className="hero-actions">
       <Link aria-label="Choose a lobby from the not found page" className="action action-lime" href="/play">Choose a lobby</Link>
-      <Link className="action action-ghost" href="/">Return home</Link>
+      <Link aria-label="Return to the Odd One homepage from the not found page" className="action action-ghost" href="/">Return home</Link>
     </div>
   </main>;
 }
