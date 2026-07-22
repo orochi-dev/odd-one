@@ -18,12 +18,31 @@ vi.mock("@/lib/env", () => ({
 }));
 
 describe("NumberPicker", () => {
-  it("groups the choices under an accessible legend and marks the selected value", () => {
+  it("uses radio semantics for the selected live number", () => {
     render(<NumberPicker selected={7} onSelect={vi.fn()} />);
 
     expect(screen.getByRole("group", { name: "Pick a number from one to twenty" })).toBeVisible();
-    expect(screen.getByRole("button", { name: "7 plausibly odd" })).toHaveAttribute("aria-pressed", "true");
-    expect(screen.getByRole("button", { name: "8 plausibly odd" })).toHaveAttribute("aria-pressed", "false");
+    const picker = screen.getByRole("radiogroup", { name: "Pick a number from one to twenty" });
+    expect(picker).toHaveAttribute("aria-keyshortcuts", "ArrowRight ArrowDown ArrowLeft ArrowUp Home End");
+    expect(screen.getByRole("radio", { name: "7 plausibly odd" })).toHaveAttribute("aria-checked", "true");
+    expect(screen.getByRole("radio", { name: "8 plausibly odd" })).toHaveAttribute("aria-checked", "false");
+  });
+
+  it("supports keyboard navigation for live number picks", () => {
+    const onSelect = vi.fn();
+    render(<NumberPicker selected={7} onSelect={onSelect} />);
+
+    const picker = screen.getByRole("radiogroup", { name: "Pick a number from one to twenty" });
+    const pickSeven = screen.getByRole("radio", { name: "7 plausibly odd" });
+    const pickEight = screen.getByRole("radio", { name: "8 plausibly odd" });
+
+    pickSeven.focus();
+    expect(pickSeven).toHaveFocus();
+    expect(pickSeven).toHaveAttribute("tabindex", "0");
+    expect(pickEight).toHaveAttribute("tabindex", "-1");
+
+    fireEvent.keyDown(picker, { key: "ArrowRight" });
+    expect(onSelect).toHaveBeenCalledWith(8);
   });
 
   it("gives lobby tabs context-rich accessible names", async () => {

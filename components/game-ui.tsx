@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Check, Clock3, Copy, Download, EyeOff, LockKeyhole, Radio, RefreshCw, Share2, Trophy, Upload } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { AppShell } from "./app-shell";
@@ -19,6 +19,7 @@ const lobbyTabLabel: Record<"open" | "reveal" | "finished" | "mine", string> = {
   finished: "Finished rooms",
   mine: "My rooms",
 };
+const numberOptions = Array.from({ length: 20 }, (_, i) => i + 1);
 
 function SetupState({ network }: { network: Network }) {
   const networkLabel = network === "celo" ? "Celo" : "Stacks";
@@ -56,7 +57,59 @@ function LobbyBody({ network, client }: { network: Network; client: ReturnType<t
   </>;
 }
 
-export function NumberPicker({ selected, onSelect }: { selected: number; onSelect(number: number): void }) { return <fieldset className="number-picker"><legend className="sr-only">Pick a number from one to twenty</legend><div className="number-grid">{Array.from({ length: 20 }, (_, i) => i + 1).map((number) => <button type="button" aria-pressed={selected === number} className={selected === number ? "selected" : ""} onClick={() => onSelect(number)} key={number}><span>{number}</span><small>{number < 5 ? "dangerously obvious" : number < 11 ? "plausibly odd" : "boldly high"}</small></button>)}</div></fieldset>; }
+export function NumberPicker({ selected, onSelect }: { selected: number; onSelect(number: number): void }) {
+  const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const moveSelection = (direction: "next" | "previous" | "first" | "last") => {
+    const currentIndex = numberOptions.indexOf(selected);
+    if (currentIndex === -1) return;
+    if (direction === "first") {
+      const nextNumber = numberOptions[0];
+      onSelect(nextNumber);
+      optionRefs.current[0]?.focus();
+      return;
+    }
+    if (direction === "last") {
+      const lastIndex = numberOptions.length - 1;
+      const nextNumber = numberOptions[lastIndex];
+      onSelect(nextNumber);
+      optionRefs.current[lastIndex]?.focus();
+      return;
+    }
+    const offset = direction === "next" ? 1 : -1;
+    const nextIndex = (currentIndex + offset + numberOptions.length) % numberOptions.length;
+    const nextNumber = numberOptions[nextIndex];
+    onSelect(nextNumber);
+    optionRefs.current[nextIndex]?.focus();
+  };
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    switch (event.key) {
+      case "ArrowRight":
+      case "ArrowDown":
+        event.preventDefault();
+        moveSelection("next");
+        break;
+      case "ArrowLeft":
+      case "ArrowUp":
+        event.preventDefault();
+        moveSelection("previous");
+        break;
+      case "Home":
+        event.preventDefault();
+        moveSelection("first");
+        break;
+      case "End":
+        event.preventDefault();
+        moveSelection("last");
+        break;
+      default:
+        break;
+    }
+  };
+
+  return <fieldset className="number-picker"><legend className="sr-only">Pick a number from one to twenty</legend><div className="number-grid" role="radiogroup" aria-label="Pick a number from one to twenty" aria-keyshortcuts="ArrowRight ArrowDown ArrowLeft ArrowUp Home End" onKeyDown={handleKeyDown}>{numberOptions.map((number, index) => <button type="button" role="radio" aria-checked={selected === number} tabIndex={selected === number ? 0 : -1} className={selected === number ? "selected" : ""} onClick={() => onSelect(number)} ref={(element) => {
+    optionRefs.current[index] = element;
+  }} key={number}><span>{number}</span><small>{number < 5 ? "dangerously obvious" : number < 11 ? "plausibly odd" : "boldly high"}</small></button>)}</div></fieldset>;
+}
 
 export function CreateRoomView({ network }: { network: Network }) { return <NetworkFrame network={network}>{(client) => <CreateBody network={network} client={client}/>}</NetworkFrame>; }
 function CreateBody({ network, client }: { network: Network; client: ReturnType<typeof useNetworkClient> }) {
