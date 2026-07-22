@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { Check, Clock3, Copy, Download, EyeOff, LockKeyhole, Radio, RefreshCw, Share2, Trophy, Upload } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { AppShell } from "./app-shell";
@@ -58,6 +58,7 @@ function LobbyBody({ network, client }: { network: Network; client: ReturnType<t
 }
 
 export function NumberPicker({ selected, onSelect }: { selected: number; onSelect(number: number): void }) {
+  const pickerHintId = useId();
   const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const moveSelection = (direction: "next" | "previous" | "first" | "last") => {
     const currentIndex = numberOptions.indexOf(selected);
@@ -106,7 +107,7 @@ export function NumberPicker({ selected, onSelect }: { selected: number; onSelec
     }
   };
 
-  return <fieldset className="number-picker"><legend className="sr-only">Pick a number from one to twenty</legend><div className="number-grid" role="radiogroup" aria-label="Pick a number from one to twenty" aria-activedescendant={`live-pick-${selected}`} aria-keyshortcuts="ArrowRight ArrowDown ArrowLeft ArrowUp Home End" onKeyDown={handleKeyDown}>{numberOptions.map((number, index) => <button type="button" id={`live-pick-${number}`} role="radio" aria-label={`Pick ${number} — ${number < 5 ? "dangerously obvious" : number < 11 ? "plausibly odd" : "boldly high"}`} aria-checked={selected === number} aria-posinset={index + 1} aria-setsize={numberOptions.length} tabIndex={selected === number ? 0 : -1} className={selected === number ? "selected" : ""} onClick={() => onSelect(number)} ref={(element) => {
+  return <fieldset className="number-picker"><legend className="sr-only">Pick a number from one to twenty</legend><p id={pickerHintId} className="sr-only">Use arrow keys to move between picks. Home jumps to 1 and End jumps to 20.</p><div className="number-grid" role="radiogroup" aria-label="Pick a number from one to twenty" aria-describedby={pickerHintId} aria-activedescendant={`live-pick-${selected}`} aria-keyshortcuts="ArrowRight ArrowDown ArrowLeft ArrowUp Home End" onKeyDown={handleKeyDown}>{numberOptions.map((number, index) => <button type="button" id={`live-pick-${number}`} role="radio" aria-label={`Pick ${number} — ${number < 5 ? "dangerously obvious" : number < 11 ? "plausibly odd" : "boldly high"}`} aria-checked={selected === number} aria-posinset={index + 1} aria-setsize={numberOptions.length} tabIndex={selected === number ? 0 : -1} className={selected === number ? "selected" : ""} onClick={() => onSelect(number)} ref={(element) => {
     optionRefs.current[index] = element;
   }} key={number}><span>{number}</span><small>{number < 5 ? "dangerously obvious" : number < 11 ? "plausibly odd" : "boldly high"}</small></button>)}</div></fieldset>;
 }
