@@ -181,10 +181,10 @@ describe("NumberPicker", () => {
     const { container } = render(<Lobby network="celo" />);
 
     await waitFor(() => {
-      expect(screen.getByRole("link", { name: /room #0007/i })).toBeVisible();
+      expect(screen.getByRole("link", { name: "Room #0007, Open for picks, 3 of 12 players committed, Public room" })).toBeVisible();
     });
     expect(container.querySelector(".room-phase-icon")).toHaveAttribute("aria-hidden", "true");
-    expect(screen.getByRole("link", { name: /open for picks/i })).toBeVisible();
+    expect(screen.getByRole("link", { name: "Room #0007, Open for picks, 3 of 12 players committed, Public room" })).toBeVisible();
   });
 
   it("shows a single ticket importer during reveal when the saved ticket is missing", async () => {

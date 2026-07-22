@@ -31,7 +31,11 @@ function SetupState({ network }: { network: Network }) {
 
 function TransactionNotice({ state }: { state: TransactionState | null }) { if (!state) return null; return <div className={`transaction-notice phase-${state.phase}`} role="status" aria-live="polite" aria-atomic="true"><span className="pulse-dot"/><div><strong>{state.phase.replace("-", " ")}</strong><p>{state.message}</p>{state.explorerUrl && <a target="_blank" rel="noreferrer" href={state.explorerUrl}>View transaction ↗</a>}</div></div>; }
 
-function RoomCard({ room }: { room: OddOneRoom }) { const phase = getPhase(room); return <Link href={`/play/${room.network}/room/${room.id}`} className={`room-card room-${phase}`}>
+function roomCardAccessibleLabel(room: OddOneRoom) {
+  return `Room #${room.id.toString().padStart(4, "0")}, ${roomCardStatusCopy(room)}, ${room.committedCount} of 12 players committed, ${roomVisibilityCopy(room)}`;
+}
+
+function RoomCard({ room }: { room: OddOneRoom }) { const phase = getPhase(room); return <Link href={`/play/${room.network}/room/${room.id}`} aria-label={roomCardAccessibleLabel(room)} className={`room-card room-${phase}`}>
   <div className="room-card-head"><span className="mono">ROOM #{room.id.toString().padStart(4, "0")}</span><span className="sr-only">{roomVisibilityCopy(room)}</span>{room.visibility === "unlisted" ? <LockKeyhole aria-hidden="true" focusable="false" size={15}/> : <Radio aria-hidden="true" focusable="false" size={15}/>}</div>
   <div className="room-card-body"><div className="room-phase-icon" aria-hidden="true">{phase === "commit" ? "?" : phase === "reveal" ? "!" : room.winningNumber || "–"}</div><div><span className="eyebrow">{phaseLabel(phase)}</span><h3>{room.committedCount} / 12 players</h3></div></div>
   <div className="room-card-foot"><span>{formatMoment(room.createdAt)}</span><span>{roomCardStatusCopy(room)}</span></div>
