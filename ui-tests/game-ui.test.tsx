@@ -90,6 +90,10 @@ describe("NumberPicker", () => {
     expect(screen.getByRole("tab", { name: "Finished rooms" })).toBeVisible();
     expect(screen.getByRole("tab", { name: "My rooms" })).toBeVisible();
     expect(screen.getByRole("button", { name: "Refresh Celo rooms" })).toBeVisible();
+    expect(screen.getByRole("link", { name: "Create a room from the Celo lobby hero" })).toHaveAttribute("href", "/play/celo/create");
+    await waitFor(() => {
+      expect(screen.getByRole("link", { name: "Create a room from the empty Open rooms view" })).toHaveAttribute("href", "/play/celo/create");
+    });
     expect(screen.getByRole("tabpanel")).toHaveAttribute("aria-labelledby", "celo-tab-open");
     expect(screen.getByRole("tab", { name: "Open rooms" })).toHaveAttribute("aria-controls", "celo-lobby-panel");
   });
