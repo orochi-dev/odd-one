@@ -106,7 +106,7 @@ export function NumberPicker({ selected, onSelect }: { selected: number; onSelec
     }
   };
 
-  return <fieldset className="number-picker"><legend className="sr-only">Pick a number from one to twenty</legend><div className="number-grid" role="radiogroup" aria-label="Pick a number from one to twenty" aria-keyshortcuts="ArrowRight ArrowDown ArrowLeft ArrowUp Home End" onKeyDown={handleKeyDown}>{numberOptions.map((number, index) => <button type="button" role="radio" aria-checked={selected === number} aria-posinset={index + 1} aria-setsize={numberOptions.length} tabIndex={selected === number ? 0 : -1} className={selected === number ? "selected" : ""} onClick={() => onSelect(number)} ref={(element) => {
+  return <fieldset className="number-picker"><legend className="sr-only">Pick a number from one to twenty</legend><div className="number-grid" role="radiogroup" aria-label="Pick a number from one to twenty" aria-activedescendant={`live-pick-${selected}`} aria-keyshortcuts="ArrowRight ArrowDown ArrowLeft ArrowUp Home End" onKeyDown={handleKeyDown}>{numberOptions.map((number, index) => <button type="button" id={`live-pick-${number}`} role="radio" aria-checked={selected === number} aria-posinset={index + 1} aria-setsize={numberOptions.length} tabIndex={selected === number ? 0 : -1} className={selected === number ? "selected" : ""} onClick={() => onSelect(number)} ref={(element) => {
     optionRefs.current[index] = element;
   }} key={number}><span>{number}</span><small>{number < 5 ? "dangerously obvious" : number < 11 ? "plausibly odd" : "boldly high"}</small></button>)}</div></fieldset>;
 }
