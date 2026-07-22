@@ -16,10 +16,12 @@ describe("Home", () => {
     expect(screen.getByRole("navigation", { name: /primary/i })).toBeInTheDocument();
   });
 
-  it("labels play entry points as choosing a lobby", () => {
+  it("gives each play entry point a distinct accessible lobby label", () => {
     render(<Home />);
 
-    expect(screen.getAllByRole("link", { name: "Choose a lobby" })).toHaveLength(3);
+    expect(screen.getByRole("link", { name: "Choose a lobby from the homepage navigation" })).toHaveAttribute("href", "/play");
+    expect(screen.getByRole("link", { name: "Choose a lobby and start playing Odd One" })).toHaveAttribute("href", "/play");
+    expect(screen.getByRole("link", { name: "Choose a lobby from the final call to action" })).toHaveAttribute("href", "/play");
   });
 
   it("hides the decorative probability field from assistive technology", () => {
