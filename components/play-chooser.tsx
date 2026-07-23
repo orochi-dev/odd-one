@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import type { MouseEvent } from "react";
 import { useEffect, useId, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BrandMark } from "@/components/brand-mark";
@@ -13,7 +14,10 @@ export function PlayChooser() {
     const provider = (window as unknown as { ethereum?: { isMiniPay?: boolean } }).ethereum;
     return provider?.isMiniPay === true;
   });
-  const redirectProps = redirectingToCelo ? { "aria-disabled": "true" as const, tabIndex: -1 } : {};
+  const preventRedirectNavigation = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (redirectingToCelo) event.preventDefault();
+  };
+  const redirectProps = redirectingToCelo ? { "aria-disabled": "true" as const, tabIndex: -1, onClick: preventRedirectNavigation } : {};
 
   useEffect(() => {
     if (redirectingToCelo) router.replace("/play/celo");

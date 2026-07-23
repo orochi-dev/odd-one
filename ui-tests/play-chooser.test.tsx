@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { createEvent, fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { PlayChooser } from "@/components/play-chooser";
 
@@ -43,6 +43,27 @@ describe("PlayChooser", () => {
       "Navigation is temporarily unavailable while Odd One redirects MiniPay to the Celo lobby automatically.",
     );
     expect(replace).toHaveBeenCalledWith("/play/celo");
+  });
+
+  it("blocks chooser link activation while MiniPay is auto-redirecting", () => {
+    (window as Window & { ethereum?: { isMiniPay?: boolean } }).ethereum = { isMiniPay: true };
+
+    render(<PlayChooser />);
+
+    const celoLink = screen.getByRole("link", { name: "Enter the Celo lobby" });
+    const celoClick = createEvent.click(celoLink);
+    fireEvent(celoLink, celoClick);
+    expect(celoClick.defaultPrevented).toBe(true);
+
+    const stacksLink = screen.getByRole("link", { name: "Enter the Stacks lobby" });
+    const stacksClick = createEvent.click(stacksLink);
+    fireEvent(stacksLink, stacksClick);
+    expect(stacksClick.defaultPrevented).toBe(true);
+
+    const homeLink = screen.getByRole("link", { name: "Back to the Odd One homepage" });
+    const homeClick = createEvent.click(homeLink);
+    fireEvent(homeLink, homeClick);
+    expect(homeClick.defaultPrevented).toBe(true);
   });
 
   it("gives each network card a destination-focused accessible name", () => {
