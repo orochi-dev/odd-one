@@ -18,4 +18,4 @@ The creator commitment uses room domain `0`, which avoids guessing a future sequ
 
 After reveal, finalization scans 1 through 20 and selects the first count equal to one. Fewer than three reveals is no-contest. If every revealed number is duplicated, the outcome is a draw.
 
-Unlisted removes a room from ordinary application discovery. It is not privacy or access control.
+Unlisted removes a room from ordinary application discovery. It is not privacy or access control: wallet addresses, commitments, reveals, timestamps, and results still remain public onchain.
