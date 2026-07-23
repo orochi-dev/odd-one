@@ -383,6 +383,7 @@ describe("NumberPicker", () => {
     });
     expect(screen.getByRole("status")).toHaveAttribute("aria-live", "polite");
     expect(screen.getByRole("status")).toHaveAttribute("aria-atomic", "true");
+    expect(screen.getByRole("link", { name: "View broadcasting transaction in the block explorer" })).toHaveAttribute("href", "https://explorer.example/tx/0x123");
   });
 
   it("gives the reveal count board readable list labels", async () => {

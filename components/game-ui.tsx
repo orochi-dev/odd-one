@@ -29,7 +29,7 @@ function SetupState({ network }: { network: Network }) {
   return <section className="setup-state"><span className="status-ribbon">Setup required</span><span className="setup-number">00</span><h1>The {networkLabel} stage is not wired yet.</h1><p>Add <code>{contractEnvVar}</code> before sharing live {networkLabel} rooms. Odd One never substitutes preview records for live rooms.</p><a className="action action-ghost" href={contractExplorerUrl(network)}>Open the {networkLabel} contract explorer</a></section>;
 }
 
-function TransactionNotice({ state }: { state: TransactionState | null }) { if (!state) return null; return <div className={`transaction-notice phase-${state.phase}`} role="status" aria-live="polite" aria-atomic="true"><span className="pulse-dot"/><div><strong>{state.phase.replace("-", " ")}</strong><p>{state.message}</p>{state.explorerUrl && <a target="_blank" rel="noreferrer" href={state.explorerUrl}>View transaction ↗</a>}</div></div>; }
+function TransactionNotice({ state }: { state: TransactionState | null }) { if (!state) return null; return <div className={`transaction-notice phase-${state.phase}`} role="status" aria-live="polite" aria-atomic="true"><span className="pulse-dot"/><div><strong>{state.phase.replace("-", " ")}</strong><p>{state.message}</p>{state.explorerUrl && <a aria-label={`View ${state.phase.replace("-", " ")} transaction in the block explorer`} target="_blank" rel="noreferrer" href={state.explorerUrl}>View transaction ↗</a>}</div></div>; }
 
 function roomCardAccessibleLabel(room: OddOneRoom) {
   return `Room #${room.id.toString().padStart(4, "0")}, ${roomCardStatusCopy(room)}, ${room.committedCount} of 12 players committed, ${roomVisibilityCopy(room)}`;
