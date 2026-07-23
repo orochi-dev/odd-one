@@ -79,7 +79,7 @@ describe("AppShell", () => {
       </AppShell>,
     );
 
-    expect(screen.getByRole("button", { name: "Connect Celo wallet" })).toHaveTextContent("Opening Celo wallet…");
+    expect(screen.getByRole("button", { name: "Opening Celo wallet" })).toHaveTextContent("Opening Celo wallet…");
   });
 
   it("announces MiniPay auto-connect as an atomic live status", () => {
