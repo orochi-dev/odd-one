@@ -23,8 +23,8 @@ export async function generateMetadata({
   const shortAddress = address.length > 12 ? `${address.slice(0, 6)}...${address.slice(-4)}` : address;
 
   return {
-    title: `${shortAddress} profile`,
-    description: `Review Odd One wins, points, and room history for ${shortAddress} on ${label}.`
+    title: `${shortAddress} ${label} player profile`,
+    description: `Review Odd One wins, points, streaks, and recent rooms for ${shortAddress} on ${label}.`
   };
 }
 
