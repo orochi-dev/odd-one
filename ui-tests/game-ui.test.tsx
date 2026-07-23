@@ -307,6 +307,61 @@ describe("NumberPicker", () => {
     expect(screen.getByRole("link", { name: "Back to the Celo lobby from room 0007" })).toHaveAttribute("href", "/play/celo");
   });
 
+  it("gives the settled-room winner link an explicit profile label", async () => {
+    vi.spyOn(Date, "now").mockReturnValue(1_900_000);
+
+    const winner = "0x1234567890abcdef1234567890abcdef12345678";
+    const repository: OddOneRepository = {
+      network: "celo",
+      configured: true,
+      getTotalRooms: vi.fn(),
+      getRoom: vi.fn().mockResolvedValue({
+        id: 7n,
+        network: "celo",
+        creator: "0xcreator",
+        visibility: "public",
+        createdAt: 1_000,
+        commitEndAt: 1_400,
+        revealEndAt: 1_600,
+        committedCount: 3,
+        revealedCount: 3,
+        finalized: true,
+        outcome: "winner",
+        winner,
+        winningNumber: 2,
+      }),
+      getPlayerEntry: vi.fn().mockResolvedValue(null),
+      getParticipants: vi.fn().mockResolvedValue([]),
+      getNumberCounts: vi.fn().mockResolvedValue([0, 1, 2, ...Array(17).fill(0)]),
+      getPlayerStats: vi.fn(),
+      getCreatedCount: vi.fn(),
+      getPlayedCount: vi.fn(),
+      getCreatedIds: vi.fn(),
+      getPlayedIds: vi.fn(),
+      createRoom: vi.fn(),
+      commitNumber: vi.fn(),
+      revealNumber: vi.fn(),
+      finalizeRoom: vi.fn(),
+    };
+
+    mockUseNetworkClient.mockReturnValue({
+      account: null,
+      connected: false,
+      connecting: false,
+      isMiniPay: false,
+      connect: vi.fn(),
+      disconnect: vi.fn(),
+      repository,
+    });
+
+    render(<RoomView network="celo" id={7n} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("heading", { name: "Number 2 wins." })).toBeVisible();
+    });
+    expect(screen.getByRole("link", { name: "Open winner profile for 0x123…45678" })).toHaveAttribute("href", `/play/celo/profile/${winner}`);
+  });
+
   it("announces transaction updates as a single live status", async () => {
     vi.spyOn(Date, "now").mockReturnValue(1_700_000);
 
