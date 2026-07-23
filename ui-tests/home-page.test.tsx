@@ -13,6 +13,7 @@ describe("Home", () => {
   it("names the primary navigation landmark", () => {
     render(<Home />);
 
+    expect(screen.getByRole("banner", { name: "Odd One homepage" })).toBeInTheDocument();
     expect(screen.getByRole("navigation", { name: "Homepage sections and lobby" })).toBeInTheDocument();
   });
 
