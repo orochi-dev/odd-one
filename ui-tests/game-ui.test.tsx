@@ -439,7 +439,7 @@ describe("NumberPicker", () => {
     });
     expect(screen.getByRole("list", { name: "Reveal counts by number" })).toBeVisible();
     expect(screen.getByRole("listitem", { name: "Number 2 picked 2 times" })).toBeVisible();
-    expect(screen.getByRole("listitem", { name: "Number 1 picked 0 times" })).toBeVisible();
+    expect(screen.getByRole("listitem", { name: "Number 1 not picked" })).toBeVisible();
   });
 
   it("uses wallet-first copy for the disconnected room commit action", async () => {

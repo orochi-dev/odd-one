@@ -169,7 +169,8 @@ function TicketImporter({ onFile }: { onFile(file: File): void }) { return <labe
 function CountBoard({ counts }: { counts: number[] }) {
   return <div className="count-board" role="list" aria-label="Reveal counts by number">{Array.from({ length: 20 }, (_, i) => {
     const count = counts[i] ?? 0;
-    return <span role="listitem" aria-label={`Number ${i + 1} picked ${count} ${count === 1 ? "time" : "times"}`} className={count === 1 ? "unique" : count > 1 ? "duplicate" : ""} key={i}><strong aria-hidden="true">{i + 1}</strong><small aria-hidden="true">{count}</small></span>;
+    const countLabel = count === 0 ? `Number ${i + 1} not picked` : `Number ${i + 1} picked ${count} ${count === 1 ? "time" : "times"}`;
+    return <span role="listitem" aria-label={countLabel} className={count === 1 ? "unique" : count > 1 ? "duplicate" : ""} key={i}><strong aria-hidden="true">{i + 1}</strong><small aria-hidden="true">{count}</small></span>;
   })}</div>;
 }
 
