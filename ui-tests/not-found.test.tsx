@@ -6,6 +6,8 @@ describe("NotFound", () => {
   it("offers clear recovery paths", () => {
     const { container } = render(<NotFound />);
 
+    expect(screen.getByRole("alert")).toHaveAttribute("aria-labelledby", "not-found-title");
+    expect(screen.getByRole("alert")).toHaveAttribute("aria-describedby", "not-found-copy");
     expect(screen.getByRole("heading", { name: /this number is not in play/i })).toBeInTheDocument();
     expect(screen.getByText(/the page may have moved, or the room link may no longer be valid/i)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Return to the Odd One homepage" })).toHaveAttribute("href", "/");
