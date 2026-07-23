@@ -14,6 +14,7 @@ describe("PlayChooser", () => {
 
     render(<PlayChooser />);
 
+    expect(screen.getByRole("main", { name: "Same game. Different signal." })).toBeInTheDocument();
     expect(screen.getByText("Choose a lobby")).toBeInTheDocument();
     expect(screen.getByText("Rooms, scores, and unlocked titles stay independent on each network.")).toBeInTheDocument();
     expect(screen.getByRole("status")).toHaveAttribute("aria-atomic", "true");
