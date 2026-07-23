@@ -13,7 +13,7 @@ describe("Home", () => {
   it("names the primary navigation landmark", () => {
     render(<Home />);
 
-    expect(screen.getByRole("navigation", { name: /primary/i })).toBeInTheDocument();
+    expect(screen.getByRole("navigation", { name: "Homepage sections and lobby" })).toBeInTheDocument();
   });
 
   it("gives each play entry point a distinct accessible lobby label", () => {
