@@ -13,7 +13,7 @@ export default function Home() {
         <LandingDemo />
       </section>
 
-      <section id="rules" className="rules-section section-wrap"><div className="section-heading"><span className="eyebrow">Three moves. One outlier.</span><h2>Simple rules.<br/>Suspicious minds.</h2></div><div className="rule-grid">
+      <section id="rules" className="rules-section section-wrap" aria-labelledby="rules-title"><div className="section-heading"><span className="eyebrow">Three moves. One outlier.</span><h2 id="rules-title">Simple rules.<br/>Suspicious minds.</h2></div><div className="rule-grid">
         <article><span className="rule-index">01 / PICK</span><EyeOff aria-hidden="true" focusable="false"/><h3>Hide a number</h3><p>Choose from 1 to 20. Your wallet publishes only a cryptographic commitment.</p></article>
         <article><span className="rule-index">02 / REVEAL</span><Radio aria-hidden="true" focusable="false"/><h3>Show your hand</h3><p>After 20 minutes, everyone gets ten minutes to reveal their original pick.</p></article>
         <article><span className="rule-index">03 / WIN</span><Trophy aria-hidden="true" focusable="false"/><h3>Stand alone</h3><p>The lowest number selected exactly once wins 100 points. Every reveal earns five.</p></article>

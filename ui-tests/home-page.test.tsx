@@ -37,6 +37,12 @@ describe("Home", () => {
     expect(screen.getByRole("region", { name: "The chain remembers the room." })).toBeInTheDocument();
   });
 
+  it("exposes the rules section as a named region", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("region", { name: "Simple rules. Suspicious minds." })).toBeInTheDocument();
+  });
+
   it("marks decorative landing icons as hidden from assistive technology", () => {
     const { container } = render(<Home />);
 
