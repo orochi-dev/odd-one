@@ -23,7 +23,7 @@ describe("AppShell", () => {
     expect(screen.getByRole("main")).toHaveAttribute("tabindex", "-1");
   });
 
-  it("marks the active network and labels the disconnect control", () => {
+  it("marks the active network and keeps the connected signal decorative", () => {
     render(
       <AppShell
         network="celo"
@@ -42,7 +42,7 @@ describe("AppShell", () => {
     expect(screen.getByRole("navigation", { name: "Choose a network lobby" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Current lobby: Celo" })).toHaveAttribute("aria-current", "page");
     expect(screen.getByRole("link", { name: "Open the Stacks lobby" })).not.toHaveAttribute("aria-current");
-    expect(screen.getByRole("img", { name: /player signal for 0x123…45678/i })).toBeInTheDocument();
+    expect(screen.queryByRole("img", { name: /player signal for 0x123…45678/i })).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: /disconnect wallet 0x123…45678/i })).toBeInTheDocument();
   });
 

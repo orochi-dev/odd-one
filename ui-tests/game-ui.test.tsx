@@ -360,6 +360,7 @@ describe("NumberPicker", () => {
       expect(screen.getByRole("heading", { name: "Number 2 wins." })).toBeVisible();
     });
     expect(screen.getByRole("link", { name: "Open winner profile for 0x123…45678" })).toHaveAttribute("href", `/play/celo/profile/${winner}`);
+    expect(screen.queryByRole("img", { name: "Player signal for 0x123…45678" })).not.toBeInTheDocument();
   });
 
   it("announces transaction updates as a single live status", async () => {
