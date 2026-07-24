@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import { Lobby, NumberPicker, ProfileView, RoomView, TicketSheet } from "@/components/game-ui";
+import { CreateRoomView, Lobby, NumberPicker, ProfileView, RoomView, TicketSheet } from "@/components/game-ui";
 import type { OddOneRepository } from "@/lib/types";
 import { buildRevealTicket } from "@/lib/commitment";
 
@@ -96,6 +96,44 @@ describe("NumberPicker", () => {
     });
     expect(screen.getByRole("tabpanel")).toHaveAttribute("aria-labelledby", "celo-tab-open");
     expect(screen.getByRole("tab", { name: "Open rooms" })).toHaveAttribute("aria-controls", "celo-lobby-panel");
+  });
+
+  it("names the create-room setup region from its visible heading", () => {
+    const repository: OddOneRepository = {
+      network: "celo",
+      configured: true,
+      getTotalRooms: vi.fn(),
+      getRoom: vi.fn(),
+      getPlayerEntry: vi.fn(),
+      getParticipants: vi.fn(),
+      getNumberCounts: vi.fn(),
+      getPlayerStats: vi.fn(),
+      getCreatedCount: vi.fn(),
+      getPlayedCount: vi.fn(),
+      getCreatedIds: vi.fn(),
+      getPlayedIds: vi.fn(),
+      createRoom: vi.fn(),
+      commitNumber: vi.fn(),
+      revealNumber: vi.fn(),
+      finalizeRoom: vi.fn(),
+    };
+
+    mockUseNetworkClient.mockReturnValue({
+      account: null,
+      connected: false,
+      connecting: false,
+      isMiniPay: false,
+      connect: vi.fn(),
+      disconnect: vi.fn(),
+      repository,
+    });
+
+    render(<CreateRoomView network="celo" />);
+
+    expect(screen.getByRole("region", { name: "Put a number under the light." })).toHaveAccessibleDescription(
+      "Your choice is hidden behind a commitment. Save the reveal ticket; it is the only way to prove your original pick.",
+    );
+    expect(screen.getByRole("link", { name: "Back to the Celo lobby" })).toHaveAttribute("href", "/play/celo");
   });
 
   it("names the missing contract variable in the setup state", () => {
