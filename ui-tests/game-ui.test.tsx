@@ -799,6 +799,49 @@ describe("NumberPicker", () => {
     expect(await screen.findByRole("alert")).toHaveTextContent("Profile could not be loaded.");
   });
 
+  it("exposes recent profile rooms as a named region", async () => {
+    const repository: OddOneRepository = {
+      network: "celo",
+      configured: true,
+      getTotalRooms: vi.fn(),
+      getRoom: vi.fn(),
+      getPlayerEntry: vi.fn(),
+      getParticipants: vi.fn(),
+      getNumberCounts: vi.fn(),
+      getPlayerStats: vi.fn().mockResolvedValue({
+        score: 105,
+        wins: 1,
+        reveals: 3,
+        currentRevealStreak: 2,
+        bestRevealStreak: 2,
+      }),
+      getCreatedCount: vi.fn(),
+      getPlayedCount: vi.fn().mockResolvedValue(0n),
+      getCreatedIds: vi.fn(),
+      getPlayedIds: vi.fn(),
+      createRoom: vi.fn(),
+      commitNumber: vi.fn(),
+      revealNumber: vi.fn(),
+      finalizeRoom: vi.fn(),
+    };
+
+    mockUseNetworkClient.mockReturnValue({
+      account: null,
+      connected: false,
+      connecting: false,
+      isMiniPay: false,
+      connect: vi.fn(),
+      disconnect: vi.fn(),
+      repository,
+    });
+
+    render(
+      <ProfileView network="celo" address="0x1234567890abcdef1234567890abcdef12345678" />
+    );
+
+    expect(await screen.findByRole("region", { name: "Recent rooms" })).toBeVisible();
+  });
+
   it("hides decorative room icons from assistive technology", async () => {
     vi.spyOn(Date, "now").mockReturnValue(1_500_000);
 
