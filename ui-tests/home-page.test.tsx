@@ -55,6 +55,12 @@ describe("Home", () => {
     expect(screen.getByRole("region", { name: "Thirty minutes. No host advantage." })).toBeInTheDocument();
   });
 
+  it("exposes the strategy explainer as a named region", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("region", { name: "One is perfect. Unless everyone knows it." })).toBeInTheDocument();
+  });
+
   it("marks decorative landing icons as hidden from assistive technology", () => {
     const { container } = render(<Home />);
 
