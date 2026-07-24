@@ -7,6 +7,7 @@ export function LandingDemo() {
   const [selected, setSelected] = useState(2); const [revealed, setRevealed] = useState(false);
   const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const shouldRestoreFocusRef = useRef(false);
+  const previewTitleId = "landing-preview-title";
   const previewHintId = "preview-hint";
   const previewResultId = "preview-result";
   const picks = [selected, ...crowd]; const counts = picks.reduce<Record<number, number>>((map, number) => ({ ...map, [number]: (map[number] || 0) + 1 }), {});
@@ -82,7 +83,8 @@ export function LandingDemo() {
     shouldRestoreFocusRef.current = true;
     setRevealed(false);
   };
-  return <section className="demo-stage" role="region" aria-label="Simulated Odd One round">
+  return <section className="demo-stage" role="region" aria-labelledby={previewTitleId}>
+    <h2 id={previewTitleId} className="sr-only">Interactive Odd One preview</h2>
     <div className="demo-head"><span className="preview-pill">Interactive preview</span><span className="mono">ROOM #0042</span></div>
     <div className={`demo-orbit ${revealed ? "is-revealed" : ""}`}>
       <div className="spotlight" />

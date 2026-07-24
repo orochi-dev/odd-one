@@ -3,10 +3,11 @@ import { describe, expect, it } from "vitest";
 import { LandingDemo } from "@/components/landing-demo";
 
 describe("LandingDemo", () => {
-  it("exposes the simulated round as a labeled region", () => {
+  it("exposes the interactive preview as a heading-labeled region", () => {
     render(<LandingDemo />);
 
-    expect(screen.getByRole("region", { name: "Simulated Odd One round" })).toBeVisible();
+    expect(screen.getByRole("heading", { name: "Interactive Odd One preview" })).toHaveClass("sr-only");
+    expect(screen.getByRole("region", { name: "Interactive Odd One preview" })).toBeVisible();
   });
 
   it("runs a clearly labeled simulated reveal", () => {
