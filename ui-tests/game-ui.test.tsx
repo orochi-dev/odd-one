@@ -674,6 +674,7 @@ describe("NumberPicker", () => {
     await waitFor(() => {
       expect(screen.getByRole("heading", { name: "No rooms yet." })).toBeVisible();
     });
+    expect(screen.getByText("Celo player")).toBeVisible();
     expect(container.querySelector(".empty-state.compact span")).toHaveAttribute("aria-hidden", "true");
   });
 
