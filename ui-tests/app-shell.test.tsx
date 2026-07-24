@@ -82,7 +82,7 @@ describe("AppShell", () => {
     expect(screen.getByRole("button", { name: "Opening Celo wallet" })).toHaveTextContent("Opening Celo wallet…");
   });
 
-  it("announces MiniPay auto-connect as an atomic live status", () => {
+  it("announces MiniPay auto-connect with the target lobby context", () => {
     render(
       <AppShell
         network="celo"
@@ -97,7 +97,7 @@ describe("AppShell", () => {
       </AppShell>,
     );
 
-    expect(screen.getByRole("status")).toHaveTextContent("Connecting MiniPay…");
+    expect(screen.getByRole("status")).toHaveTextContent("Connecting MiniPay to the Celo lobby…");
     expect(screen.getByRole("status")).toHaveAttribute("aria-live", "polite");
     expect(screen.getByRole("status")).toHaveAttribute("aria-atomic", "true");
   });
