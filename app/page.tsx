@@ -29,7 +29,7 @@ export default function Home() {
 
       <section className="public-section section-wrap" aria-labelledby="public-disclosure-title"><div className="public-stamp">PUBLIC<br/>BY DESIGN</div><div><span className="eyebrow">Before you enter</span><h2 id="public-disclosure-title">The chain remembers the room.</h2><p>Wallet addresses, commitments, revealed numbers, timestamps, and results are public and permanent. Your secret salt stays in your browser until you reveal it.</p></div></section>
 
-      <section className="final-cta section-wrap"><span className="eyebrow">Think you know what they will pick?</span><h2>There is only one<br/>way to find out.</h2><Link aria-label="Choose a lobby from the final call to action" className="action action-orange" href="/play">Choose a lobby <ArrowRight aria-hidden="true" focusable="false" size={20}/></Link></section>
+      <section className="final-cta section-wrap" aria-labelledby="final-cta-title"><span className="eyebrow">Think you know what they will pick?</span><h2 id="final-cta-title">There is only one<br/>way to find out.</h2><Link aria-label="Choose a lobby from the final call to action" className="action action-orange" href="/play">Choose a lobby <ArrowRight aria-hidden="true" focusable="false" size={20}/></Link></section>
     </main>
     <footer className="landing-footer"><BrandMark/><p>A free strategy game. No bets, prizes, or financial value.</p><span className="mono">ODD ONE / 2026</span></footer>
   </div>;
