@@ -61,6 +61,12 @@ describe("Home", () => {
     expect(screen.getByRole("region", { name: "One is perfect. Unless everyone knows it." })).toBeInTheDocument();
   });
 
+  it("exposes the room visibility explainer as a named region", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("region", { name: "Public and unlisted room visibility" })).toBeInTheDocument();
+  });
+
   it("marks decorative landing icons as hidden from assistive technology", () => {
     const { container } = render(<Home />);
 
