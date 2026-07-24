@@ -37,6 +37,12 @@ describe("Home", () => {
     expect(screen.getByRole("region", { name: "The chain remembers the room." })).toBeInTheDocument();
   });
 
+  it("exposes the network explainer as a named region", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("region", { name: "Celo in MiniPay. Stacks beside Bitcoin." })).toBeInTheDocument();
+  });
+
   it("exposes the rules section as a named region", () => {
     render(<Home />);
 
