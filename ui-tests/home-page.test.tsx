@@ -31,6 +31,12 @@ describe("Home", () => {
     expect(container.querySelector(".probability-field")).toHaveAttribute("aria-hidden", "true");
   });
 
+  it("exposes the public onchain warning as a named region", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("region", { name: "The chain remembers the room." })).toBeInTheDocument();
+  });
+
   it("marks decorative landing icons as hidden from assistive technology", () => {
     const { container } = render(<Home />);
 
