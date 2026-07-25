@@ -839,6 +839,7 @@ describe("NumberPicker", () => {
       <ProfileView network="celo" address="0x1234567890abcdef1234567890abcdef12345678" />
     );
 
+    expect(await screen.findByRole("region", { name: "The titles you earned." })).toBeVisible();
     expect(await screen.findByRole("region", { name: "Recent rooms" })).toBeVisible();
   });
 
