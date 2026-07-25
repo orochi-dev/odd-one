@@ -26,7 +26,9 @@ function SetupState({ network }: { network: Network }) {
   const contractEnvVar = network === "celo"
     ? "NEXT_PUBLIC_ODD_ONE_CELO_CONTRACT_ADDRESS"
     : "NEXT_PUBLIC_ODD_ONE_STACKS_CONTRACT_ADDRESS";
-  return <section className="setup-state"><span className="status-ribbon">Setup required</span><span className="setup-number">00</span><h1>The {networkLabel} stage is not wired yet.</h1><p>Add <code>{contractEnvVar}</code> before sharing live {networkLabel} rooms. Odd One never substitutes preview records for live rooms.</p><a className="action action-ghost" href={contractExplorerUrl(network)}>Open the {networkLabel} contract explorer</a></section>;
+  const setupTitleId = `${network}-setup-title`;
+  const setupCopyId = `${network}-setup-copy`;
+  return <section className="setup-state" aria-labelledby={setupTitleId} aria-describedby={setupCopyId}><span className="status-ribbon">Setup required</span><span className="setup-number">00</span><h1 id={setupTitleId}>The {networkLabel} stage is not wired yet.</h1><p id={setupCopyId}>Add <code>{contractEnvVar}</code> before sharing live {networkLabel} rooms. Odd One never substitutes preview records for live rooms.</p><a className="action action-ghost" href={contractExplorerUrl(network)}>Open the {networkLabel} contract explorer</a></section>;
 }
 
 function TransactionNotice({ state }: { state: TransactionState | null }) { if (!state) return null; return <div className={`transaction-notice phase-${state.phase}`} role="status" aria-live="polite" aria-atomic="true"><span className="pulse-dot"/><div><strong>{state.phase.replace("-", " ")}</strong><p>{state.message}</p>{state.explorerUrl && <a aria-label={`View ${state.phase.replace("-", " ")} transaction in the block explorer`} target="_blank" rel="noreferrer" href={state.explorerUrl}>View transaction ↗</a>}</div></div>; }

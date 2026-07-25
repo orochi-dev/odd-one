@@ -168,6 +168,9 @@ describe("NumberPicker", () => {
 
     render(<Lobby network="celo" />);
 
+    expect(screen.getByRole("region", { name: "The Celo stage is not wired yet." })).toHaveAccessibleDescription(
+      "Add NEXT_PUBLIC_ODD_ONE_CELO_CONTRACT_ADDRESS before sharing live Celo rooms. Odd One never substitutes preview records for live rooms.",
+    );
     expect(screen.getByText("NEXT_PUBLIC_ODD_ONE_CELO_CONTRACT_ADDRESS")).toBeVisible();
     expect(screen.getByRole("link", { name: "Open the Celo contract explorer" })).toHaveAttribute("href", "https://explorer.example");
   });
