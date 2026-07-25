@@ -49,6 +49,12 @@ describe("Home", () => {
     expect(screen.getByRole("region", { name: "Simple rules. Suspicious minds." })).toBeInTheDocument();
   });
 
+  it("exposes the hero intro as a named region", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("region", { name: "Go low. Stay unique." })).toBeInTheDocument();
+  });
+
   it("exposes the timeline explainer as a named region", () => {
     render(<Home />);
 
