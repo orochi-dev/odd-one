@@ -25,6 +25,12 @@ describe("Home", () => {
     expect(screen.getByRole("link", { name: "Choose a lobby from the final call to action" })).toHaveAttribute("href", "/play");
   });
 
+  it("gives the hero rules jump link a descriptive accessible name", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("link", { name: "Learn how Odd One works" })).toHaveAttribute("href", "#rules");
+  });
+
   it("hides the decorative probability field from assistive technology", () => {
     const { container } = render(<Home />);
 
