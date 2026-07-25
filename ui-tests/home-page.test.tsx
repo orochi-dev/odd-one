@@ -90,4 +90,11 @@ describe("Home", () => {
       expect(icon).toHaveAttribute("focusable", "false");
     });
   });
+
+  it("keeps the footer brand mark decorative", () => {
+    const { container } = render(<Home />);
+
+    expect(container.querySelector(".landing-footer .brand-lockup")).toHaveAttribute("aria-hidden", "true");
+    expect(screen.queryByLabelText("Odd One")).not.toContainElement(container.querySelector(".landing-footer .brand-lockup"));
+  });
 });
