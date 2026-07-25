@@ -17,8 +17,12 @@ describe("PlayChooser", () => {
     expect(screen.getByRole("main", { name: "Same game. Different signal." })).toBeInTheDocument();
     expect(screen.getByText("Choose a lobby")).toBeInTheDocument();
     expect(screen.getByText("Rooms, scores, and unlocked titles stay independent on each network.")).toBeInTheDocument();
-    expect(screen.getByRole("status")).toHaveAttribute("aria-atomic", "true");
-    expect(screen.getByRole("status")).toHaveTextContent("MiniPay opens the Celo lobby automatically when it is available on this device.");
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "MiniPay opens the Celo lobby automatically when it is available on this device. Otherwise, choose either network below.",
+      ),
+    ).toBeInTheDocument();
     expect(replace).not.toHaveBeenCalled();
   });
 
