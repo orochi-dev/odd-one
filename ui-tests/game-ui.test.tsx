@@ -294,6 +294,61 @@ describe("NumberPicker", () => {
     expect(screen.getAllByText("Import reveal ticket")).toHaveLength(1);
   });
 
+  it("names the room move panel from the visible phase heading", async () => {
+    vi.spyOn(Date, "now").mockReturnValue(1_500_000);
+
+    const repository: OddOneRepository = {
+      network: "celo",
+      configured: true,
+      getTotalRooms: vi.fn(),
+      getRoom: vi.fn().mockResolvedValue({
+        id: 7n,
+        network: "celo",
+        creator: "0xcreator",
+        visibility: "public",
+        createdAt: 1_000,
+        commitEndAt: 1_600,
+        revealEndAt: 1_900,
+        committedCount: 1,
+        revealedCount: 0,
+        finalized: false,
+        outcome: "pending",
+        winner: null,
+        winningNumber: null,
+      }),
+      getPlayerEntry: vi.fn().mockResolvedValue(null),
+      getParticipants: vi.fn().mockResolvedValue([]),
+      getNumberCounts: vi.fn(),
+      getPlayerStats: vi.fn(),
+      getCreatedCount: vi.fn(),
+      getPlayedCount: vi.fn(),
+      getCreatedIds: vi.fn(),
+      getPlayedIds: vi.fn(),
+      createRoom: vi.fn(),
+      commitNumber: vi.fn(),
+      revealNumber: vi.fn(),
+      finalizeRoom: vi.fn(),
+    };
+
+    mockUseNetworkClient.mockReturnValue({
+      account: null,
+      connected: false,
+      connecting: false,
+      isMiniPay: false,
+      connect: vi.fn(),
+      disconnect: vi.fn(),
+      repository,
+    });
+
+    render(<RoomView network="celo" id={7n} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("complementary", { name: "Pick in secret." })).toBeVisible();
+    });
+    expect(screen.getByRole("heading", { name: "Pick in secret." })).toBeVisible();
+    expect(screen.getByRole("button", { name: "Connect wallet to pick" })).toBeVisible();
+  });
+
   it("gives the room share control a room-specific accessible name", async () => {
     vi.spyOn(Date, "now").mockReturnValue(1_200_000);
 
