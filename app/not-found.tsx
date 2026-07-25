@@ -4,7 +4,7 @@ import { BrandMark } from "@/components/brand-mark";
 export default function NotFound() {
   return <main className="center-screen" aria-labelledby="not-found-title" aria-describedby="not-found-copy">
     <Link aria-label="Return to the Odd One homepage" href="/">
-      <BrandMark />
+      <BrandMark decorative />
     </Link>
     <span className="display-number" aria-hidden="true">?</span>
     <h1 id="not-found-title">This number is not in play.</h1>
