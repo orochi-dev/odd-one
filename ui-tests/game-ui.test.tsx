@@ -4,10 +4,23 @@ import { CreateRoomView, Lobby, NumberPicker, ProfileView, RoomView, TicketSheet
 import type { OddOneRepository } from "@/lib/types";
 import { buildRevealTicket } from "@/lib/commitment";
 
+const { mockRevealVault } = vi.hoisted(() => ({
+  mockRevealVault: {
+    available: vi.fn(() => true),
+    get: vi.fn().mockResolvedValue(null),
+    put: vi.fn().mockResolvedValue(undefined),
+    remove: vi.fn().mockResolvedValue(undefined),
+  },
+}));
+
 const mockUseNetworkClient = vi.fn();
 
 vi.mock("@/components/network-client", () => ({
   useNetworkClient: () => mockUseNetworkClient(),
+}));
+
+vi.mock("@/lib/vault", () => ({
+  revealVault: mockRevealVault,
 }));
 
 vi.mock("@/lib/env", () => ({
@@ -648,6 +661,82 @@ describe("NumberPicker", () => {
     await waitFor(() => {
       expect(screen.getByRole("button", { name: "Connect wallet to pick" })).toBeVisible();
     });
+  });
+
+  it("gives the saved reveal ticket action explicit room-specific copy", async () => {
+    vi.spyOn(Date, "now").mockReturnValue(1_200_000);
+    const ticket = await buildRevealTicket({
+      network: "celo",
+      roomId: "7",
+      wallet: "0x1234567890abcdef1234567890abcdef12345678",
+      number: 9,
+      salt: "salt-7",
+      commitment: "0xcommitment",
+      commitTransactionId: "0xtx",
+    });
+
+    const repository: OddOneRepository = {
+      network: "celo",
+      configured: true,
+      getTotalRooms: vi.fn(),
+      getRoom: vi.fn().mockResolvedValue({
+        id: 7n,
+        network: "celo",
+        creator: "0xcreator",
+        visibility: "public",
+        createdAt: 1_000,
+        commitEndAt: 1_400,
+        revealEndAt: 1_600,
+        committedCount: 1,
+        revealedCount: 0,
+        finalized: false,
+        outcome: "pending",
+        winner: null,
+        winningNumber: null,
+      }),
+      getPlayerEntry: vi.fn().mockResolvedValue({
+        wallet: "0x1234567890abcdef1234567890abcdef12345678",
+        committed: true,
+        revealed: false,
+        number: null,
+      }),
+      getParticipants: vi.fn().mockResolvedValue([
+        {
+          wallet: "0x1234567890abcdef1234567890abcdef12345678",
+          committed: true,
+          revealed: false,
+          number: null,
+        },
+      ]),
+      getNumberCounts: vi.fn().mockResolvedValue(Array(20).fill(0)),
+      getPlayerStats: vi.fn(),
+      getCreatedCount: vi.fn(),
+      getPlayedCount: vi.fn(),
+      getCreatedIds: vi.fn(),
+      getPlayedIds: vi.fn(),
+      createRoom: vi.fn(),
+      commitNumber: vi.fn(),
+      revealNumber: vi.fn(),
+      finalizeRoom: vi.fn(),
+    };
+
+    mockUseNetworkClient.mockReturnValue({
+      account: "0x1234567890abcdef1234567890abcdef12345678",
+      connected: true,
+      connecting: false,
+      isMiniPay: false,
+      connect: vi.fn(),
+      disconnect: vi.fn(),
+      repository,
+    });
+    mockRevealVault.get.mockResolvedValueOnce(ticket);
+
+    render(<RoomView network="celo" id={7n} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole("heading", { name: "Your number is under wraps." })).toBeVisible();
+    });
+    expect(screen.getByRole("button", { name: "Download reveal ticket for room 7" })).toBeVisible();
   });
 
   it("uses chooser-aligned recovery copy when a room is missing", async () => {
