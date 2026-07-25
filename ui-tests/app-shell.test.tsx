@@ -82,13 +82,32 @@ describe("AppShell", () => {
     expect(screen.getByRole("button", { name: "Opening Celo wallet" })).toHaveTextContent("Opening Celo wallet…");
   });
 
-  it("announces MiniPay auto-connect with the target lobby context", () => {
+  it("keeps idle MiniPay detection out of the live region", () => {
     render(
       <AppShell
         network="celo"
         account=""
         connected={false}
         connecting={false}
+        isMiniPay
+        onConnect={vi.fn()}
+        onDisconnect={vi.fn()}
+      >
+        <div>Room content</div>
+      </AppShell>,
+    );
+
+    expect(screen.getByText("MiniPay detected")).toBeInTheDocument();
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
+  });
+
+  it("announces MiniPay auto-connect with the target lobby context", () => {
+    render(
+      <AppShell
+        network="celo"
+        account=""
+        connected={false}
+        connecting
         isMiniPay
         onConnect={vi.fn()}
         onDisconnect={vi.fn()}
