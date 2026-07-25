@@ -133,6 +133,9 @@ describe("NumberPicker", () => {
     expect(screen.getByRole("region", { name: "Put a number under the light." })).toHaveAccessibleDescription(
       "Your choice is hidden behind a commitment. Save the reveal ticket; it is the only way to prove your original pick.",
     );
+    expect(screen.getByRole("group", { name: "Room discovery" })).toHaveAccessibleDescription(
+      "Public rooms appear in the lobby. Unlisted rooms still stay public onchain and are best shared by direct link.",
+    );
     expect(screen.getByRole("link", { name: "Back to the Celo lobby" })).toHaveAttribute("href", "/play/celo");
   });
 
