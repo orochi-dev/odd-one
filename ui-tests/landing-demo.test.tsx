@@ -55,14 +55,17 @@ describe("LandingDemo", () => {
     render(<LandingDemo />);
 
     const status = screen.getByRole("status");
+    expect(status).toHaveAttribute("aria-describedby", "preview-hint");
     expect(status).toHaveTextContent("Your secret pick");
     expect(status).toHaveTextContent("2");
 
     fireEvent.click(screen.getByRole("radio", { name: /pick 5 for the preview/i }));
+    expect(status).toHaveAttribute("aria-describedby", "preview-hint");
     expect(status).toHaveTextContent("Your secret pick");
     expect(status).toHaveTextContent("5");
 
     fireEvent.click(screen.getByRole("button", { name: /run the preview reveal with pick 5/i }));
+    expect(status).toHaveAttribute("aria-describedby", "preview-result");
     expect(status).toHaveTextContent("Lowest unique number");
     expect(status).toHaveTextContent("4");
   });

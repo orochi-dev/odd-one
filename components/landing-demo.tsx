@@ -88,7 +88,13 @@ export function LandingDemo() {
     <div className="demo-head"><span className="preview-pill">Interactive preview</span><span className="mono">ROOM #0042</span></div>
     <div className={`demo-orbit ${revealed ? "is-revealed" : ""}`}>
       <div className="spotlight" />
-      <div className="demo-center" role="status" aria-live="polite" aria-atomic="true">
+      <div
+        className="demo-center"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        aria-describedby={revealed ? previewResultId : previewHintId}
+      >
         <small>{centerLabel}</small><strong>{centerValue}</strong>
       </div>
       {picks.map((pick, index) => <span
