@@ -22,6 +22,7 @@ describe("LandingDemo", () => {
     expect(picker).toHaveAttribute("aria-describedby", "preview-hint");
     expect(picker).not.toHaveAttribute("aria-activedescendant");
     expect(picker).toHaveAttribute("aria-keyshortcuts", "ArrowRight ArrowDown ArrowLeft ArrowUp Home End");
+    expect(picker).toHaveAttribute("aria-orientation", "horizontal");
 
     const option = within(picker).getByRole("radio", { name: /pick 5 for the preview/i });
     expect(option).toHaveAttribute("aria-checked", "false");
@@ -78,6 +79,7 @@ describe("LandingDemo", () => {
     const picker = screen.getByRole("radiogroup", { name: /choose your preview number/i });
     expect(picker).not.toHaveAttribute("aria-activedescendant");
     expect(picker).toHaveAttribute("aria-keyshortcuts", "ArrowRight ArrowDown ArrowLeft ArrowUp Home End");
+    expect(picker).toHaveAttribute("aria-orientation", "horizontal");
     const pickTwo = within(picker).getByRole("radio", { name: /pick 2 for the preview/i });
     const pickThree = within(picker).getByRole("radio", { name: /pick 3 for the preview/i });
     const pickFive = within(picker).getByRole("radio", { name: /pick 5 for the preview/i });
