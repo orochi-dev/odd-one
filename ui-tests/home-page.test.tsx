@@ -78,6 +78,20 @@ describe("Home", () => {
     expect(screen.getByRole("region", { name: "Thirty minutes. No host advantage." })).toBeInTheDocument();
   });
 
+  it("exposes the round timeline as an ordered list of steps", () => {
+    render(<Home />);
+
+    const timeline = screen.getByRole("list", { name: "Odd One round timeline" });
+    const steps = within(timeline).getAllByRole("listitem");
+
+    expect(steps).toHaveLength(3);
+    expect(timeline).toHaveTextContent("20:00");
+    expect(timeline).toHaveTextContent("Secret pick phase");
+    expect(timeline).toHaveTextContent("10:00");
+    expect(timeline).toHaveTextContent("Public reveal phase");
+    expect(timeline).toHaveTextContent("Anyone settles");
+  });
+
   it("exposes the strategy explainer as a named region", () => {
     render(<Home />);
 
