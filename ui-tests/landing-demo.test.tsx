@@ -36,14 +36,15 @@ describe("LandingDemo", () => {
 
     fireEvent.click(revealButton);
 
-    const result = screen.getByText("Your 5 was crowded out. Number 4 stood alone.").closest(".demo-result");
+    const resultMessage = screen.getByText("Your 5 was crowded out. Number 4 stood alone.");
+    const result = resultMessage.closest(".demo-result");
     expect(result).not.toBeNull();
-    expect(result).toHaveAttribute("aria-atomic", "true");
-    expect(screen.getByText("Your 5 was crowded out. Number 4 stood alone.")).toHaveAttribute("id", "preview-result");
+    expect(result).not.toHaveAttribute("role");
+    expect(resultMessage).toHaveAttribute("id", "preview-result");
     expect(screen.getByRole("button", { name: /reset the preview with pick 5/i })).toHaveAttribute("aria-describedby", "preview-result");
     expect(screen.getByLabelText("You revealed 5")).toBeInTheDocument();
     expect(screen.getByLabelText("Preview player 1 revealed 1")).toBeInTheDocument();
-    expect(screen.getByText("Your 5 was crowded out. Number 4 stood alone.")).toBeInTheDocument();
+    expect(resultMessage).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: /reset the preview/i }));
     const restoredOption = screen.getByRole("radio", { name: /pick 5 for the preview/i });
@@ -68,6 +69,7 @@ describe("LandingDemo", () => {
     expect(status).toHaveAttribute("aria-describedby", "preview-result");
     expect(status).toHaveTextContent("Lowest unique number");
     expect(status).toHaveTextContent("4");
+    expect(screen.getAllByRole("status")).toHaveLength(1);
   });
 
   it("supports keyboard navigation in the preview radio group", () => {

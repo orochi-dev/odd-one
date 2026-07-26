@@ -109,6 +109,6 @@ export function LandingDemo() {
         optionRefs.current[index] = element;
       }} key={number}>{number}</button>)}</div>
       <button type="button" className="action action-lime" aria-label={`Run the preview reveal with pick ${selected}`} aria-describedby={previewHintId} onClick={() => setRevealed(true)}>Run the preview reveal</button>
-    </> : <div className="demo-result" role="status" aria-live="polite" aria-atomic="true"><p id={previewResultId}>{resultCopy}</p><button type="button" className="text-button" aria-label={`Reset the preview with pick ${selected}`} aria-describedby={previewResultId} onClick={handleReset}>Reset the preview</button></div>}
+    </> : <div className="demo-result"><p id={previewResultId}>{resultCopy}</p><button type="button" className="text-button" aria-label={`Reset the preview with pick ${selected}`} aria-describedby={previewResultId} onClick={handleReset}>Reset the preview</button></div>}
   </section>;
 }
