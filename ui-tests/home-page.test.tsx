@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import Home from "@/app/page";
 
@@ -29,6 +29,17 @@ describe("Home", () => {
     render(<Home />);
 
     expect(screen.getByRole("link", { name: "Learn how Odd One works" })).toHaveAttribute("href", "#rules");
+  });
+
+  it("exposes the hero proof points as a named list", () => {
+    render(<Home />);
+
+    const quickFacts = screen.getByRole("list", { name: "Odd One quick facts" });
+
+    expect(quickFacts).toHaveTextContent("No entry fee");
+    expect(quickFacts).toHaveTextContent("3–12 players");
+    expect(quickFacts).toHaveTextContent("Celo + Stacks");
+    expect(within(quickFacts).getAllByRole("listitem")).toHaveLength(3);
   });
 
   it("hides the decorative probability field from assistive technology", () => {
