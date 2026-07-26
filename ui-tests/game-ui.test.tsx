@@ -39,6 +39,7 @@ describe("NumberPicker", () => {
     expect(picker).toHaveAccessibleDescription("Use arrow keys to move between picks. Arrow keys wrap between 1 and 20. Home jumps to 1 and End jumps to 20.");
     expect(picker).not.toHaveAttribute("aria-activedescendant");
     expect(picker).toHaveAttribute("aria-keyshortcuts", "ArrowRight ArrowDown ArrowLeft ArrowUp Home End");
+    expect(picker).toHaveAttribute("aria-orientation", "horizontal");
     const pickSeven = screen.getByRole("radio", { name: "Pick 7 — plausibly odd" });
     expect(pickSeven).toHaveAttribute("id", "live-pick-7");
     expect(pickSeven).toHaveAttribute("aria-checked", "true");
