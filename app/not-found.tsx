@@ -8,9 +8,9 @@ export default function NotFound() {
     </Link>
     <span className="display-number" aria-hidden="true">?</span>
     <h1 id="not-found-title">This number is not in play.</h1>
-    <p id="not-found-copy">The page may have moved, or the room link may be missing a character or swapping two.</p>
+    <p id="not-found-copy">The page may have moved, or the room link may be missing a character. Start from a lobby to paste the room code again.</p>
     <nav className="hero-actions" aria-label="Not found recovery actions">
-      <Link aria-label="Choose a lobby from the not found page" className="action action-lime" href="/play">Choose a lobby</Link>
+      <Link aria-label="Open the lobby chooser from the not found page" className="action action-lime" href="/play">Open lobbies</Link>
       <Link aria-label="Return to the Odd One homepage from the not found page" className="action action-ghost" href="/">Return home</Link>
     </nav>
   </main>;
