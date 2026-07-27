@@ -7,7 +7,12 @@ describe("LandingDemo", () => {
     render(<LandingDemo />);
 
     expect(screen.getByRole("heading", { name: "Interactive Odd One preview" })).toHaveClass("sr-only");
-    expect(screen.getByRole("region", { name: "Interactive Odd One preview" })).toBeVisible();
+    const region = screen.getByRole("region", { name: "Interactive Odd One preview" });
+
+    expect(region).toBeVisible();
+    expect(region).toHaveAccessibleDescription(
+      "Interactive preview Preview room #0042 Preview only. This sample uses picks 1-5; live rooms use the full 1-20 range. Lowest unique number wins the round. Arrow keys wrap between preview numbers, while Home and End jump to the ends.",
+    );
   });
 
   it("runs a clearly labeled simulated reveal", () => {
@@ -57,9 +62,13 @@ describe("LandingDemo", () => {
     render(<LandingDemo />);
 
     const status = screen.getByRole("status");
+    const region = screen.getByRole("region", { name: "Interactive Odd One preview" });
     expect(status).toHaveAttribute("aria-describedby", "preview-hint");
     expect(status).toHaveTextContent("Your secret pick");
     expect(status).toHaveTextContent("2");
+    expect(region).toHaveAccessibleDescription(
+      "Interactive preview Preview room #0042 Preview only. This sample uses picks 1-5; live rooms use the full 1-20 range. Lowest unique number wins the round. Arrow keys wrap between preview numbers, while Home and End jump to the ends.",
+    );
 
     fireEvent.click(screen.getByRole("radio", { name: /pick 5 for the preview/i }));
     expect(status).toHaveAttribute("aria-describedby", "preview-hint");
@@ -71,6 +80,9 @@ describe("LandingDemo", () => {
     expect(status).toHaveTextContent("Lowest unique number");
     expect(status).toHaveTextContent("4");
     expect(screen.getAllByRole("status")).toHaveLength(1);
+    expect(region).toHaveAccessibleDescription(
+      "Interactive preview Preview room #0042 Your 5 was crowded out. Number 4 stood alone.",
+    );
   });
 
   it("supports keyboard navigation in the preview radio group", () => {
