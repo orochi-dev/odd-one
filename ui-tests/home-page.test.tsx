@@ -61,7 +61,9 @@ describe("Home", () => {
   it("exposes the network explainer as a named region", () => {
     render(<Home />);
 
-    expect(screen.getByRole("region", { name: "Celo in MiniPay. Stacks beside Bitcoin." })).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: "Celo in MiniPay. Stacks beside Bitcoin." })).toHaveAccessibleDescription(
+      "Your rooms and scores live independently on each network. There is no account server, indexer, or hidden operator. Fast mobile play with automatic MiniPay wallet access. Clarity-native rooms with the same timing and scoring rules.",
+    );
   });
 
   it("exposes the rules section as a named region", () => {
