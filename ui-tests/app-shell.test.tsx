@@ -43,7 +43,7 @@ describe("AppShell", () => {
     expect(screen.getByRole("link", { name: "Current lobby: Celo" })).toHaveAttribute("aria-current", "page");
     expect(screen.getByRole("link", { name: "Open the Stacks lobby" })).not.toHaveAttribute("aria-current");
     expect(screen.queryByRole("img", { name: /player signal for 0x123…45678/i })).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /disconnect wallet 0x123…45678/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /disconnect celo wallet 0x123…45678/i })).toBeInTheDocument();
   });
 
   it("uses network-specific copy for the primary connect action", () => {
