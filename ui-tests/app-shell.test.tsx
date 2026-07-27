@@ -40,6 +40,7 @@ describe("AppShell", () => {
 
     expect(screen.getByRole("link", { name: /return to the odd one homepage/i })).toHaveAttribute("href", "/");
     expect(screen.getByRole("navigation", { name: "Choose a network lobby" })).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: "Celo wallet controls" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Current lobby: Celo" })).toHaveAttribute("aria-current", "page");
     expect(screen.getByRole("link", { name: "Open the Stacks lobby" })).not.toHaveAttribute("aria-current");
     expect(screen.queryByRole("img", { name: /player signal for 0x123…45678/i })).not.toBeInTheDocument();
@@ -61,6 +62,7 @@ describe("AppShell", () => {
       </AppShell>,
     );
 
+    expect(screen.getByRole("group", { name: "Stacks wallet connection" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Connect Stacks wallet" })).toBeInTheDocument();
   });
 
@@ -116,6 +118,7 @@ describe("AppShell", () => {
       </AppShell>,
     );
 
+    expect(screen.getByRole("group", { name: "Celo MiniPay status" })).toBeInTheDocument();
     expect(screen.getByRole("status")).toHaveTextContent("Connecting MiniPay to the Celo lobby…");
     expect(screen.getByRole("status")).toHaveAttribute("aria-live", "polite");
     expect(screen.getByRole("status")).toHaveAttribute("aria-atomic", "true");
