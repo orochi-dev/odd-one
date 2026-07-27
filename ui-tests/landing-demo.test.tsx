@@ -47,12 +47,14 @@ describe("LandingDemo", () => {
     expect(result).not.toBeNull();
     expect(result).not.toHaveAttribute("role");
     expect(resultMessage).toHaveAttribute("id", "preview-result");
-    expect(screen.getByRole("button", { name: /reset the preview with pick 5/i })).toHaveAttribute("aria-describedby", "preview-result");
+    const resetButton = screen.getByRole("button", { name: /pick another preview number after revealing 5/i });
+    expect(resetButton).toHaveAttribute("aria-describedby", "preview-result");
+    expect(resetButton).toHaveTextContent("Pick another number");
     expect(screen.getByLabelText("You revealed 5")).toBeInTheDocument();
     expect(screen.getByLabelText("Preview player 1 revealed 1")).toBeInTheDocument();
     expect(resultMessage).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button", { name: /reset the preview/i }));
+    fireEvent.click(resetButton);
     const restoredOption = screen.getByRole("radio", { name: /pick 5 for the preview/i });
     expect(restoredOption).toHaveFocus();
     expect(screen.getByRole("button", { name: /run the preview reveal with pick 5/i })).toBeInTheDocument();
