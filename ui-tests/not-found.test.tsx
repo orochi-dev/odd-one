@@ -13,7 +13,7 @@ describe("NotFound", () => {
     expect(screen.getByRole("navigation", { name: "Not found recovery actions" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Return to the Odd One homepage" })).toHaveAttribute("href", "/");
     expect(screen.getByRole("link", { name: /open the lobby chooser from the not found page/i })).toHaveAttribute("href", "/play");
-    expect(screen.getByRole("link", { name: /open the lobby chooser from the not found page/i })).toHaveTextContent("Open lobbies");
+    expect(screen.getByRole("link", { name: /open the lobby chooser from the not found page/i })).toHaveTextContent("Choose a lobby");
     expect(screen.getByRole("link", { name: /return to the odd one homepage from the not found page/i })).toHaveAttribute("href", "/");
     expect(screen.getByRole("link", { name: /return to the odd one homepage from the not found page/i })).toHaveTextContent("Return home");
     expect(container.querySelector(".brand-symbol")).toHaveAttribute("aria-hidden", "true");
