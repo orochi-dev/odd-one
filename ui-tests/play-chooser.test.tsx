@@ -16,7 +16,7 @@ describe("PlayChooser", () => {
 
     expect(screen.getByRole("main", { name: "Same game. Different signal." })).toBeInTheDocument();
     expect(screen.getByText("Choose a lobby")).toBeInTheDocument();
-    expect(screen.getByText("Rooms, scores, and unlocked titles stay independent on each network.")).toBeInTheDocument();
+    expect(screen.getByText("Rooms, scores, and earned titles stay separate on each network.")).toBeInTheDocument();
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
     expect(
       screen.getByText(
