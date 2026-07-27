@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   description: "A free strategy game of nerve on Celo and Stacks. Pick a low number, reveal it, and hope nobody thought like you.",
   keywords: ["Odd One", "strategy game", "Celo", "Stacks", "onchain game", "lowest unique number"],
   category: "games",
+  formatDetection: { telephone: false, email: false, address: false },
+  appleWebApp: { capable: true, title: "Odd One", statusBarStyle: "black-translucent" },
   alternates: { canonical: "/" }, manifest: "/manifest.webmanifest",
   openGraph: { title: "Odd One", description: "A free strategy game of nerve on Celo and Stacks. Go low. Stay unique.", siteName: "Odd One", images: [{ url: "/og.png", width: 1200, height: 630, alt: "Odd One strategy game preview art with the tagline Go low. Stay unique." }], type: "website" },
   twitter: { card: "summary_large_image", title: "Odd One — Go low. Stay unique.", description: "A free strategy game of nerve on Celo and Stacks. Pick a low number, reveal it, and hope nobody thought like you.", images: [{ url: "/og.png", alt: "Odd One strategy game preview art with the tagline Go low. Stay unique." }] },

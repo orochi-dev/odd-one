@@ -4,13 +4,14 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Odd One",
     short_name: "Odd One",
-    description: "A free strategy game of nerve on Celo and Stacks. Pick a low number, reveal it, and hope nobody matched you.",
+    description: "A free strategy game of nerve on Celo and Stacks. Pick a low number, reveal it, and hope nobody thought like you.",
     categories: ["games", "entertainment"],
     lang: "en",
     id: "/",
     start_url: "/play",
     scope: "/",
     display: "standalone",
+    orientation: "portrait",
     background_color: "#09090F",
     theme_color: "#09090F",
     shortcuts: [
