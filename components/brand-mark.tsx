@@ -1,5 +1,10 @@
 export function BrandMark({ compact = false, decorative = false }: { compact?: boolean; decorative?: boolean }) {
-  return <span className="brand-lockup" aria-hidden={decorative ? "true" : undefined} aria-label={decorative ? undefined : "Odd One"}>
+  return <span
+    className="brand-lockup"
+    role={decorative ? undefined : "img"}
+    aria-hidden={decorative ? "true" : undefined}
+    aria-label={decorative ? undefined : "Odd One"}
+  >
     <svg className="brand-symbol" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
       <circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" strokeWidth="3" />
       <circle cx="16" cy="18" r="3" fill="currentColor" /><circle cx="32" cy="18" r="3" fill="currentColor" />

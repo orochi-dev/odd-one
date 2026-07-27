@@ -15,6 +15,7 @@ describe("Home", () => {
 
     expect(screen.getByRole("banner", { name: "Odd One homepage" })).toBeInTheDocument();
     expect(screen.getByRole("navigation", { name: "Homepage sections and lobby" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "Odd One" })).toBeInTheDocument();
   });
 
   it("gives each play entry point a distinct accessible lobby label", () => {
