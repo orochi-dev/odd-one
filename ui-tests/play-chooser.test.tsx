@@ -22,7 +22,7 @@ describe("PlayChooser", () => {
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
     expect(
       screen.getByText(
-        "MiniPay opens the Celo lobby automatically when it is available on this device. Otherwise, choose either network below.",
+        "MiniPay opens the Celo lobby automatically on this device when it is available. Otherwise, choose either network below.",
       ),
     ).toBeInTheDocument();
     expect(replace).not.toHaveBeenCalled();
