@@ -309,6 +309,11 @@ describe("NumberPicker", () => {
       expect(screen.getByRole("heading", { name: "Prove your pick." })).toBeVisible();
     });
     expect(screen.getAllByText("Import reveal ticket")).toHaveLength(1);
+    const importer = screen.getByLabelText("Import reveal ticket");
+    expect(importer).toHaveAttribute("accept", "application/json,.json");
+    expect(importer).toHaveAccessibleDescription(
+      "Choose the saved reveal ticket JSON file from when you committed your number.",
+    );
   });
 
   it("names the room move panel from the visible phase heading", async () => {
