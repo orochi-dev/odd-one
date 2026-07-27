@@ -15,6 +15,9 @@ describe("PlayChooser", () => {
     render(<PlayChooser />);
 
     expect(screen.getByRole("main", { name: "Same game. Different signal." })).toBeInTheDocument();
+    expect(screen.getByRole("main")).toHaveAccessibleDescription(
+      "Rooms, scores, earned titles, and room links stay separate on each network. MiniPay opens the Celo lobby automatically on this device when it is available. Otherwise, choose either network below.",
+    );
     expect(screen.getByText("Choose a lobby")).toBeInTheDocument();
     expect(
       screen.getByText("Rooms, scores, earned titles, and room links stay separate on each network."),
