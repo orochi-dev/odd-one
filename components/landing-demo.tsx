@@ -18,13 +18,13 @@ export function LandingDemo() {
     if (!revealed) return index === 0 ? "Your pick is still hidden" : `Preview player ${index} is still hidden`;
     return index === 0 ? `You revealed ${pick}` : `Preview player ${index} revealed ${pick}`;
   };
-  const centerLabel = !revealed ? "Your secret pick" : winner === undefined ? "Preview draw" : "Lowest unique number";
+  const centerLabel = !revealed ? "Your secret pick" : winner === undefined ? "No unique number" : "Lowest unique number";
   const centerValue = !revealed ? selected : winner === undefined ? "DRAW" : winner;
   const resultCopy = winner === undefined
     ? "No number stood alone. This preview round is a draw."
     : winner === selected
-      ? "You stood alone. That is +105 points."
-      : `Your ${selected} was crowded out. Number ${winner} stood alone.`;
+      ? `You stood alone with ${selected}. That preview win is +105 points.`
+      : `Your ${selected} was crowded out. Number ${winner} stood alone and takes the preview round.`;
   const focusOption = (number: number) => {
     const optionIndex = previewNumbers.indexOf(number);
     if (optionIndex === -1) return;
@@ -111,6 +111,6 @@ export function LandingDemo() {
         optionRefs.current[index] = element;
       }} key={number}>{number}</button>)}</div>
       <button type="button" className="action action-lime" aria-label={`Run the preview reveal with pick ${selected}`} aria-describedby={previewHintId} onClick={() => setRevealed(true)}>Run the preview reveal</button>
-    </> : <div className="demo-result"><p id={previewResultId}>{resultCopy}</p><button type="button" className="text-button" aria-label={`Pick another preview number after revealing ${selected}`} aria-describedby={previewResultId} onClick={handleReset}>Pick another number</button></div>}
+    </> : <div className="demo-result"><p id={previewResultId}>{resultCopy}</p><button type="button" className="text-button" aria-label={`Try another preview number after revealing ${selected}`} aria-describedby={previewResultId} onClick={handleReset}>Try another preview pick</button></div>}
   </section>;
 }
