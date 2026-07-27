@@ -16,6 +16,7 @@ describe("Home", () => {
     expect(screen.getByRole("banner", { name: "Odd One homepage" })).toBeInTheDocument();
     expect(screen.getByRole("navigation", { name: "Homepage sections and lobby" })).toBeInTheDocument();
     expect(screen.getByRole("img", { name: "Odd One" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Jump to the Odd One rules and timeline" })).toHaveAttribute("href", "#rules");
     expect(screen.getByRole("link", { name: "Jump to the Celo and Stacks network overview" })).toHaveTextContent("Networks");
     expect(screen.getByRole("link", { name: "Jump to the Celo and Stacks network overview" })).toHaveAttribute("href", "#onchain");
   });
