@@ -42,14 +42,15 @@ describe("LandingDemo", () => {
 
     fireEvent.click(revealButton);
 
-    const resultMessage = screen.getByText("Your 5 was crowded out. Number 4 stood alone.");
+    const resultMessage = screen.getByText("Your 5 was crowded out. Number 4 stood alone and takes the preview round.");
     const result = resultMessage.closest(".demo-result");
     expect(result).not.toBeNull();
     expect(result).not.toHaveAttribute("role");
     expect(resultMessage).toHaveAttribute("id", "preview-result");
-    const resetButton = screen.getByRole("button", { name: /pick another preview number after revealing 5/i });
+    const resetButton = screen.getByRole("button", { name: /try another preview number after revealing 5/i });
     expect(resetButton).toHaveAttribute("aria-describedby", "preview-result");
-    expect(resetButton).toHaveTextContent("Pick another number");
+    expect(resetButton).toHaveTextContent("Try another preview pick");
+    expect(resetButton).toHaveFocus();
     expect(screen.getByLabelText("You revealed 5")).toBeInTheDocument();
     expect(screen.getByLabelText("Preview player 1 revealed 1")).toBeInTheDocument();
     expect(resultMessage).toBeInTheDocument();
@@ -83,7 +84,7 @@ describe("LandingDemo", () => {
     expect(status).toHaveTextContent("4");
     expect(screen.getAllByRole("status")).toHaveLength(1);
     expect(region).toHaveAccessibleDescription(
-      "Interactive preview Preview room #0042 Your 5 was crowded out. Number 4 stood alone.",
+      "Interactive preview Preview room #0042 Your 5 was crowded out. Number 4 stood alone and takes the preview round.",
     );
   });
 

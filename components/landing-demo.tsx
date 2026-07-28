@@ -6,6 +6,7 @@ const previewNumbers = [1, 2, 3, 4, 5];
 export function LandingDemo() {
   const [selected, setSelected] = useState(2); const [revealed, setRevealed] = useState(false);
   const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const resetButtonRef = useRef<HTMLButtonElement | null>(null);
   const shouldRestoreFocusRef = useRef(false);
   const previewTitleId = "landing-preview-title";
   const previewBadgeId = "landing-preview-badge";
@@ -76,6 +77,10 @@ export function LandingDemo() {
     }
   };
   useEffect(() => {
+    if (revealed) {
+      resetButtonRef.current?.focus();
+      return;
+    }
     if (!revealed && shouldRestoreFocusRef.current) {
       focusOption(selected);
       shouldRestoreFocusRef.current = false;
@@ -111,6 +116,6 @@ export function LandingDemo() {
         optionRefs.current[index] = element;
       }} key={number}>{number}</button>)}</div>
       <button type="button" className="action action-lime" aria-label={`Run the preview reveal with pick ${selected}`} aria-describedby={previewHintId} onClick={() => setRevealed(true)}>Run the preview reveal</button>
-    </> : <div className="demo-result"><p id={previewResultId}>{resultCopy}</p><button type="button" className="text-button" aria-label={`Try another preview number after revealing ${selected}`} aria-describedby={previewResultId} onClick={handleReset}>Try another preview pick</button></div>}
+    </> : <div className="demo-result"><p id={previewResultId}>{resultCopy}</p><button type="button" className="text-button" aria-label={`Try another preview number after revealing ${selected}`} aria-describedby={previewResultId} onClick={handleReset} ref={resetButtonRef}>Try another preview pick</button></div>}
   </section>;
 }
