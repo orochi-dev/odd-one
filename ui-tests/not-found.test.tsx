@@ -9,7 +9,7 @@ describe("NotFound", () => {
     expect(screen.getByRole("main")).toHaveAttribute("aria-labelledby", "not-found-title");
     expect(screen.getByRole("main")).toHaveAttribute("aria-describedby", "not-found-copy");
     expect(screen.getByRole("heading", { name: /this number is not in play/i })).toBeInTheDocument();
-    expect(screen.getByText(/the page may have moved, or the room link may be incomplete or mistyped. open a lobby or paste the full room link again/i)).toBeInTheDocument();
+    expect(screen.getByText(/the page may have moved, or the room link may be incomplete or mistyped. open the lobby chooser or paste the full room link again/i)).toBeInTheDocument();
     expect(screen.getByRole("navigation", { name: "Not found recovery actions" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Return to the Odd One homepage" })).toHaveAttribute("href", "/");
     expect(screen.getByRole("link", { name: /open the lobby chooser from the not found page/i })).toHaveAttribute("href", "/play");
