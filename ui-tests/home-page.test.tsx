@@ -95,7 +95,8 @@ describe("Home", () => {
     expect(timeline).toHaveTextContent("Secret pick phase");
     expect(timeline).toHaveTextContent("10:00");
     expect(timeline).toHaveTextContent("Public reveal phase");
-    expect(timeline).toHaveTextContent("Anyone settles");
+    expect(timeline).toHaveTextContent("Anyone can settle");
+    expect(within(steps[2]).getByText("↓")).toHaveAttribute("aria-hidden", "true");
   });
 
   it("exposes the strategy explainer as a named region", () => {
