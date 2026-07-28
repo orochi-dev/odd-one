@@ -1,7 +1,7 @@
 {
   "name": "odd-one",
   "version": "0.1.0",
-  "description": "A lowest-unique-number strategy game on Celo and Stacks.",
+  "description": "A free strategy game on Celo and Stacks with no entry fee or prize pool.",
   "private": true,
   "type": "module",
   "engines": {

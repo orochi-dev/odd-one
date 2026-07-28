@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Odd One",
     short_name: "Odd One",
-    description: "A free strategy game of nerve on Celo and Stacks. Pick a low number, reveal it, and hope nobody thought like you.",
+    description: "A free strategy game of nerve on Celo and Stacks with no entry fee or prize pool. Pick a low number, reveal it, and hope nobody thought like you.",
     categories: ["games", "entertainment"],
     lang: "en",
     id: "/",
