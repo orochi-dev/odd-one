@@ -135,4 +135,10 @@ describe("Home", () => {
     expect(container.querySelector(".landing-footer .brand-lockup")).toHaveAttribute("aria-hidden", "true");
     expect(screen.queryByLabelText("Odd One")).not.toContainElement(container.querySelector(".landing-footer .brand-lockup"));
   });
+
+  it("states the footer disclosure with the no-fee and no-prize-pool wording", () => {
+    render(<Home />);
+
+    expect(screen.getByText("A free strategy game. No entry fee, prize pool, or financial value.")).toBeInTheDocument();
+  });
 });
