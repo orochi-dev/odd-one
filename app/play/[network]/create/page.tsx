@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ network: 
 
   return {
     title: `Create ${label} room`,
-    description: `Open a new Odd One room on ${label} and invite players onto the same network.`
+    description: `Open a new Odd One room on ${label}, take the first seat yourself, and invite other players onto the same network.`
   };
 }
 

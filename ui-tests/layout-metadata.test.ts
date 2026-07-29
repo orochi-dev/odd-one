@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import manifest from "@/app/manifest";
 import { metadata } from "@/app/layout";
 import { metadata as playMetadata } from "@/app/play/page";
+import { generateMetadata as generateCreateMetadata } from "@/app/play/[network]/create/page";
 
 describe("layout metadata", () => {
   it("disables mobile format detection for game copy", () => {
@@ -31,5 +32,12 @@ describe("layout metadata", () => {
     expect(playMetadata.description).toBe(
       "Choose the Celo or Stacks lobby to join a room or open your own, with MiniPay opening the Celo lobby automatically when it is available.",
     );
+  });
+
+  it("describes room creation as taking the first seat before inviting others", async () => {
+    await expect(generateCreateMetadata({ params: Promise.resolve({ network: "celo" }) })).resolves.toMatchObject({
+      description:
+        "Open a new Odd One room on Celo, take the first seat yourself, and invite other players onto the same network.",
+    });
   });
 });
