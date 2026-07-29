@@ -16,7 +16,7 @@ describe("PlayChooser", () => {
 
     expect(screen.getByRole("main", { name: "Same game. Different signal." })).toBeInTheDocument();
     expect(screen.getByRole("main")).toHaveAccessibleDescription(
-      "Rooms, scores, earned titles, and room links stay separate on each network. MiniPay opens the Celo lobby automatically on this device when it is available. Otherwise, choose a network below.",
+      "Rooms, scores, earned titles, and room links stay separate on each network. If MiniPay is available on this device, Odd One opens the Celo lobby automatically. Otherwise, choose a network below.",
     );
     expect(screen.getByText("Choose a lobby")).toBeInTheDocument();
     expect(
@@ -25,7 +25,7 @@ describe("PlayChooser", () => {
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
     expect(
       screen.getByText(
-        "MiniPay opens the Celo lobby automatically on this device when it is available. Otherwise, choose a network below.",
+        "If MiniPay is available on this device, Odd One opens the Celo lobby automatically. Otherwise, choose a network below.",
       ),
     ).toBeInTheDocument();
     expect(replace).not.toHaveBeenCalled();
