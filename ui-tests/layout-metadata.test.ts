@@ -3,6 +3,7 @@ import manifest from "@/app/manifest";
 import { metadata } from "@/app/layout";
 import { metadata as playMetadata } from "@/app/play/page";
 import { generateMetadata as generateCreateMetadata } from "@/app/play/[network]/create/page";
+import { generateMetadata as generateRoomMetadata } from "@/app/play/[network]/room/[id]/page";
 
 describe("layout metadata", () => {
   it("disables mobile format detection for game copy", () => {
@@ -38,6 +39,15 @@ describe("layout metadata", () => {
     await expect(generateCreateMetadata({ params: Promise.resolve({ network: "celo" }) })).resolves.toMatchObject({
       description:
         "Open a new Odd One room on Celo, take the first seat yourself, and invite other players onto the same network.",
+    });
+  });
+
+  it("describes room metadata as a timed join window before reveal", async () => {
+    await expect(
+      generateRoomMetadata({ params: Promise.resolve({ network: "stacks", id: "7" }) }),
+    ).resolves.toMatchObject({
+      description:
+        "Open Room #0007 on Stacks to join before commit closes, track the timer, or reveal your Odd One pick.",
     });
   });
 });
