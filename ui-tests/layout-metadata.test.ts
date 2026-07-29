@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import manifest from "@/app/manifest";
 import { metadata } from "@/app/layout";
 import { metadata as playMetadata } from "@/app/play/page";
+import { generateMetadata as generateNetworkMetadata } from "@/app/play/[network]/page";
 import { generateMetadata as generateCreateMetadata } from "@/app/play/[network]/create/page";
 import { generateMetadata as generateProfileMetadata } from "@/app/play/[network]/profile/[address]/page";
 import { generateMetadata as generateRoomMetadata } from "@/app/play/[network]/room/[id]/page";
@@ -40,6 +41,13 @@ describe("layout metadata", () => {
     await expect(generateCreateMetadata({ params: Promise.resolve({ network: "celo" }) })).resolves.toMatchObject({
       description:
         "Open a new Odd One room on Celo, take the first seat yourself, and invite other players onto the same network.",
+    });
+  });
+
+  it("describes each network lobby as a place to join before commit closes or create a room", async () => {
+    await expect(generateNetworkMetadata({ params: Promise.resolve({ network: "stacks" }) })).resolves.toMatchObject({
+      description:
+        "Browse live Odd One rooms on Stacks, join before commit closes, or create a new room on that network.",
     });
   });
 
