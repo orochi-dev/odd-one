@@ -115,6 +115,7 @@ describe("Home", () => {
     render(<Home />);
 
     expect(screen.getByRole("region", { name: "There is only one way to find out." })).toBeInTheDocument();
+    expect(screen.getByText("Pick Celo or Stacks, then join a room already in motion or open one of your own.")).toBeInTheDocument();
   });
 
   it("marks decorative landing icons as hidden from assistive technology", () => {
