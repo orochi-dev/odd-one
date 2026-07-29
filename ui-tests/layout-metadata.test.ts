@@ -3,6 +3,7 @@ import manifest from "@/app/manifest";
 import { metadata } from "@/app/layout";
 import { metadata as playMetadata } from "@/app/play/page";
 import { generateMetadata as generateCreateMetadata } from "@/app/play/[network]/create/page";
+import { generateMetadata as generateProfileMetadata } from "@/app/play/[network]/profile/[address]/page";
 import { generateMetadata as generateRoomMetadata } from "@/app/play/[network]/room/[id]/page";
 
 describe("layout metadata", () => {
@@ -48,6 +49,20 @@ describe("layout metadata", () => {
     ).resolves.toMatchObject({
       description:
         "Open Room #0007 on Stacks to join before commit closes, track the timer, or reveal your Odd One pick.",
+    });
+  });
+
+  it("describes player profiles as points, streaks, titles, and room history", async () => {
+    await expect(
+      generateProfileMetadata({
+        params: Promise.resolve({
+          network: "celo",
+          address: "0x1234567890abcdef1234567890abcdef12345678",
+        }),
+      }),
+    ).resolves.toMatchObject({
+      description:
+        "Review Odd One points, wins, reveal streaks, unlocked titles, and recent rooms for 0x1234...5678 on Celo.",
     });
   });
 });

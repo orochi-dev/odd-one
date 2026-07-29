@@ -24,7 +24,7 @@ export async function generateMetadata({
 
   return {
     title: `${shortAddress} ${label} player profile`,
-    description: `Review Odd One wins, points, streaks, and recent rooms for ${shortAddress} on ${label}.`
+    description: `Review Odd One points, wins, reveal streaks, unlocked titles, and recent rooms for ${shortAddress} on ${label}.`
   };
 }
 
