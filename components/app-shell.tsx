@@ -17,7 +17,7 @@ export function AppShell({ network, account, connected, connecting, isMiniPay, o
       : `${networkLabel} wallet connection`;
   const miniPayStatus = connecting
     ? network === "celo" ? "Connecting MiniPay to the Celo lobby…" : "Connecting MiniPay…"
-    : "MiniPay detected";
+    : network === "celo" ? "MiniPay detected. Celo lobby opens in app." : "MiniPay detected";
   return <div className="app-canvas">
     <a className="skip-link" href="#app-main-content">Skip to main content</a>
     <header className="app-header">

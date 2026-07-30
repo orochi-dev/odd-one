@@ -84,7 +84,7 @@ describe("AppShell", () => {
     expect(screen.getByRole("button", { name: "Opening Celo wallet" })).toHaveTextContent("Opening Celo wallet…");
   });
 
-  it("keeps idle MiniPay detection out of the live region", () => {
+  it("keeps idle MiniPay detection informative without using a live region", () => {
     render(
       <AppShell
         network="celo"
@@ -99,7 +99,7 @@ describe("AppShell", () => {
       </AppShell>,
     );
 
-    expect(screen.getByText("MiniPay detected")).toBeInTheDocument();
+    expect(screen.getByText("MiniPay detected. Celo lobby opens in app.")).toBeInTheDocument();
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
   });
 
