@@ -152,6 +152,6 @@ describe("Home", () => {
   it("states the footer disclosure with the no-fee and no-prize-pool wording", () => {
     render(<Home />);
 
-    expect(screen.getByText("A free strategy game. No entry fee, prize pool, or financial value.")).toBeInTheDocument();
+    expect(screen.getByText("A free strategy game. No entry fee, no prize pool, no financial value.")).toBeInTheDocument();
   });
 });
