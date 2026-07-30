@@ -112,6 +112,17 @@ describe("Home", () => {
     expect(screen.getByText("Listed in the lobby for anyone ready to join a live room.")).toBeInTheDocument();
   });
 
+  it("gives each room visibility card its own accessible article name and description", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("article", { name: "Walk into the spotlight." })).toHaveAccessibleDescription(
+      "Listed in the lobby for anyone ready to join a live room.",
+    );
+    expect(screen.getByRole("article", { name: "Send the signal yourself." })).toHaveAccessibleDescription(
+      "Share the direct link. Unlisted is quieter, never private—blockchain activity remains public.",
+    );
+  });
+
   it("exposes the final call to action as a named region", () => {
     render(<Home />);
 
