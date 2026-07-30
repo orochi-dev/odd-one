@@ -18,6 +18,15 @@ export default function manifest(): MetadataRoute.Manifest {
       { name: "Open Celo lobby", short_name: "Celo lobby", description: "Jump straight into the Odd One lobby on Celo.", url: "/play/celo" },
       { name: "Open Stacks lobby", short_name: "Stacks lobby", description: "Jump straight into the Odd One lobby on Stacks.", url: "/play/stacks" }
     ],
+    screenshots: [
+      {
+        src: "/og.png",
+        sizes: "1200x630",
+        type: "image/png",
+        form_factor: "wide",
+        label: "Odd One landing page preview with the Go low. Stay unique. tagline."
+      }
+    ],
     icons: [
       { src: "/icon-192.png", sizes: "192x192", type: "image/png" },
       { src: "/icon-512.png", sizes: "512x512", type: "image/png" },

@@ -29,6 +29,15 @@ describe("layout metadata", () => {
 
     expect(webManifest.description).toContain("hope nobody thought like you");
     expect(webManifest.orientation).toBe("portrait");
+    expect(webManifest.screenshots).toEqual([
+      {
+        src: "/og.png",
+        sizes: "1200x630",
+        type: "image/png",
+        form_factor: "wide",
+        label: "Odd One landing page preview with the Go low. Stay unique. tagline.",
+      },
+    ]);
   });
 
   it("describes the chooser as a place to join a room or open one", () => {
