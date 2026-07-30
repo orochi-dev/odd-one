@@ -109,6 +109,7 @@ describe("Home", () => {
     render(<Home />);
 
     expect(screen.getByRole("region", { name: "Public and unlisted room visibility" })).toBeInTheDocument();
+    expect(screen.getByText("Listed in the lobby for anyone ready to join a live room.")).toBeInTheDocument();
   });
 
   it("exposes the final call to action as a named region", () => {
