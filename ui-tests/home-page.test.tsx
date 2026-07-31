@@ -56,6 +56,9 @@ describe("Home", () => {
     render(<Home />);
 
     expect(screen.getByRole("region", { name: "The chain remembers the room." })).toBeInTheDocument();
+    expect(
+      screen.getByText("Wallet addresses, commitments, revealed numbers, timestamps, and results are public and permanent. Your secret salt stays in your browser on this device until you reveal it."),
+    ).toBeInTheDocument();
   });
 
   it("exposes the network explainer as a named region", () => {
