@@ -27,6 +27,7 @@ describe("layout metadata", () => {
   it("keeps the web manifest aligned with the landing copy and portrait play", () => {
     const webManifest = manifest();
 
+    expect(webManifest.description).toContain("30-minute strategy game for 3-12 players");
     expect(webManifest.description).toContain("hope nobody thought like you");
     expect(webManifest.orientation).toBe("portrait");
     expect(webManifest.screenshots).toEqual([
@@ -38,6 +39,12 @@ describe("layout metadata", () => {
         label: "Odd One landing page preview with the Go low. Stay unique. tagline.",
       },
     ]);
+  });
+
+  it("describes the shared social metadata as a short 3-12 player game", () => {
+    expect(metadata.description).toContain("30-minute strategy game for 3-12 players");
+    expect(metadata.openGraph?.description).toContain("30-minute strategy game for 3-12 players");
+    expect(metadata.twitter?.description).toContain("30-minute strategy game for 3-12 players");
   });
 
   it("describes the chooser as a place to join a room or open one", () => {
