@@ -72,6 +72,20 @@ describe("Home", () => {
     expect(screen.getByRole("region", { name: "Simple rules. Suspicious minds." })).toBeInTheDocument();
   });
 
+  it("gives each rules card its own accessible article name and description", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("article", { name: "Hide a number" })).toHaveAccessibleDescription(
+      "Choose from 1 to 20. Your wallet publishes only a cryptographic commitment.",
+    );
+    expect(screen.getByRole("article", { name: "Show your hand" })).toHaveAccessibleDescription(
+      "After 20 minutes, everyone gets ten minutes to reveal their original pick.",
+    );
+    expect(screen.getByRole("article", { name: "Stand alone" })).toHaveAccessibleDescription(
+      "The lowest number selected exactly once wins 100 points. Every reveal earns five.",
+    );
+  });
+
   it("exposes the hero intro as a named region", () => {
     render(<Home />);
 
