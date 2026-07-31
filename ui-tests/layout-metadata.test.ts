@@ -47,6 +47,12 @@ describe("layout metadata", () => {
     expect(metadata.twitter?.description).toContain("30-minute strategy game for 3-12 players");
   });
 
+  it("keeps shared keyword metadata aligned with the supported wallet and chain surfaces", () => {
+    expect(metadata.keywords).toEqual(
+      expect.arrayContaining(["Odd One", "Celo", "MiniPay", "Stacks", "Bitcoin", "lowest unique number"]),
+    );
+  });
+
   it("describes the chooser as a place to join a room or open one", () => {
     expect(playMetadata.description).toBe(
       "Choose the Celo or Stacks lobby to join a room or open your own, with rooms, scores, and profiles staying separate on each network and MiniPay opening Celo automatically when it is available.",

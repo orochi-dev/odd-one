@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   applicationName: "Odd One",
   metadataBase: new URL(publicEnv.appUrl), title: { default: "Odd One — Go low. Stay unique.", template: "%s · Odd One" },
   description: "A free 30-minute strategy game for 3-12 players on Celo and Stacks with no entry fee or prize pool. Pick a low number, reveal it, and hope nobody thought like you.",
-  keywords: ["Odd One", "strategy game", "Celo", "Stacks", "onchain game", "lowest unique number"],
+  keywords: ["Odd One", "strategy game", "Celo", "MiniPay", "Stacks", "Bitcoin", "onchain game", "lowest unique number"],
   category: "games",
   formatDetection: { telephone: false, email: false, address: false },
   appleWebApp: { capable: true, title: "Odd One", statusBarStyle: "black-translucent" },
