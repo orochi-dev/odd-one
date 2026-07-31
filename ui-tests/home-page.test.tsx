@@ -66,6 +66,17 @@ describe("Home", () => {
     );
   });
 
+  it("gives each network card its own accessible article name and description", () => {
+    render(<Home />);
+
+    expect(screen.getByRole("article", { name: "Celo" })).toHaveAccessibleDescription(
+      "Fast mobile play with automatic MiniPay wallet access.",
+    );
+    expect(screen.getByRole("article", { name: "Stacks" })).toHaveAccessibleDescription(
+      "Clarity-native rooms with the same timing and scoring rules.",
+    );
+  });
+
   it("exposes the rules section as a named region", () => {
     render(<Home />);
 
