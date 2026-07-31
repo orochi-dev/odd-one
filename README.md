@@ -1,6 +1,6 @@
 # Odd One
 
-**Go low. Stay unique.** Odd One is a free, fast strategy game on Celo and Stacks. Three to twelve wallets secretly choose a number from 1–20. After the reveal window, the lowest number selected exactly once wins.
+**Go low. Stay unique.** Odd One is a free 30-minute strategy game for 3-12 players on Celo and Stacks. Three to twelve wallets secretly choose a number from 1–20. After the reveal window, the lowest number selected exactly once wins.
 
 Odd One has no entry fee, prize pool, token, custody, financial value, backend, database, indexer, administrator, or upgrade path.
 
