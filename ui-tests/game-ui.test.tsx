@@ -145,7 +145,7 @@ describe("NumberPicker", () => {
     render(<CreateRoomView network="celo" />);
 
     expect(screen.getByRole("region", { name: "Put a number under the light." })).toHaveAccessibleDescription(
-      "Your choice is hidden behind a commitment, and opening the room takes the first seat immediately. Save the reveal ticket; it is the only way to prove your original pick.",
+      "Your choice is hidden behind a commitment, and opening the room takes the first seat immediately. Save the reveal ticket on this device or export it; it is the only way to prove your original pick.",
     );
     expect(screen.getByRole("group", { name: "Room discovery" })).toHaveAccessibleDescription(
       "Public rooms appear in the lobby. Unlisted rooms still stay public onchain and are best shared by direct link.",
