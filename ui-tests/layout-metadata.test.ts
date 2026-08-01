@@ -62,7 +62,7 @@ describe("layout metadata", () => {
   it("describes room creation as taking the first seat before inviting others", async () => {
     await expect(generateCreateMetadata({ params: Promise.resolve({ network: "celo" }) })).resolves.toMatchObject({
       description:
-        "Open a new Odd One room on Celo, take the first seat yourself, and invite other players onto the same network.",
+        "Open a new Odd One room on Celo, take the first seat yourself, keep the reveal ticket on this device, and invite other players onto the same network.",
     });
   });
 
