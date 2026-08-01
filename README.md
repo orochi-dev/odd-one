@@ -12,7 +12,7 @@ Odd One has no entry fee, prize pool, token, custody, financial value, backend, 
 4. Anyone finalizes. Fewer than three reveals is no-contest; no unique number is a draw.
 5. A valid reveal earns 5 points and a win adds 100.
 
-The reveal ticket is stored locally in your browser and can be exported, backed up, and imported later to complete reveal. It contains the secret number and salt, so it must not be shared before reveal.
+The reveal ticket is stored locally in your browser and can be exported, backed up, and imported later to complete reveal. It only proves the pick for the same network room where it was created, and it contains the secret number and salt, so it must not be shared before reveal.
 
 ## Development
 
