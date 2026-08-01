@@ -36,7 +36,7 @@ Without contract addresses, the landing page remains complete and application ro
 - Clarity 4 with Clarinet
 - IndexedDB reveal vault with portable, checksummed JSON tickets
 
-The contracts are the only source of truth. Each network maintains separate rooms, histories, points, and titles.
+The contracts are the only source of truth. Each network maintains separate rooms, room links, histories, points, and titles.
 
 ## Verification
 
