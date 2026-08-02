@@ -8,7 +8,7 @@ export default function NotFound() {
     </Link>
     <span className="display-number" aria-hidden="true">?</span>
     <h1 id="not-found-title">This number is not in play.</h1>
-    <p id="not-found-copy">The page may have moved, the room link may be incomplete or mistyped, or the room may belong to the other network. Choose a lobby or reopen the full Celo or Stacks room link.</p>
+    <p id="not-found-copy">The page may have moved, the room link may be incomplete or mistyped, or the room may belong to the other Celo or Stacks network. Choose a lobby or reopen the full room link for that network.</p>
     <nav className="hero-actions" aria-label="Not found recovery actions">
       <Link aria-label="Open the lobby chooser from the not found page" className="action action-lime" href="/play">Choose a lobby</Link>
       <Link aria-label="Return to the Odd One homepage from the not found page" className="action action-ghost" href="/">Return home</Link>
