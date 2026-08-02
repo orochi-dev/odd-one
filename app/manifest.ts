@@ -15,8 +15,8 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: "#09090F",
     theme_color: "#09090F",
     shortcuts: [
-      { name: "Open Celo lobby", short_name: "Celo lobby", description: "Jump straight into the Odd One lobby on Celo.", url: "/play/celo" },
-      { name: "Open Stacks lobby", short_name: "Stacks lobby", description: "Jump straight into the Odd One lobby on Stacks.", url: "/play/stacks" }
+      { name: "Open Celo lobby", short_name: "Celo lobby", description: "Jump straight into the Celo lobby for rooms and scores on that network.", url: "/play/celo" },
+      { name: "Open Stacks lobby", short_name: "Stacks lobby", description: "Jump straight into the Stacks lobby for rooms and scores on that network.", url: "/play/stacks" }
     ],
     screenshots: [
       {

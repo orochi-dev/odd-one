@@ -30,6 +30,20 @@ describe("layout metadata", () => {
     expect(webManifest.description).toContain("30-minute strategy game for 3-12 players");
     expect(webManifest.description).toContain("hope nobody thought like you");
     expect(webManifest.orientation).toBe("portrait");
+    expect(webManifest.shortcuts).toEqual([
+      {
+        name: "Open Celo lobby",
+        short_name: "Celo lobby",
+        description: "Jump straight into the Celo lobby for rooms and scores on that network.",
+        url: "/play/celo",
+      },
+      {
+        name: "Open Stacks lobby",
+        short_name: "Stacks lobby",
+        description: "Jump straight into the Stacks lobby for rooms and scores on that network.",
+        url: "/play/stacks",
+      },
+    ]);
     expect(webManifest.screenshots).toEqual([
       {
         src: "/og.png",
