@@ -4,7 +4,7 @@ import { PlayChooser } from "@/components/play-chooser";
 export const metadata: Metadata = {
   title: "Choose a network lobby",
   description:
-    "Choose the Celo or Stacks lobby to join a room or open your own, with rooms, scores, earned titles, and profiles staying separate on each network and MiniPay opening Celo automatically when it is available.",
+    "Choose the Celo or Stacks lobby to join a room or open your own, with rooms, room links, scores, earned titles, and profiles staying separate on each network and MiniPay opening Celo automatically when it is available.",
 };
 
 export default function PlayPage() {
