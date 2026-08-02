@@ -12,6 +12,7 @@ export function LandingDemo() {
   const previewBadgeId = "landing-preview-badge";
   const previewRoomId = "landing-preview-room";
   const previewHintId = "preview-hint";
+  const previewSelectionId = "preview-selection";
   const previewResultId = "preview-result";
   const picks = [selected, ...crowd]; const counts = picks.reduce<Record<number, number>>((map, number) => ({ ...map, [number]: (map[number] || 0) + 1 }), {});
   const winner = Object.entries(counts).filter(([, count]) => count === 1).map(([number]) => Number(number)).sort((a, b) => a - b)[0];
@@ -112,7 +113,8 @@ export function LandingDemo() {
     </div>
     {!revealed ? <>
       <p id={previewHintId}>Preview only. This sample uses picks 1-5; live rooms use the full 1-20 range. The other preview players stay fixed at 1, 1, 4, and 8 so you can see how uniqueness changes. Lowest unique number wins the round. Arrow keys wrap between preview numbers, while Home and End jump to the ends.</p>
-      <div className="number-row" role="radiogroup" aria-label="Choose your preview number" aria-describedby={previewHintId} aria-keyshortcuts="ArrowRight ArrowDown ArrowLeft ArrowUp Home End" aria-orientation="horizontal" onKeyDown={handlePickerKeyDown}>{previewNumbers.map((number, index) => <button type="button" id={`preview-pick-${number}`} role="radio" aria-label={`Pick ${number} for the preview`} aria-checked={selected === number} aria-posinset={index + 1} aria-setsize={previewNumbers.length} tabIndex={selected === number ? 0 : -1} className={selected === number ? "selected" : ""} onClick={() => setSelected(number)} ref={(element) => {
+      <p id={previewSelectionId} className="preview-selection" aria-live="polite" aria-atomic="true">Your preview pick: <strong>{selected}</strong></p>
+      <div className="number-row" role="radiogroup" aria-label="Choose your preview number" aria-describedby={`${previewHintId} ${previewSelectionId}`} aria-keyshortcuts="ArrowRight ArrowDown ArrowLeft ArrowUp Home End" aria-orientation="horizontal" onKeyDown={handlePickerKeyDown}>{previewNumbers.map((number, index) => <button type="button" id={`preview-pick-${number}`} role="radio" aria-label={`Pick ${number} for the preview`} aria-checked={selected === number} aria-posinset={index + 1} aria-setsize={previewNumbers.length} tabIndex={selected === number ? 0 : -1} className={selected === number ? "selected" : ""} onClick={() => setSelected(number)} ref={(element) => {
         optionRefs.current[index] = element;
       }} key={number}>{number}</button>)}</div>
       <button type="button" className="action action-lime" aria-label={`Run the preview reveal with pick ${selected}`} aria-describedby={previewHintId} onClick={() => setRevealed(true)}>Run the preview reveal</button>
