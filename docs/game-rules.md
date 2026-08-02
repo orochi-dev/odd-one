@@ -10,7 +10,7 @@
 - Valid reveal: 5 points
 - Winner: additional 100 points
 
-Creating a room commits its creator immediately. Each wallet can enter only one room whose reveal window has not ended. Filling all 12 seats never changes the clock.
+Creating a room commits its creator immediately. Each wallet can enter only one room on the same network whose reveal window has not ended. Filling all 12 seats never changes the clock.
 
 Commit is allowed strictly before `commitEndAt`. Reveal is allowed from `commitEndAt` inclusive until `revealEndAt` exclusive. Finalization begins at `revealEndAt`.
 
