@@ -92,7 +92,7 @@ describe("layout metadata", () => {
       generateRoomMetadata({ params: Promise.resolve({ network: "stacks", id: "7" }) }),
     ).resolves.toMatchObject({
       description:
-        "Open Room #0007 on Stacks to join before commit closes, track the timer, or reveal your Odd One pick.",
+        "Open Room #0007 on Stacks to join before commit closes, track the timer, or reveal with your saved Odd One ticket.",
     });
   });
 

@@ -24,7 +24,7 @@ export async function generateMetadata({
 
   return {
     title: `${roomLabel} on ${label}`,
-    description: `Open ${roomLabel} on ${label} to join before commit closes, track the timer, or reveal your Odd One pick.`
+    description: `Open ${roomLabel} on ${label} to join before commit closes, track the timer, or reveal with your saved Odd One ticket.`
   };
 }
 
