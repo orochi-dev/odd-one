@@ -47,10 +47,13 @@ npm run test:celo
 npm run check:stacks
 npm run test:stacks
 npm run test:ui
+npm run test:a11y
 npm run build
 npm run verify
 npm run verify:full
 ```
+
+`npm run test:a11y` runs the focused Playwright accessibility coverage before the full end-to-end suite.
 
 ## Deployment
 
