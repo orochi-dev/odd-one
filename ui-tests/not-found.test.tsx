@@ -9,11 +9,13 @@ describe("NotFound", () => {
     expect(screen.getByRole("main")).toHaveAttribute("aria-labelledby", "not-found-title");
     expect(screen.getByRole("main")).toHaveAttribute("aria-describedby", "not-found-copy");
     expect(screen.getByRole("heading", { name: /this number is not in play/i })).toBeInTheDocument();
-    expect(screen.getByText(/the page may have moved, the room link may be incomplete or mistyped, or the room may belong to the other celo or stacks network. choose a lobby or reopen the full room link for that network./i)).toBeInTheDocument();
+    expect(screen.getByText(/the page may have moved, the room link may be incomplete or mistyped, or the room may belong to the other network. room links stay separate on celo and stacks, so reopen the full link, choose a lobby, or jump straight into the correct network./i)).toBeInTheDocument();
     expect(screen.getByRole("navigation", { name: "Not found recovery actions" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Return to the Odd One homepage" })).toHaveAttribute("href", "/");
     expect(screen.getByRole("link", { name: /open the lobby chooser from the not found page/i })).toHaveAttribute("href", "/play");
     expect(screen.getByRole("link", { name: /open the lobby chooser from the not found page/i })).toHaveTextContent("Choose a lobby");
+    expect(screen.getByRole("link", { name: /open the celo lobby from the not found page/i })).toHaveAttribute("href", "/play/celo");
+    expect(screen.getByRole("link", { name: /open the stacks lobby from the not found page/i })).toHaveAttribute("href", "/play/stacks");
     expect(screen.getByRole("link", { name: /return to the odd one homepage from the not found page/i })).toHaveAttribute("href", "/");
     expect(screen.getByRole("link", { name: /return to the odd one homepage from the not found page/i })).toHaveTextContent("Return home");
     expect(container.querySelector(".brand-symbol")).toHaveAttribute("aria-hidden", "true");
