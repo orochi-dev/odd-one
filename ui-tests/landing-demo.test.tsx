@@ -11,7 +11,7 @@ describe("LandingDemo", () => {
 
     expect(region).toBeVisible();
     expect(region).toHaveAccessibleDescription(
-      "Interactive preview Preview room #0042 Preview only. This sample uses picks 1-5; live rooms use the full 1-20 range. The other preview players stay fixed at 1, 1, 4, and 8 so you can see how uniqueness changes. Lowest unique number wins the round. Arrow keys wrap between preview numbers, while Home and End jump to the ends.",
+      "Interactive preview Preview room #0042 Preview only. This sample uses picks 1-5; live rooms use the full 1-20 range. The other preview players stay fixed at 1, 1, 4, and 8 so you can see how uniqueness changes. Lowest unique number wins the round. Arrow keys wrap between preview numbers, while Home and End jump to the ends. Your preview pick: 2",
     );
   });
 
@@ -70,13 +70,16 @@ describe("LandingDemo", () => {
     expect(status).toHaveTextContent("Your secret pick");
     expect(status).toHaveTextContent("2");
     expect(region).toHaveAccessibleDescription(
-      "Interactive preview Preview room #0042 Preview only. This sample uses picks 1-5; live rooms use the full 1-20 range. The other preview players stay fixed at 1, 1, 4, and 8 so you can see how uniqueness changes. Lowest unique number wins the round. Arrow keys wrap between preview numbers, while Home and End jump to the ends.",
+      "Interactive preview Preview room #0042 Preview only. This sample uses picks 1-5; live rooms use the full 1-20 range. The other preview players stay fixed at 1, 1, 4, and 8 so you can see how uniqueness changes. Lowest unique number wins the round. Arrow keys wrap between preview numbers, while Home and End jump to the ends. Your preview pick: 2",
     );
 
     fireEvent.click(screen.getByRole("radio", { name: /pick 5 for the preview/i }));
     expect(status).toHaveAttribute("aria-describedby", "preview-hint");
     expect(status).toHaveTextContent("Your secret pick");
     expect(status).toHaveTextContent("5");
+    expect(region).toHaveAccessibleDescription(
+      "Interactive preview Preview room #0042 Preview only. This sample uses picks 1-5; live rooms use the full 1-20 range. The other preview players stay fixed at 1, 1, 4, and 8 so you can see how uniqueness changes. Lowest unique number wins the round. Arrow keys wrap between preview numbers, while Home and End jump to the ends. Your preview pick: 5",
+    );
 
     fireEvent.click(screen.getByRole("button", { name: /run the preview reveal with pick 5/i }));
     expect(status).toHaveAttribute("aria-describedby", "preview-result");

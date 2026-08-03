@@ -91,7 +91,7 @@ export function LandingDemo() {
     shouldRestoreFocusRef.current = true;
     setRevealed(false);
   };
-  return <section className="demo-stage" role="region" aria-labelledby={previewTitleId} aria-describedby={`${previewBadgeId} ${previewRoomId} ${revealed ? previewResultId : previewHintId}`}>
+  return <section className="demo-stage" role="region" aria-labelledby={previewTitleId} aria-describedby={`${previewBadgeId} ${previewRoomId} ${revealed ? previewResultId : `${previewHintId} ${previewSelectionId}`}`}>
     <h2 id={previewTitleId} className="sr-only">Interactive Odd One preview</h2>
     <div className="demo-head"><span id={previewBadgeId} className="preview-pill">Interactive preview</span><span id={previewRoomId} className="mono">Preview room #0042</span></div>
     <div className={`demo-orbit ${revealed ? "is-revealed" : ""}`}>
