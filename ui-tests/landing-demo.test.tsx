@@ -24,7 +24,7 @@ describe("LandingDemo", () => {
     expect(screen.getByLabelText("Preview player 1 is still hidden")).toBeInTheDocument();
 
     const picker = screen.getByRole("radiogroup", { name: /choose your preview number/i });
-    expect(picker).toHaveAttribute("aria-describedby", "preview-hint");
+    expect(picker).toHaveAttribute("aria-describedby", "preview-hint preview-selection");
     expect(picker).not.toHaveAttribute("aria-activedescendant");
     expect(picker).toHaveAttribute("aria-keyshortcuts", "ArrowRight ArrowDown ArrowLeft ArrowUp Home End");
     expect(picker).toHaveAttribute("aria-orientation", "horizontal");
@@ -86,6 +86,17 @@ describe("LandingDemo", () => {
     expect(region).toHaveAccessibleDescription(
       "Interactive preview Preview room #0042 Your 5 was crowded out. Number 4 stood alone and takes the preview round.",
     );
+  });
+
+  it("explains the preview scoring breakdown on a winning reveal", () => {
+    render(<LandingDemo />);
+
+    fireEvent.click(screen.getByRole("radio", { name: /pick 2 for the preview/i }));
+    fireEvent.click(screen.getByRole("button", { name: /run the preview reveal with pick 2/i }));
+
+    expect(
+      screen.getByText("You stood alone with 2. That preview win is 105 points total: 100 to win, 5 to reveal."),
+    ).toBeInTheDocument();
   });
 
   it("supports keyboard navigation in the preview radio group", () => {

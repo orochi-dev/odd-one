@@ -25,7 +25,7 @@ export function LandingDemo() {
   const resultCopy = winner === undefined
     ? "No number stood alone. This preview round is a draw."
     : winner === selected
-      ? `You stood alone with ${selected}. That preview win is +105 points.`
+      ? `You stood alone with ${selected}. That preview win is 105 points total: 100 to win, 5 to reveal.`
       : `Your ${selected} was crowded out. Number ${winner} stood alone and takes the preview round.`;
   const focusOption = (number: number) => {
     const optionIndex = previewNumbers.indexOf(number);
