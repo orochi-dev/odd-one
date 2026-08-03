@@ -42,7 +42,7 @@ describe("LandingDemo", () => {
 
     fireEvent.click(revealButton);
 
-    const resultMessage = screen.getByText("Your 5 was crowded out. Number 4 stood alone and takes the preview round.");
+    const resultMessage = screen.getByText("Your 5 was crowded out. Number 4 stood alone and takes the preview round, but you still bank 5 reveal points.");
     const result = resultMessage.closest(".demo-result");
     expect(result).not.toBeNull();
     expect(result).not.toHaveAttribute("role");
@@ -87,8 +87,19 @@ describe("LandingDemo", () => {
     expect(status).toHaveTextContent("4");
     expect(screen.getAllByRole("status")).toHaveLength(1);
     expect(region).toHaveAccessibleDescription(
-      "Interactive preview Preview room #0042 Your 5 was crowded out. Number 4 stood alone and takes the preview round.",
+      "Interactive preview Preview room #0042 Your 5 was crowded out. Number 4 stood alone and takes the preview round, but you still bank 5 reveal points.",
     );
+  });
+
+  it("explains the reveal-point consolation on a losing reveal", () => {
+    render(<LandingDemo />);
+
+    fireEvent.click(screen.getByRole("radio", { name: /pick 5 for the preview/i }));
+    fireEvent.click(screen.getByRole("button", { name: /run the preview reveal with pick 5/i }));
+
+    expect(
+      screen.getByText("Your 5 was crowded out. Number 4 stood alone and takes the preview round, but you still bank 5 reveal points."),
+    ).toBeInTheDocument();
   });
 
   it("explains the preview scoring breakdown on a winning reveal", () => {
